@@ -313,7 +313,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()"> <select id="filter-status-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select>
+       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-kelas-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()"> <select id="filter-status-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select>
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -363,7 +363,7 @@
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
        <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700">
-        <select id="filter-kelas-materi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderMateri()"> <option value="">Semua Jenjang Kelas</option> <option value="Kelas X">Kelas X</option> <option value="Kelas XI">Kelas XI</option> <option value="Kelas XII">Kelas XII</option> </select> <input id="search-materi" type="text" placeholder="Cari materi..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderMateri()">
+        <select id="filter-semester-materi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderMateri()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-materi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderMateri()"> <option value="">Semua Jenjang Kelas</option> <option value="Kelas X">Kelas X</option> <option value="Kelas XI">Kelas XI</option> <option value="Kelas XII">Kelas XII</option> </select> <input id="search-materi" type="text" placeholder="Cari materi..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderMateri()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -493,7 +493,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Semester</option><option value="Ganjil">Semester Ganjil</option><option value="Genap">Semester Genap</option></select> <select id="filter-kelas-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()"> <select id="filter-status-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select>
+       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-kelas-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()"> <select id="filter-status-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select>
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -800,6 +800,9 @@
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jenjang Kelas</label> <select id="materi-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"> <option value="Kelas X">Kelas X</option> <option value="Kelas XI">Kelas XI</option> <option value="Kelas XII">Kelas XII</option> </select>
      </div>
      <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="materi-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+     </div>
+     <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Materi Pembelajaran</label> <input id="materi-nama" type="text" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" placeholder="Contoh: Berpikir Komputasional">
      </div>
      <div class="flex gap-2 pt-2">
@@ -924,10 +927,7 @@
     <form id="form-praktikum" class="space-y-4">
      <input type="hidden" id="praktikum-id">
      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div>
-       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="praktikum-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
-      </div>
-      <div>
+      <div class="sm:col-span-2">
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label> <select id="praktikum-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"></select>
       </div>
      </div>
@@ -1144,17 +1144,14 @@ function syncGlobalSettingsToUI() {
     const filterSemNilai = document.getElementById('filter-semester-nilai');
     if (filterSemNilai) filterSemNilai.value = sem;
     
-    const filterSemPraktikum = document.getElementById('filter-semester-praktikum');
-    if (filterSemPraktikum) filterSemPraktikum.value = sem;
-    
     const filterSemJadwal = document.getElementById('filter-semester-jadwal');
     if (filterSemJadwal) filterSemJadwal.value = sem;
     
     const filterSemJurnal = document.getElementById('filter-semester-jurnal');
     if (filterSemJurnal) filterSemJurnal.value = sem;
 
-    const filterSemKeaktifan = document.getElementById('filter-semester-keaktifan');
-    if (filterSemKeaktifan) filterSemKeaktifan.value = sem;
+    const filterSemMateri = document.getElementById('filter-semester-materi');
+    if (filterSemMateri) filterSemMateri.value = sem;
 }
 
 // ===================== DATA STORAGE (Firebase + localStorage) =====================
@@ -1360,22 +1357,16 @@ function doLogout() {
 
 // ===================== RESET ALL & PROMOTION METHODS =====================
 function resetAllPraktikum() {
-    showConfirm('Reset Semua Praktikum', 'Apakah Anda yakin ingin me-reset SEMUA nilai praktikum siswa ke 0? Tindakan ini akan mengatur ulang nilai pada 20 sesi praktikum untuk seluruh siswa di semester saat ini.', () => {
+    showConfirm('Reset Semua Praktikum', 'Apakah Anda yakin ingin me-reset SEMUA nilai praktikum siswa ke 0? Tindakan ini akan mengatur ulang nilai pada 20 sesi praktikum untuk seluruh siswa.', () => {
         const praktikum = getData('praktikum');
-        const sem = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
         
-        const updated = praktikum.map(p => {
-            if ((p.semester || 'Ganjil') === sem) {
-                return {
-                    ...p,
-                    nilai: 0,
-                    grade: 'E',
-                    status: 'supreme',
-                    scores: Array(20).fill(0)
-                };
-            }
-            return p;
-        });
+        const updated = praktikum.map(p => ({
+            ...p,
+            nilai: 0,
+            grade: 'E',
+            status: 'supreme',
+            scores: Array(20).fill(0)
+        }));
         
         setData('praktikum', updated);
         showToast('Semua nilai praktikum berhasil di-reset ke 0!');
@@ -1471,16 +1462,14 @@ function initDefaultPraktikum() {
 function syncPraktikum() {
     const siswa = getData('siswa');
     const praktikum = getData('praktikum');
-    const sem = document.getElementById('filter-semester-praktikum') ? document.getElementById('filter-semester-praktikum').value : 'Ganjil';
     let changed = false;
 
     siswa.forEach(s => {
-        const exists = praktikum.some(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
+        const exists = praktikum.some(p => p.nama === s.nama && p.kelas === s.kelas);
         if (!exists) {
             const defaultScores = Array(20).fill(0);
             praktikum.push({
                 id: genId(),
-                semester: sem,
                 kelas: s.kelas,
                 nama: s.nama,
                 topik: 'Praktikum Informatika',
@@ -1503,12 +1492,8 @@ function renderPraktikum() {
     let data = getData('praktikum');
     const search = document.getElementById('search-praktikum').value.toLowerCase();
     const filterStatus = document.getElementById('filter-status-praktikum').value;
-    const filterSemester = document.getElementById('filter-semester-praktikum').value;
     const filterKelas = document.getElementById('filter-kelas-praktikum').value;
 
-    if (filterSemester) {
-        data = data.filter(p => (p.semester || 'Ganjil') === filterSemester);
-    }
     if (filterKelas) {
         data = data.filter(p => p.kelas === filterKelas);
     }
@@ -1667,8 +1652,7 @@ function openPraktikumModal(id) {
         const p = getData('praktikum').find(x => x.id === id);
         if (p) {
             document.getElementById('praktikum-id').value = p.id;
-            document.getElementById('praktikum-semester').value = p.semester || 'Ganjil';
-            if (kelasSelect) {
+        if (kelasSelect) {
                 kelasSelect.value = p.kelas || '';
                 handlePraktikumKelasChange();
             }
@@ -1698,7 +1682,6 @@ function openPraktikumModal(id) {
             }
         }
     } else {
-        document.getElementById('praktikum-semester').value = document.getElementById('filter-semester-praktikum').value || 'Ganjil';
         if (kelasSelect) {
             kelasSelect.value = document.getElementById('filter-kelas-praktikum').value || (classes[0] || '');
             handlePraktikumKelasChange();
@@ -1906,6 +1889,7 @@ function initApp() {
             const id = document.getElementById('materi-id').value;
             const obj = {
                 kelas: document.getElementById('materi-kelas').value,
+                semester: document.getElementById('materi-semester').value,
                 nama: document.getElementById('materi-nama').value.trim()
             };
             if (id) {
@@ -1934,7 +1918,6 @@ function initApp() {
             const nVal = Number(praktikumQuickScore) || Number(document.getElementById('praktikum-nilai').value) || 0;
             const scores = Array.from({ length: 20 }, (_, i) => i < nVal / 5 ? 100 : 0);
             const obj = {
-                semester: document.getElementById('praktikum-semester').value,
                 kelas: document.getElementById('praktikum-kelas').value,
                 nama: document.getElementById('praktikum-nama').value.trim(),
                 topik: document.getElementById('praktikum-topik').value.trim(),
@@ -2265,7 +2248,6 @@ function renderKeaktifan() {
     const students = getData('siswa');
     const active = getData('keaktifan');
     const kelas = document.getElementById('filter-kelas-keaktifan')?.value || '';
-    const semester = document.getElementById('filter-semester-keaktifan')?.value || '';
     const search = (document.getElementById('search-keaktifan')?.value || '').toLowerCase();
     const statusFilter = document.getElementById('filter-status-keaktifan')?.value || '';
     const classes = [...new Set(students.map(s => s.kelas))].sort((a,b) => a.localeCompare(b, undefined, {numeric:true}));
@@ -2273,7 +2255,7 @@ function renderKeaktifan() {
     if (classSelect) { const current = classSelect.value; classSelect.innerHTML = '<option value="">Semua Kelas</option>' + classes.map(k => `<option value="${k}" ${k === current ? 'selected' : ''}>${k}</option>`).join(''); }
     let filtered = students.filter(s => {
         const a = active.find(x => x.siswaId === s.id) || { status: 'supreme', catatan: '' };
-        return (!kelas || s.kelas === kelas) && (!semester || (a.semester || 'Ganjil') === semester) && (!statusFilter || (a.status || 'supreme') === statusFilter) && (!search || `${s.nama} ${s.panggilan} ${s.absen || ''}`.toLowerCase().includes(search));
+        return (!kelas || s.kelas === kelas) && (!statusFilter || (a.status || 'supreme') === statusFilter) && (!search || `${s.nama} ${s.panggilan} ${s.absen || ''}`.toLowerCase().includes(search));
     });
     const totalPages = Math.ceil(filtered.length / PAGE_SIZE_ANAK_WALI) || 1;
     if (keaktifanPage > totalPages) keaktifanPage = totalPages;
@@ -2675,8 +2657,12 @@ function renderMapel() {
 function renderMateri() {
     let data = getData('materi');
     const filterKelas = document.getElementById('filter-kelas-materi').value;
+    const filterSemester = document.getElementById('filter-semester-materi')?.value || '';
     const search = document.getElementById('search-materi').value.toLowerCase();
 
+    if (filterSemester) {
+        data = data.filter(m => (m.semester || 'Ganjil') === filterSemester);
+    }
     if (filterKelas) {
         data = data.filter(m => m.kelas === filterKelas);
     }
@@ -2736,8 +2722,11 @@ function openMateriModal(id) {
         if (m) {
             document.getElementById('materi-id').value = m.id;
             document.getElementById('materi-kelas').value = m.kelas;
+            document.getElementById('materi-semester').value = m.semester || 'Ganjil';
             document.getElementById('materi-nama').value = m.nama;
         }
+    } else {
+        document.getElementById('materi-semester').value = document.getElementById('filter-semester-materi')?.value || 'Ganjil';
     }
     document.getElementById('modal-materi').classList.remove('hidden');
 }
@@ -3588,11 +3577,10 @@ function calcNA(t, uh, q, p, uas) { return (t * 0.3 + uh * 0.1 + q * 0.1 + p * 0
 function getGrade(na) { if (na >= 90) return 'A'; if (na >= 80) return 'B'; if (na >= 70) return 'C'; if (na >= 60) return 'D'; return 'E'; }
 
 function updateNilaiPraktikumInput() {
-    const sem = document.getElementById('nilai-semester').value;
     const kelas = document.getElementById('nilai-kelas').value;
     const nama = document.getElementById('nilai-nama').value;
     const praktikum = getData('praktikum');
-    const pRecord = praktikum.find(p => p.nama === nama && p.kelas === kelas && (p.semester || 'Ganjil') === sem);
+    const pRecord = praktikum.find(p => p.nama === nama && p.kelas === kelas);
     const pScore = pRecord ? (pRecord.nilai || 0) : 0;
     const pInput = document.getElementById('nilai-praktikum');
     if (pInput) pInput.value = pScore;
@@ -3696,7 +3684,7 @@ function syncNilai() {
 
     siswa.forEach(s => {
         // Find corresponding praktikum score
-        const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
+        const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas);
         const pScore = pRecord ? (pRecord.nilai || 0) : 0;
 
         mapels.forEach(m => {
