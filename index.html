@@ -2929,7 +2929,29 @@ document.getElementById('form-siswa').addEventListener('submit', function(e) {
     const data = getData('siswa');
     const id = document.getElementById('siswa-id').value;
     const obj = { nama: document.getElementById('siswa-nama').value, panggilan: document.getElementById('siswa-panggilan').value, kelas: document.getElementById('siswa-kelas').value, tahun: document.getElementById('siswa-tahun').value, absen: parseInt(document.getElementById('siswa-absen').value) || 1, status: document.getElementById('siswa-status').value || 'Anggota' };
-    if (id) { const idx = data.findIndex(x => x.id === id); data[idx] = { ...data[idx], ...obj }; showToast('Siswa berhasil diperbarui!'); }
+    if (id) {
+        const idx = data.findIndex(x => x.id === id);
+        const oldNama = data[idx].nama;
+        const oldKelas = data[idx].kelas;
+        data[idx] = { ...data[idx], ...obj };
+        // Sinkronkan nama/kelas yang berubah ke data terkait (Praktikum, Absensi, Nilai)
+        if (oldNama !== obj.nama || oldKelas !== obj.kelas) {
+            ['praktikum', 'absensi', 'nilai'].forEach(key => {
+                const arr = getData(key);
+                let changed = false;
+                arr.forEach(rec => {
+                    if (rec.nama === oldNama && rec.kelas === oldKelas) {
+                        rec.nama = obj.nama;
+                        rec.kelas = obj.kelas;
+                        changed = true;
+                    }
+                });
+                if (changed) setData(key, arr);
+            });
+            renderAbsensi(); renderNilai(); renderPraktikum();
+        }
+        showToast('Siswa berhasil diperbarui!');
+    }
     else { data.push({ id: genId(), ...obj }); showToast('Siswa berhasil ditambahkan!'); }
     setData('siswa', data);
     closeModal('modal-siswa');
