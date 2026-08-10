@@ -1277,8 +1277,15 @@ async function syncToCloud(key, data) {
 }
 
 function getData(key) {
-    if (Object.prototype.hasOwnProperty.call(dataCache, key)) return dataCache[key];
-    return JSON.parse(localStorage.getItem(key) || '[]');
+    let val = Object.prototype.hasOwnProperty.call(dataCache, key) ? dataCache[key] : JSON.parse(localStorage.getItem(key) || '[]');
+    if (key === 'siswa' && Array.isArray(val)) {
+        val = [...val].sort((a, b) => {
+            const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
+            if (kelasCompare !== 0) return kelasCompare;
+            return (parseInt(a.absen) || 999) - (parseInt(b.absen) || 999);
+        });
+    }
+    return val;
 }
 function setData(key, data) {
     dataCache[key] = data;
