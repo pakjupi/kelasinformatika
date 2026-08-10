@@ -1542,6 +1542,15 @@ function renderPraktikum() {
         data = data.filter(p => (p.status || 'supreme') === filterStatus);
     }
 
+    const siswaList = getData('siswa');
+    data = [...data].sort((a, b) => {
+        const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
+        if (kelasCompare !== 0) return kelasCompare;
+        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
+        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+        return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
+    });
+
     const tbody = document.getElementById('praktikum-tbody');
     if (!tbody) return;
 
@@ -1549,8 +1558,6 @@ function renderPraktikum() {
     if (praktikumPage > totalPages) praktikumPage = totalPages;
     const start = (praktikumPage - 1) * PAGE_SIZE_PRAKTIKUM;
     const paged = data.slice(start, start + PAGE_SIZE_PRAKTIKUM);
-
-    const siswaList = getData('siswa');
 
     tbody.innerHTML = paged.length ? paged.map(p => {
         let dotColor = '#9CA3AF'; // supreme default = grey
@@ -3580,6 +3587,15 @@ function renderAbsensi() {
     const statusColors = { Hadir: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400', Sakit: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400', Izin: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400', Dispen: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400', Alpa: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' };
 
     const siswaList = getData('siswa');
+    data = [...data].sort((a, b) => {
+        if (a.tanggal !== b.tanggal) return (a.tanggal || '').localeCompare(b.tanggal || '');
+        const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
+        if (kelasCompare !== 0) return kelasCompare;
+        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
+        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+        return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
+    });
+
     const getSiswaInfo = (nama, kl) => {
         const found = siswaList.find(s => s.nama === nama && s.kelas === kl);
         if (found) {
@@ -3793,14 +3809,23 @@ function renderNilai() {
     if (mapel) data = data.filter(n => n.mapel.toLowerCase().includes(mapel));
     if (search) { const siswaListForSearch = getData('siswa'); data = data.filter(n => { const siswa = siswaListForSearch.find(s => s.nama === n.nama && s.kelas === n.kelas); return n.nama.toLowerCase().includes(search) || String(siswa?.absen || '').toLowerCase().includes(search) || (siswa?.panggilan || '').toLowerCase().includes(search); }); }
 
+    const siswaList = getData('siswa');
+    data = [...data].sort((a, b) => {
+        const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
+        if (kelasCompare !== 0) return kelasCompare;
+        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
+        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+        const absenCompare = (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
+        if (absenCompare !== 0) return absenCompare;
+        return String(a.mapel || '').localeCompare(String(b.mapel || ''));
+    });
+
     const gradeColors = { A: 'bg-green-100 text-green-700', B: 'bg-blue-100 text-blue-700', C: 'bg-yellow-100 text-yellow-700', D: 'bg-orange-100 text-orange-700', E: 'bg-red-100 text-red-700' };
 
     const totalPages = Math.ceil(data.length / PAGE_SIZE_NILAI) || 1;
     if (nilaiPage > totalPages) nilaiPage = totalPages;
     const start = (nilaiPage - 1) * PAGE_SIZE_NILAI;
     const paged = data.slice(start, start + PAGE_SIZE_NILAI);
-
-    const siswaList = getData('siswa');
 
     document.getElementById('nilai-tbody').innerHTML = paged.length ? paged.map(n => {
         const sInfo = siswaList.find(s => s.nama === n.nama && s.kelas === n.kelas);
