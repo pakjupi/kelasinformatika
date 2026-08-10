@@ -1468,8 +1468,39 @@ function initDefaultPraktikum() {
 
 function syncPraktikum() {
     const siswa = getData('siswa');
-    const praktikum = getData('praktikum');
+    let praktikum = getData('praktikum');
     let changed = false;
+
+    // Gabungkan data ganda (nama+kelas sama, sisa dari data per-semester lama) jadi satu,
+    // dengan tetap mempertahankan nilai tertinggi yang pernah diisi di tiap sesi
+    const groups = {};
+    praktikum.forEach(p => {
+        const k = p.nama + '||' + p.kelas;
+        (groups[k] = groups[k] || []).push(p);
+    });
+    const deduped = [];
+    Object.values(groups).forEach(group => {
+        if (group.length > 1) {
+            changed = true;
+            const scores = Array(20).fill(0);
+            group.forEach(p => {
+                const s = p.scores || Array(20).fill(p.nilai || 0);
+                for (let i = 0; i < 20; i++) scores[i] = Math.max(scores[i], Number(s[i]) || 0);
+            });
+            const nilai = Math.round(scores.reduce((a, b) => a + b, 0) / 20);
+            deduped.push({
+                ...group[0],
+                topik: group.find(p => p.topik && p.topik !== 'Praktikum Informatika')?.topik || group[0].topik,
+                status: group.find(p => p.status && p.status !== 'supreme')?.status || group[0].status || 'supreme',
+                scores,
+                nilai,
+                grade: getGrade(nilai)
+            });
+        } else {
+            deduped.push(group[0]);
+        }
+    });
+    praktikum = deduped;
 
     siswa.forEach(s => {
         const exists = praktikum.some(p => p.nama === s.nama && p.kelas === s.kelas);
