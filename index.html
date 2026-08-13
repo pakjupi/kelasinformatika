@@ -2913,7 +2913,8 @@ function refreshDashboard() {
     const now = new Date();
     const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
     document.getElementById('stat-absensi').textContent = absensi.filter(a => (a.tanggal || '').startsWith(monthKey)).length;
-    document.getElementById('stat-nilai').textContent = new Set(nilai.map(n => n.nama + '||' + n.kelas)).size;
+    const nilaiNamaKelasSet = new Set(nilai.map(n => n.nama + '||' + n.kelas));
+    document.getElementById('stat-nilai').textContent = siswa.filter(s => nilaiNamaKelasSet.has(s.nama + '||' + s.kelas)).length;
 
     // Jurnal bulan ini
     document.getElementById('stat-jurnal').textContent = jurnal.filter(j => (j.tanggal || '').startsWith(monthKey)).length;
@@ -3770,11 +3771,17 @@ function deleteNilai(id) {
 function syncNilai() {
     const siswa = getData('siswa');
     const mapels = getData('mapel');
-    const nilai = getData('nilai');
+    let nilai = getData('nilai');
     const praktikum = getData('praktikum');
     const keaktifan = getData('keaktifan');
     const sem = document.getElementById('filter-semester-nilai') ? document.getElementById('filter-semester-nilai').value : 'Ganjil';
     let changed = false;
+
+    // Hapus data nilai yatim (sisa siswa yang sudah dihapus/berganti nama sebelum nama+kelas-nya tersinkron)
+    const siswaKeySet = new Set(siswa.map(s => s.nama + '||' + s.kelas));
+    const beforeCount = nilai.length;
+    nilai = nilai.filter(n => siswaKeySet.has(n.nama + '||' + n.kelas));
+    if (nilai.length !== beforeCount) changed = true;
 
     siswa.forEach(s => {
         // Find corresponding praktikum score
