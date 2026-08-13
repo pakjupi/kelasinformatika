@@ -84,7 +84,7 @@
    <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden" onclick="toggleSidebar()"></div><!-- Sidebar -->
    <aside id="sidebar" class="sidebar w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col h-screen fixed md:sticky top-0 transition-transform">
     <div class="p-5 border-b border-gray-200 dark:border-gray-700">
-     <div class="flex items-center gap-3">
+     <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('dashboard')" title="Kembali ke Dashboard">
       <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center"><i class="bi bi-mortarboard-fill text-white"></i>
       </div>
       <div>
@@ -101,7 +101,7 @@
     <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/30">
      <div class="bg-gradient-to-br from-primary/10 to-blue-500/5 dark:from-primary/20 dark:to-blue-500/10 rounded-2xl p-4 border border-primary/10 dark:border-primary/20 text-center relative overflow-hidden shadow-inner">
       <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-primary/5 rounded-full blur-md"></div>
-      <p class="text-[10px] uppercase tracking-wider font-semibold text-primary dark:text-blue-400 mb-1.5 flex items-center justify-center gap-1"><i class="bi bi-clock-fill"></i> Waktu Sistem</p>
+      <p class="text-[10px] uppercase tracking-wider font-semibold text-primary dark:text-blue-400 mb-1.5 flex items-center justify-center gap-1"><i class="bi bi-clock-fill"></i> Date & Time</p>
       <div id="sidebar-clock" class="text-2xl font-bold tracking-tight text-gray-800 dark:text-white font-mono leading-none my-1.5 drop-shadow-sm">
        00:00
       </div>
@@ -2219,7 +2219,7 @@ function showPage(page) {
     document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
     document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
     const names = { dashboard: 'Dashboard', siswa: 'Data Siswa', 'anak-wali': 'Anak Wali', keaktifan: 'Keaktifan Siswa', kelas: 'Data Kelas', mapel: 'Mata Pelajaran', materi: 'Materi Pembelajaran', jam: 'Jam Mengajar', jadwal: 'Jadwal Mengajar', absensi: 'Absensi Siswa', nilai: 'Nilai Siswa', praktikum: 'Praktikum Siswa', jurnal: 'Jurnal Mengajar', tugas: 'Tugas Siswa', 'tahun-ajaran': 'Tahun Ajaran', 'import-menu': 'Import Data', export: 'Export Data' };
-    document.getElementById('breadcrumb').innerHTML = `<span class="text-gray-400">Home</span> / <span class="text-primary font-medium">${names[page]}</span>`;
+    document.getElementById('breadcrumb').innerHTML = `<span class="text-gray-400 cursor-pointer hover:text-primary hover:underline" onclick="showPage('dashboard')">Home</span> / <span class="text-primary font-medium">${names[page]}</span>`;
     
     // Always keep lists and dropdowns fresh
     populateKelasSelects();
@@ -2913,7 +2913,7 @@ function refreshDashboard() {
     const now = new Date();
     const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
     document.getElementById('stat-absensi').textContent = absensi.filter(a => (a.tanggal || '').startsWith(monthKey)).length;
-    document.getElementById('stat-nilai').textContent = nilai.length;
+    document.getElementById('stat-nilai').textContent = new Set(nilai.map(n => n.nama + '||' + n.kelas)).size;
 
     // Jurnal bulan ini
     document.getElementById('stat-jurnal').textContent = jurnal.filter(j => (j.tanggal || '').startsWith(monthKey)).length;
