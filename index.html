@@ -144,7 +144,7 @@
        </div>
       </div><!-- Stats Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-       <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 lg:order-5">
+       <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 order-5">
         <div class="flex items-center justify-between">
          <div>
           <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Anak Wali</p>
@@ -174,7 +174,7 @@
          </div>
         </div>
        </div>
-       <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 lg:order-4">
+       <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 order-4">
         <div class="flex items-center justify-between">
          <div>
           <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Data Nilai</p>
@@ -885,7 +885,7 @@
     <h3 id="modal-nilai-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Nilai</h3>
     <form id="form-nilai" class="space-y-3"><input type="hidden" id="nilai-id">
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="nilai-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="nilai-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
      </div>
      <div class="grid grid-cols-2 gap-3">
       <div>
@@ -896,7 +896,7 @@
       </div>
      </div>
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Siswa</label><select id="nilai-nama" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput()"></select>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Siswa</label><select id="nilai-nama" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput()"></select>
      </div>
      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
       <div>
@@ -906,7 +906,7 @@
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">UH</label><input id="nilai-uh" type="number" min="0" max="100" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
       </div>
       <div>
-       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quiz</label><input id="nilai-quiz" type="number" min="0" max="100" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quiz</label><input id="nilai-quiz" type="number" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 outline-none text-sm font-semibold cursor-not-allowed" title="Merujuk otomatis pada nilai akhir (Point) Keaktifan Siswa">
       </div>
       <div>
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Praktikum</label><input id="nilai-praktikum" type="number" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 outline-none text-sm font-semibold cursor-not-allowed" title="Merujuk otomatis pada nilai praktikum siswa">
@@ -1171,6 +1171,11 @@ function scheduleUIRefresh() {
     refreshTimer = setTimeout(() => {
         const appPage = document.getElementById('app-page');
         if (appPage && !appPage.classList.contains('hidden')) {
+            // Jangan timpa tampilan saat user sedang menyeleksi/copy teks (mis. kolom Catatan Jurnal)
+            if (window.getSelection && window.getSelection().toString().length > 0) {
+                refreshTimer = setTimeout(scheduleUIRefresh, 1000);
+                return;
+            }
             showPage(currentPage);
         }
     }, 400);
@@ -3662,6 +3667,16 @@ function updateNilaiPraktikumInput() {
     if (pInput) pInput.value = pScore;
 }
 
+function updateNilaiQuizInput() {
+    const kelas = document.getElementById('nilai-kelas').value;
+    const nama = document.getElementById('nilai-nama').value;
+    const siswaRecord = getData('siswa').find(s => s.nama === nama && s.kelas === kelas);
+    const kRecord = siswaRecord ? getData('keaktifan').find(x => x.siswaId === siswaRecord.id) : null;
+    const qScore = kRecord ? (kRecord.point || 0) : 0;
+    const qInput = document.getElementById('nilai-quiz');
+    if (qInput) qInput.value = qScore;
+}
+
 function handleNilaiKelasChange() {
     const selectedKelas = document.getElementById('nilai-kelas').value;
     const siswa = getData('siswa').filter(s => s.kelas === selectedKelas);
@@ -3670,10 +3685,12 @@ function handleNilaiKelasChange() {
     if (!siswa.length) {
         selectNama.innerHTML = '<option value="">-- Tidak ada siswa di kelas ini --</option>';
         if (document.getElementById('nilai-praktikum')) document.getElementById('nilai-praktikum').value = 0;
+        if (document.getElementById('nilai-quiz')) document.getElementById('nilai-quiz').value = 0;
         return;
     }
     selectNama.innerHTML = siswa.map(s => `<option value="${s.nama}">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</option>`).join('');
     updateNilaiPraktikumInput();
+    updateNilaiQuizInput();
 }
 
 function openNilaiModal(id) {
@@ -3755,6 +3772,7 @@ function syncNilai() {
     const mapels = getData('mapel');
     const nilai = getData('nilai');
     const praktikum = getData('praktikum');
+    const keaktifan = getData('keaktifan');
     const sem = document.getElementById('filter-semester-nilai') ? document.getElementById('filter-semester-nilai').value : 'Ganjil';
     let changed = false;
 
@@ -3763,12 +3781,17 @@ function syncNilai() {
         const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas);
         const pScore = pRecord ? (pRecord.nilai || 0) : 0;
 
+        // Find corresponding keaktifan point (nilai akhir keaktifan -> Quiz)
+        const kRecord = keaktifan.find(k => k.siswaId === s.id);
+        const qScore = kRecord ? (kRecord.point || 0) : 0;
+
         mapels.forEach(m => {
             const existsIdx = nilai.findIndex(n => n.nama === s.nama && n.kelas === s.kelas && n.mapel === m.nama && (n.semester || 'Ganjil') === sem);
             if (existsIdx > -1) {
-                if (nilai[existsIdx].praktikum !== pScore) {
+                if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore) {
                     nilai[existsIdx].praktikum = pScore;
-                    nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].uh, nilai[existsIdx].quiz, pScore, nilai[existsIdx].uas);
+                    nilai[existsIdx].quiz = qScore;
+                    nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].uh, qScore, pScore, nilai[existsIdx].uas);
                     nilai[existsIdx].grade = getGrade(parseFloat(nilai[existsIdx].na));
                     changed = true;
                 }
@@ -3781,11 +3804,11 @@ function syncNilai() {
                     nama: s.nama,
                     tugas: 0,
                     uh: 0,
-                    quiz: 0,
+                    quiz: qScore,
                     praktikum: pScore,
                     uas: 0,
-                    na: calcNA(0, 0, 0, pScore, 0),
-                    grade: getGrade(parseFloat(calcNA(0, 0, 0, pScore, 0)))
+                    na: calcNA(0, 0, qScore, pScore, 0),
+                    grade: getGrade(parseFloat(calcNA(0, 0, qScore, pScore, 0)))
                 });
                 changed = true;
             }
