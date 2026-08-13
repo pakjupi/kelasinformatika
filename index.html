@@ -313,7 +313,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-kelas-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()"> <select id="filter-status-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select>
+       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()"> <select id="filter-status-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select>
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -493,7 +493,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-kelas-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()"> <select id="filter-status-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select>
+       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()"> <select id="filter-status-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select>
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -927,7 +927,10 @@
     <form id="form-praktikum" class="space-y-4">
      <input type="hidden" id="praktikum-id">
      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div class="sm:col-span-2">
+      <div>
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="praktikum-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+      </div>
+      <div>
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label> <select id="praktikum-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"></select>
       </div>
      </div>
@@ -1152,6 +1155,12 @@ function syncGlobalSettingsToUI() {
 
     const filterSemMateri = document.getElementById('filter-semester-materi');
     if (filterSemMateri) filterSemMateri.value = sem;
+
+    const filterSemPraktikum = document.getElementById('filter-semester-praktikum');
+    if (filterSemPraktikum) filterSemPraktikum.value = sem;
+
+    const filterSemKeaktifan = document.getElementById('filter-semester-keaktifan');
+    if (filterSemKeaktifan) filterSemKeaktifan.value = sem;
 }
 
 // ===================== DATA STORAGE (Firebase + localStorage) =====================
@@ -1369,17 +1378,17 @@ function doLogout() {
 
 // ===================== RESET ALL & PROMOTION METHODS =====================
 function resetAllPraktikum() {
-    showConfirm('Reset Semua Praktikum', 'Apakah Anda yakin ingin me-reset SEMUA nilai praktikum siswa ke 0? Tindakan ini akan mengatur ulang nilai pada 20 sesi praktikum untuk seluruh siswa.', () => {
+    showConfirm('Reset Semua Praktikum', 'Apakah Anda yakin ingin me-reset SEMUA nilai praktikum siswa ke 0 pada semester yang sedang aktif? Tindakan ini akan mengatur ulang nilai pada 20 sesi praktikum untuk seluruh siswa.', () => {
         const praktikum = getData('praktikum');
-        
-        const updated = praktikum.map(p => ({
-            ...p,
-            nilai: 0,
-            grade: 'E',
-            status: 'supreme',
-            scores: Array(20).fill(0)
-        }));
-        
+        const sem = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
+
+        const updated = praktikum.map(p => {
+            if ((p.semester || 'Ganjil') === sem) {
+                return { ...p, nilai: 0, grade: 'E', status: 'supreme', scores: Array(20).fill(0) };
+            }
+            return p;
+        });
+
         setData('praktikum', updated);
         showToast('Semua nilai praktikum berhasil di-reset ke 0!');
         renderPraktikum();
@@ -1474,13 +1483,14 @@ function initDefaultPraktikum() {
 function syncPraktikum() {
     const siswa = getData('siswa');
     let praktikum = getData('praktikum');
+    const sem = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
     let changed = false;
 
-    // Gabungkan data ganda (nama+kelas sama, sisa dari data per-semester lama) jadi satu,
+    // Gabungkan data ganda (nama+kelas+semester sama, sisa dari bug lama) jadi satu,
     // dengan tetap mempertahankan nilai tertinggi yang pernah diisi di tiap sesi
     const groups = {};
     praktikum.forEach(p => {
-        const k = p.nama + '||' + p.kelas;
+        const k = p.nama + '||' + p.kelas + '||' + (p.semester || 'Ganjil');
         (groups[k] = groups[k] || []).push(p);
     });
     const deduped = [];
@@ -1495,6 +1505,7 @@ function syncPraktikum() {
             const nilai = Math.round(scores.reduce((a, b) => a + b, 0) / 20);
             deduped.push({
                 ...group[0],
+                semester: group[0].semester || 'Ganjil',
                 topik: group.find(p => p.topik && p.topik !== 'Praktikum Informatika')?.topik || group[0].topik,
                 status: group.find(p => p.status && p.status !== 'supreme')?.status || group[0].status || 'supreme',
                 scores,
@@ -1502,17 +1513,18 @@ function syncPraktikum() {
                 grade: getGrade(nilai)
             });
         } else {
-            deduped.push(group[0]);
+            deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil' });
         }
     });
     praktikum = deduped;
 
     siswa.forEach(s => {
-        const exists = praktikum.some(p => p.nama === s.nama && p.kelas === s.kelas);
+        const exists = praktikum.some(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
         if (!exists) {
             const defaultScores = Array(20).fill(0);
             praktikum.push({
                 id: genId(),
+                semester: sem,
                 kelas: s.kelas,
                 nama: s.nama,
                 topik: 'Praktikum Informatika',
@@ -1536,7 +1548,9 @@ function renderPraktikum() {
     const search = document.getElementById('search-praktikum').value.toLowerCase();
     const filterStatus = document.getElementById('filter-status-praktikum').value;
     const filterKelas = document.getElementById('filter-kelas-praktikum').value;
+    const filterSemester = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
 
+    data = data.filter(p => (p.semester || 'Ganjil') === filterSemester);
     if (filterKelas) {
         data = data.filter(p => p.kelas === filterKelas);
     }
@@ -1697,6 +1711,7 @@ function openPraktikumModal(id) {
 
     // Initialize student options first
     handlePraktikumKelasChange();
+    document.getElementById('praktikum-semester').value = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
 
     if (id) {
         const p = getData('praktikum').find(x => x.id === id);
@@ -1717,6 +1732,7 @@ function openPraktikumModal(id) {
                 namaSelect.value = p.nama;
             }
             document.getElementById('praktikum-topik').value = p.topik;
+            document.getElementById('praktikum-semester').value = p.semester || 'Ganjil';
             praktikumQuickScore = Number(p.nilai) || 0;
             document.getElementById('praktikum-nilai').value = praktikumQuickScore;
             renderPraktikumPointCircles(praktikumQuickScore);
@@ -1968,6 +1984,7 @@ function initApp() {
             const nVal = Number(praktikumQuickScore) || Number(document.getElementById('praktikum-nilai').value) || 0;
             const scores = Array.from({ length: 20 }, (_, i) => i < nVal / 5 ? 100 : 0);
             const obj = {
+                semester: document.getElementById('praktikum-semester').value,
                 kelas: document.getElementById('praktikum-kelas').value,
                 nama: document.getElementById('praktikum-nama').value.trim(),
                 topik: document.getElementById('praktikum-topik').value.trim(),
@@ -2213,6 +2230,7 @@ function updateDateIndo() {
 
 // ===================== NAVIGATION =====================
 function showPage(page) {
+    const isNewNavigation = page !== currentPage;
     currentPage = page;
     document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
     document.getElementById('page-' + page).classList.remove('hidden');
@@ -2240,7 +2258,19 @@ function showPage(page) {
     if (page === 'jadwal') { populateMapelSelects(); renderJadwal(); }
     if (page === 'absensi') {
         const attendanceDate = document.getElementById('filter-tgl-absensi');
-        if (attendanceDate && !attendanceDate.value) attendanceDate.value = new Date().toISOString().split('T')[0];
+        const todayStr = new Date().toISOString().split('T')[0];
+        if (attendanceDate && !attendanceDate.value) attendanceDate.value = todayStr;
+        // Saat baru masuk menu (bukan refresh real-time), otomatis pilih kelas yang terakhir diabsen hari ini
+        if (isNewNavigation && attendanceDate && attendanceDate.value === todayStr) {
+            const todayRecords = getData('absensi').filter(a => a.tanggal === todayStr);
+            if (todayRecords.length) {
+                const lastKelas = todayRecords[todayRecords.length - 1].kelas;
+                const kelasSelect = document.getElementById('filter-kelas-absensi');
+                if (kelasSelect && [...kelasSelect.options].some(o => o.value === lastKelas)) {
+                    kelasSelect.value = lastKelas;
+                }
+            }
+        }
         renderAbsensi();
     }
     if (page === 'nilai') { populateMapelSelects(); renderNilai(); }
@@ -2291,12 +2321,20 @@ document.getElementById('form-anak-wali').addEventListener('submit', function(e)
 function resetAbsensi() { showConfirm('Reset Absensi', 'Hapus seluruh data absensi pada semester dan filter saat ini?', () => { const sem = document.getElementById('filter-semester-absensi')?.value || 'Ganjil'; const data = getData('absensi').filter(a => (a.semester || 'Ganjil') !== sem); setData('absensi', data); renderAbsensi(); refreshDashboard(); showToast('Data Absensi pada semester ini berhasil di-reset!'); }); }
 function resetJurnal() { showConfirm('Reset Jurnal', 'Hapus seluruh data jurnal mengajar?', () => { setData('jurnal', []); renderJurnal(); refreshDashboard(); showToast('Data Jurnal berhasil di-reset!'); }); }
 function openKeaktifanModal() { showToast('Status keaktifan dikelola langsung pada tabel siswa.', 'info'); }
-function resetKeaktifan() { showConfirm('Reset Keaktifan', 'Hapus seluruh catatan keaktifan?', () => { setData('keaktifan', []); renderKeaktifan(); showToast('Data Keaktifan berhasil di-reset!'); }); }
-function exportKeaktifan() { exportXLSX(getData('siswa').map(s => { const a = getData('keaktifan').find(x => x.siswaId === s.id) || {}; return { Kelas: s.kelas, Nama: s.nama, Status: a.status || 'supreme', Point: a.point ?? 0 }; }), 'Keaktifan_Siswa'); }
-function importKeaktifan(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { const wb = XLSX.read(ev.target.result, { type: 'binary' }); const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); const data = getData('keaktifan'); rows.forEach(r => { const s = getData('siswa').find(x => x.nama === (r.Nama || r['Nama Siswa'])); if (s) { const old = data.find(x => x.siswaId === s.id); const obj = { siswaId: s.id, status: r.Status || 'supreme', point: Number(r.Point) || 0, catatan: r.Catatan || '' }; if (old) Object.assign(old, obj); else data.push(obj); } }); setData('keaktifan', data); renderKeaktifan(); showToast('Data Keaktifan berhasil diimport!'); } catch { showToast('Gagal memproses file import!', 'error'); } }; reader.readAsBinaryString(file); e.target.value = ''; }
+function resetKeaktifan() {
+    showConfirm('Reset Keaktifan', 'Hapus seluruh catatan keaktifan pada semester yang sedang aktif?', () => {
+        const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
+        setData('keaktifan', getData('keaktifan').filter(x => (x.semester || 'Ganjil') !== sem));
+        renderKeaktifan();
+        showToast('Data Keaktifan berhasil di-reset!');
+    });
+}
+function exportKeaktifan() { const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil'; exportXLSX(getData('siswa').map(s => { const a = getData('keaktifan').find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || {}; return { Semester: sem, Kelas: s.kelas, Nama: s.nama, Status: a.status || 'supreme', Point: a.point ?? 0 }; }), 'Keaktifan_Siswa'); }
+function importKeaktifan(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { const wb = XLSX.read(ev.target.result, { type: 'binary' }); const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); const data = getData('keaktifan'); rows.forEach(r => { const s = getData('siswa').find(x => x.nama === (r.Nama || r['Nama Siswa'])); if (s) { const sem = r.Semester || 'Ganjil'; const old = data.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem); const obj = { siswaId: s.id, semester: sem, status: r.Status || 'supreme', point: Number(r.Point) || 0 }; if (old) Object.assign(old, obj); else data.push(obj); } }); setData('keaktifan', data); renderKeaktifan(); showToast('Data Keaktifan berhasil diimport!'); } catch { showToast('Gagal memproses file import!', 'error'); } }; reader.readAsBinaryString(file); e.target.value = ''; }
 function renderKeaktifan() {
     const students = getData('siswa');
     const active = getData('keaktifan');
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
     const kelas = document.getElementById('filter-kelas-keaktifan')?.value || '';
     const search = (document.getElementById('search-keaktifan')?.value || '').toLowerCase();
     const statusFilter = document.getElementById('filter-status-keaktifan')?.value || '';
@@ -2304,7 +2342,7 @@ function renderKeaktifan() {
     const classSelect = document.getElementById('filter-kelas-keaktifan');
     if (classSelect) { const current = classSelect.value; classSelect.innerHTML = '<option value="">Semua Kelas</option>' + classes.map(k => `<option value="${k}" ${k === current ? 'selected' : ''}>${k}</option>`).join(''); }
     let filtered = students.filter(s => {
-        const a = active.find(x => x.siswaId === s.id) || { status: 'supreme', catatan: '' };
+        const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' };
         return (!kelas || s.kelas === kelas) && (!statusFilter || (a.status || 'supreme') === statusFilter) && (!search || `${s.nama} ${s.panggilan} ${s.absen || ''}`.toLowerCase().includes(search));
     });
     const totalPages = Math.ceil(filtered.length / PAGE_SIZE_ANAK_WALI) || 1;
@@ -2312,7 +2350,7 @@ function renderKeaktifan() {
     const paged = filtered.slice((keaktifanPage - 1) * 40, keaktifanPage * 40);
     const tbody = document.getElementById('keaktifan-tbody');
     if (!tbody) return;
-    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id) || { status: 'supreme', catatan: '' }; const color = a.status === 'excellent' ? '#10B981' : a.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${a.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center"><button onclick="editKeaktifan('${s.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
+    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = a.status === 'excellent' ? '#10B981' : a.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${a.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center"><button onclick="editKeaktifan('${s.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
     document.getElementById('keaktifan-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Hal ${keaktifanPage}/${totalPages} (${filtered.length} data)</span><div class="flex gap-1"><button onclick="keaktifanPage=Math.max(1,keaktifanPage-1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Prev</button><button onclick="keaktifanPage=Math.min(${totalPages},keaktifanPage+1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Next</button></div>`;
 }
 function renderKeaktifanPointCircles(value = 0) {
@@ -2330,7 +2368,8 @@ function setKeaktifanPoint(value) {
 }
 function openKeaktifanEditModal(id) {
     const student = getData('siswa').find(s => s.id === id);
-    const active = getData('keaktifan').find(x => x.siswaId === id) || { status: 'supreme', point: 0 };
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
+    const active = getData('keaktifan').find(x => x.siswaId === id && (x.semester || 'Ganjil') === sem) || { status: 'supreme', point: 0 };
     if (!student) return;
     document.getElementById('keaktifan-student-id').value = id;
     document.getElementById('keaktifan-modal-student').textContent = `${student.absen ? student.absen + '. ' : ''}${student.nama} (${student.panggilan})`;
@@ -2368,11 +2407,17 @@ function saveEditedKeaktifan(id) {
     saveKeaktifan(id, status, catatan);
     showToast('Data keaktifan berhasil diperbarui!');
 }
-function deleteKeaktifan(id) { setData('keaktifan', getData('keaktifan').filter(x => x.siswaId !== id)); renderKeaktifan(); showToast('Data keaktifan berhasil dihapus!'); }
+function deleteKeaktifan(id) {
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
+    setData('keaktifan', getData('keaktifan').filter(x => !(x.siswaId === id && (x.semester || 'Ganjil') === sem)));
+    renderKeaktifan();
+    showToast('Data keaktifan berhasil dihapus!');
+}
 function saveKeaktifan(id, status, catatan) {
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
     const data = getData('keaktifan');
-    const i = data.findIndex(x => x.siswaId === id);
-    const old = i > -1 ? data[i] : { siswaId: id, status: 'supreme', catatan: '' };
+    const i = data.findIndex(x => x.siswaId === id && (x.semester || 'Ganjil') === sem);
+    const old = i > -1 ? data[i] : { siswaId: id, semester: sem, status: 'supreme', catatan: '' };
     if (status) old.status = status;
     if (catatan !== undefined) old.point = Math.max(0, Math.min(100, Number(catatan) || 0));
     if (i > -1) data[i] = old; else data.push(old);
@@ -3659,20 +3704,22 @@ function calcNA(t, uh, q, p, uas) { return (t * 0.3 + uh * 0.1 + q * 0.1 + p * 0
 function getGrade(na) { if (na >= 90) return 'A'; if (na >= 80) return 'B'; if (na >= 70) return 'C'; if (na >= 60) return 'D'; return 'E'; }
 
 function updateNilaiPraktikumInput() {
+    const sem = document.getElementById('nilai-semester').value;
     const kelas = document.getElementById('nilai-kelas').value;
     const nama = document.getElementById('nilai-nama').value;
     const praktikum = getData('praktikum');
-    const pRecord = praktikum.find(p => p.nama === nama && p.kelas === kelas);
+    const pRecord = praktikum.find(p => p.nama === nama && p.kelas === kelas && (p.semester || 'Ganjil') === sem);
     const pScore = pRecord ? (pRecord.nilai || 0) : 0;
     const pInput = document.getElementById('nilai-praktikum');
     if (pInput) pInput.value = pScore;
 }
 
 function updateNilaiQuizInput() {
+    const sem = document.getElementById('nilai-semester').value;
     const kelas = document.getElementById('nilai-kelas').value;
     const nama = document.getElementById('nilai-nama').value;
     const siswaRecord = getData('siswa').find(s => s.nama === nama && s.kelas === kelas);
-    const kRecord = siswaRecord ? getData('keaktifan').find(x => x.siswaId === siswaRecord.id) : null;
+    const kRecord = siswaRecord ? getData('keaktifan').find(x => x.siswaId === siswaRecord.id && (x.semester || 'Ganjil') === sem) : null;
     const qScore = kRecord ? (kRecord.point || 0) : 0;
     const qInput = document.getElementById('nilai-quiz');
     if (qInput) qInput.value = qScore;
@@ -3785,11 +3832,11 @@ function syncNilai() {
 
     siswa.forEach(s => {
         // Find corresponding praktikum score
-        const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas);
+        const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
         const pScore = pRecord ? (pRecord.nilai || 0) : 0;
 
         // Find corresponding keaktifan point (nilai akhir keaktifan -> Quiz)
-        const kRecord = keaktifan.find(k => k.siswaId === s.id);
+        const kRecord = keaktifan.find(k => k.siswaId === s.id && (k.semester || 'Ganjil') === sem);
         const qScore = kRecord ? (kRecord.point || 0) : 0;
 
         mapels.forEach(m => {
