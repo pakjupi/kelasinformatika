@@ -278,15 +278,15 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-nilai" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-nilai" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="">Semua Kelas</option> </select> <input id="filter-mapel-nilai" type="text" placeholder="Mata Pelajaran..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" oninput="renderNilai()"> <input id="search-nilai" type="text" placeholder="Cari nama..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderNilai()">
+       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-nilai" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-nilai" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="">Semua Kelas</option> </select> <input id="search-nilai" type="text" placeholder="Cari nama..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderNilai()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
          <thead class="bg-gray-50 dark:bg-gray-700/50">
           <tr>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Kelas</th>
-           <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Mapel</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Nama</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300" title="Nilai Semester Lalu">NSL</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Tugas</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">UH</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Quiz</th>
@@ -892,7 +892,7 @@
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label><select id="nilai-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="handleNilaiKelasChange()"></select>
       </div>
       <div>
-       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mata Pelajaran</label><select id="nilai-mapel" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"></select>
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">NSL <span class="text-gray-400 font-normal">(Nilai Semester Lalu)</span></label><input id="nilai-nsl" type="number" min="0" max="100" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" title="Hanya patokan, tidak mempengaruhi Nilai Akhir">
       </div>
      </div>
      <div>
@@ -1264,8 +1264,37 @@ async function loadAllFromCloud() {
         const uploads = CLOUD_KEYS.filter(key => !remoteKeys.has(key) && dataCache[key] && dataCache[key].length > 0)
             .map(key => syncToCloud(key, dataCache[key]));
         await Promise.all(uploads);
+        await loadProfileFromCloud();
     } catch (e) {
         console.error('Gagal memuat data dari cloud, memakai data lokal:', e);
+    }
+}
+
+// Sinkronisasi profil admin (nama & foto) - disimpan terpisah dari app_data karena bukan array
+async function syncProfileToCloud() {
+    if (!db) return;
+    try {
+        await ensureCloudAuth();
+        if (!cloudReady) return;
+        await db.collection('app_settings').doc('profile').set({
+            nama: localStorage.getItem('admin_name') || '',
+            avatar: localStorage.getItem('admin_avatar_url') || ''
+        });
+    } catch (e) {
+        console.error('Gagal sinkron profil ke cloud:', e);
+    }
+}
+async function loadProfileFromCloud() {
+    if (!db || !cloudReady) return;
+    try {
+        const doc = await db.collection('app_settings').doc('profile').get();
+        if (doc.exists) {
+            const d = doc.data();
+            if (d.nama) localStorage.setItem('admin_name', d.nama);
+            if (d.avatar) localStorage.setItem('admin_avatar_url', d.avatar);
+        }
+    } catch (e) {
+        console.error('Gagal memuat profil dari cloud:', e);
     }
 }
 
@@ -2029,6 +2058,7 @@ function initApp() {
             if (url) {
                 localStorage.setItem('admin_avatar_url', url);
             }
+            syncProfileToCloud();
             if (u && p) {
                 const hashed = await hashPassword(p);
                 setCreds(u, hashed);
@@ -2248,7 +2278,14 @@ function showPage(page) {
     }
     
     if (page === 'dashboard') refreshDashboard();
-    if (page === 'siswa') renderSiswa();
+    if (page === 'siswa') {
+        const kelasFilter = document.getElementById('filter-kelas-siswa');
+        if (isNewNavigation && kelasFilter && !kelasFilter.value) {
+            const kelasList = [...new Set(getData('siswa').map(s => s.kelas))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+            if (kelasList.length) kelasFilter.value = kelasList[0];
+        }
+        renderSiswa();
+    }
     if (page === 'anak-wali') renderAnakWali();
     if (page === 'keaktifan') renderKeaktifan();
     if (page === 'kelas') renderKelas();
@@ -2273,7 +2310,7 @@ function showPage(page) {
         }
         renderAbsensi();
     }
-    if (page === 'nilai') { populateMapelSelects(); renderNilai(); }
+    if (page === 'nilai') { renderNilai(); }
     if (page === 'praktikum') renderPraktikum();
     if (page === 'jurnal') { populateMapelSelects(); sortJurnalTerbaru(false); renderJurnal(); }
     if (page === 'tugas') renderTugas();
@@ -2703,7 +2740,7 @@ function populateKelasFilters() {
 // ===================== MAPEL FUNCTIONS =====================
 function populateMapelSelects() {
     const mapels = getData('mapel').map(m => m.nama).sort();
-    ['jadwal-mapel', 'jurnal-mapel', 'nilai-mapel'].forEach(id => {
+    ['jadwal-mapel', 'jurnal-mapel'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         const val = el.value;
@@ -3458,8 +3495,8 @@ function importNilai(e) {
             let addedCount = 0;
             rows.forEach(r => {
                 const kelas = r['Kelas'] || r.kelas || '';
-                const mapel = r['Mata Pelajaran'] || r['Mapel'] || r.mapel || '';
                 const nama = r['Nama'] || r.nama || '';
+                const nsl = (r['NSL'] !== undefined && r['NSL'] !== '') ? parseFloat(r['NSL']) : null;
                 const tugas = parseFloat(r['Tugas'] || r.tugas || 0);
                 const uh = parseFloat(r['UH'] || r.uh || 0);
                 const quiz = parseFloat(r['Quiz'] || r.quiz || 0);
@@ -3470,13 +3507,13 @@ function importNilai(e) {
                 const na = calcNA(tugas, uh, quiz, praktikum, uas);
                 const grade = getGrade(parseFloat(na));
 
-                if (kelas && mapel && nama) {
-                    const existsIdx = data.findIndex(n => n.kelas === kelas && n.mapel === mapel && n.nama === nama && (n.semester || 'Ganjil') === semester);
+                if (kelas && nama) {
+                    const existsIdx = data.findIndex(n => n.kelas === kelas && n.nama === nama && (n.semester || 'Ganjil') === semester);
                     const obj = {
                         semester,
                         kelas,
-                        mapel,
                         nama,
+                        nsl,
                         tugas,
                         uh,
                         quiz,
@@ -3750,9 +3787,6 @@ function openNilaiModal(id) {
     // Populate Kelas options
     populateKelasSelects();
 
-    // Populate Mapel options from Mata Pelajaran
-    populateMapelSelects();
-
     // Initialize students list based on default selected class
     handleNilaiKelasChange();
 
@@ -3764,15 +3798,6 @@ function openNilaiModal(id) {
             
             document.getElementById('nilai-kelas').value = n.kelas;
             handleNilaiKelasChange();
-            
-            const mapelSelect = document.getElementById('nilai-mapel');
-            if (![...mapelSelect.options].some(opt => opt.value === n.mapel)) {
-                const opt = document.createElement('option');
-                opt.value = n.mapel;
-                opt.textContent = n.mapel;
-                mapelSelect.appendChild(opt);
-            }
-            mapelSelect.value = n.mapel;
 
             const namaSelect = document.getElementById('nilai-nama');
             if (![...namaSelect.options].some(opt => opt.value === n.nama)) {
@@ -3783,6 +3808,7 @@ function openNilaiModal(id) {
             }
             namaSelect.value = n.nama;
 
+            document.getElementById('nilai-nsl').value = n.nsl ?? '';
             document.getElementById('nilai-tugas').value = n.tugas;
             document.getElementById('nilai-uh').value = n.uh;
             document.getElementById('nilai-quiz').value = n.quiz;
@@ -3797,7 +3823,8 @@ document.getElementById('form-nilai').addEventListener('submit', function(e) {
     e.preventDefault();
     const data = getData('nilai');
     const id = document.getElementById('nilai-id').value;
-    const obj = { semester: document.getElementById('nilai-semester').value, kelas: document.getElementById('nilai-kelas').value, mapel: document.getElementById('nilai-mapel').value, nama: document.getElementById('nilai-nama').value, tugas: +document.getElementById('nilai-tugas').value, uh: +document.getElementById('nilai-uh').value, quiz: +document.getElementById('nilai-quiz').value, praktikum: +document.getElementById('nilai-praktikum').value, uas: +document.getElementById('nilai-uas').value };
+    const nslVal = document.getElementById('nilai-nsl').value;
+    const obj = { semester: document.getElementById('nilai-semester').value, kelas: document.getElementById('nilai-kelas').value, nama: document.getElementById('nilai-nama').value, nsl: nslVal === '' ? null : +nslVal, tugas: +document.getElementById('nilai-tugas').value, uh: +document.getElementById('nilai-uh').value, quiz: +document.getElementById('nilai-quiz').value, praktikum: +document.getElementById('nilai-praktikum').value, uas: +document.getElementById('nilai-uas').value };
     obj.na = calcNA(obj.tugas, obj.uh, obj.quiz, obj.praktikum, obj.uas);
     obj.grade = getGrade(+obj.na);
     if (id) { const idx = data.findIndex(x => x.id === id); data[idx] = { ...data[idx], ...obj }; showToast('Nilai berhasil diperbarui!'); }
@@ -3817,7 +3844,6 @@ function deleteNilai(id) {
 
 function syncNilai() {
     const siswa = getData('siswa');
-    const mapels = getData('mapel');
     let nilai = getData('nilai');
     const praktikum = getData('praktikum');
     const keaktifan = getData('keaktifan');
@@ -3830,6 +3856,32 @@ function syncNilai() {
     nilai = nilai.filter(n => siswaKeySet.has(n.nama + '||' + n.kelas));
     if (nilai.length !== beforeCount) changed = true;
 
+    // Gabungkan data ganda (sisa dari saat nilai masih terpisah per Mata Pelajaran) jadi satu per siswa per semester
+    const groups = {};
+    nilai.forEach(n => {
+        const k = n.nama + '||' + n.kelas + '||' + (n.semester || 'Ganjil');
+        (groups[k] = groups[k] || []).push(n);
+    });
+    const deduped = [];
+    Object.values(groups).forEach(group => {
+        if (group.length > 1) {
+            changed = true;
+            const maxField = f => Math.max(...group.map(g => Number(g[f]) || 0));
+            const nslFound = group.map(g => g.nsl).find(v => v !== null && v !== undefined);
+            deduped.push({
+                ...group[0],
+                semester: group[0].semester || 'Ganjil',
+                tugas: maxField('tugas'),
+                uh: maxField('uh'),
+                uas: maxField('uas'),
+                nsl: nslFound ?? null
+            });
+        } else {
+            deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil' });
+        }
+    });
+    nilai = deduped;
+
     siswa.forEach(s => {
         // Find corresponding praktikum score
         const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
@@ -3839,34 +3891,32 @@ function syncNilai() {
         const kRecord = keaktifan.find(k => k.siswaId === s.id && (k.semester || 'Ganjil') === sem);
         const qScore = kRecord ? (kRecord.point || 0) : 0;
 
-        mapels.forEach(m => {
-            const existsIdx = nilai.findIndex(n => n.nama === s.nama && n.kelas === s.kelas && n.mapel === m.nama && (n.semester || 'Ganjil') === sem);
-            if (existsIdx > -1) {
-                if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore) {
-                    nilai[existsIdx].praktikum = pScore;
-                    nilai[existsIdx].quiz = qScore;
-                    nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].uh, qScore, pScore, nilai[existsIdx].uas);
-                    nilai[existsIdx].grade = getGrade(parseFloat(nilai[existsIdx].na));
-                    changed = true;
-                }
-            } else {
-                nilai.push({
-                    id: genId(),
-                    semester: sem,
-                    kelas: s.kelas,
-                    mapel: m.nama,
-                    nama: s.nama,
-                    tugas: 0,
-                    uh: 0,
-                    quiz: qScore,
-                    praktikum: pScore,
-                    uas: 0,
-                    na: calcNA(0, 0, qScore, pScore, 0),
-                    grade: getGrade(parseFloat(calcNA(0, 0, qScore, pScore, 0)))
-                });
+        const existsIdx = nilai.findIndex(n => n.nama === s.nama && n.kelas === s.kelas && (n.semester || 'Ganjil') === sem);
+        if (existsIdx > -1) {
+            if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore) {
+                nilai[existsIdx].praktikum = pScore;
+                nilai[existsIdx].quiz = qScore;
+                nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].uh, qScore, pScore, nilai[existsIdx].uas);
+                nilai[existsIdx].grade = getGrade(parseFloat(nilai[existsIdx].na));
                 changed = true;
             }
-        });
+        } else {
+            nilai.push({
+                id: genId(),
+                semester: sem,
+                kelas: s.kelas,
+                nama: s.nama,
+                nsl: null,
+                tugas: 0,
+                uh: 0,
+                quiz: qScore,
+                praktikum: pScore,
+                uas: 0,
+                na: calcNA(0, 0, qScore, pScore, 0),
+                grade: getGrade(parseFloat(calcNA(0, 0, qScore, pScore, 0)))
+            });
+            changed = true;
+        }
     });
 
     if (changed) {
@@ -3879,11 +3929,9 @@ function renderNilai() {
     let data = getData('nilai');
     const sem = document.getElementById('filter-semester-nilai').value;
     const kelas = document.getElementById('filter-kelas-nilai').value;
-    const mapel = document.getElementById('filter-mapel-nilai').value.toLowerCase();
     const search = document.getElementById('search-nilai').value.toLowerCase();
     data = data.filter(n => (n.semester || 'Ganjil') === sem);
     if (kelas) data = data.filter(n => n.kelas === kelas);
-    if (mapel) data = data.filter(n => n.mapel.toLowerCase().includes(mapel));
     if (search) { const siswaListForSearch = getData('siswa'); data = data.filter(n => { const siswa = siswaListForSearch.find(s => s.nama === n.nama && s.kelas === n.kelas); return n.nama.toLowerCase().includes(search) || String(siswa?.absen || '').toLowerCase().includes(search) || (siswa?.panggilan || '').toLowerCase().includes(search); }); }
 
     const siswaList = getData('siswa');
@@ -3892,9 +3940,7 @@ function renderNilai() {
         if (kelasCompare !== 0) return kelasCompare;
         const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
         const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
-        const absenCompare = (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
-        if (absenCompare !== 0) return absenCompare;
-        return String(a.mapel || '').localeCompare(String(b.mapel || ''));
+        return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
     });
 
     const gradeColors = { A: 'bg-green-100 text-green-700', B: 'bg-blue-100 text-blue-700', C: 'bg-yellow-100 text-yellow-700', D: 'bg-orange-100 text-orange-700', E: 'bg-red-100 text-red-700' };
@@ -3910,8 +3956,8 @@ function renderNilai() {
         return `
         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
             <td class="px-4 py-3">${n.kelas}</td>
-            <td class="px-4 py-3">${n.mapel}</td>
             <td class="px-4 py-3 text-gray-800 dark:text-white font-medium">${displayName}</td>
+            <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">${n.nsl ?? '-'}</td>
             <td class="px-4 py-3 text-center">${n.tugas}</td>
             <td class="px-4 py-3 text-center">${n.uh}</td>
             <td class="px-4 py-3 text-center">${n.quiz}</td>
@@ -3935,7 +3981,7 @@ function renderNilai() {
 }
 
 function exportNilai() {
-    const data = getData('nilai').map(n => ({ Kelas: n.kelas, 'Mata Pelajaran': n.mapel, Nama: n.nama, Tugas: n.tugas, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
+    const data = getData('nilai').map(n => ({ Semester: n.semester || 'Ganjil', Kelas: n.kelas, Nama: n.nama, NSL: n.nsl ?? '', Tugas: n.tugas, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
     exportXLSX(data, 'Nilai');
 }
 
