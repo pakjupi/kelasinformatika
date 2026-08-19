@@ -245,7 +245,7 @@
      <div id="page-absensi" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Absensi Siswa</h1>
-       <div class="flex gap-2 flex-wrap"><button onclick="openBatchAbsensiModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition"><i class="bi bi-calendar2-plus"></i> Absensi Kelas</button> <button onclick="document.getElementById('import-absensi').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-absensi" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importAbsensi(event)"> <button onclick="exportAbsensi()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetAbsensi()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="openBatchAbsensiModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition"><i class="bi bi-calendar2-plus"></i> Absensi Kelas</button> <button onclick="document.getElementById('import-absensi').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-absensi" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importAbsensi(event)"> <button onclick="exportAbsensi()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="printAbsensi()" class="px-4 py-2 bg-blue-500 text-white rounded-xl text-sm font-medium hover:bg-blue-600 transition"><i class="bi bi-printer"></i> Print</button> <button onclick="resetAbsensi()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -717,6 +717,19 @@
     <div class="flex gap-2"><button id="confirm-yes" class="flex-1 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition text-sm">Ya, Hapus</button> <button onclick="closeModal('modal-confirm')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
     </div>
    </div>
+  </div><!-- Confirm Password Modal (khusus tombol Reset) -->
+  <div id="modal-confirm-password" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-confirm-password')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm p-6 fade-in text-center">
+    <div class="w-12 h-12 bg-red-100 dark:bg-red-950 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4"><i class="bi bi-shield-lock text-xl"></i>
+    </div>
+    <h3 id="confirm-pw-title" class="text-lg font-bold text-gray-800 dark:text-white mb-2">Reset Data?</h3>
+    <p id="confirm-pw-text" class="text-sm text-gray-500 dark:text-gray-400 mb-4">Tindakan ini tidak dapat dibatalkan.</p>
+    <input id="confirm-pw-input" type="password" placeholder="Masukkan password login" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm mb-2">
+    <p id="confirm-pw-error" class="hidden text-xs text-red-500 mb-2">Password salah, coba lagi.</p>
+    <div class="flex gap-2"><button id="confirm-pw-yes" class="flex-1 py-2 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition text-sm">Ya, Reset</button> <button onclick="closeModal('modal-confirm-password')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+    </div>
+   </div>
   </div><!-- Kelas Modal -->
   <div id="modal-kelas" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
    <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-kelas')"></div>
@@ -885,18 +898,18 @@
     <h3 id="modal-nilai-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Nilai</h3>
     <form id="form-nilai" class="space-y-3"><input type="hidden" id="nilai-id">
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="nilai-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="nilai-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput();updateNilaiNSLInput()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
      </div>
      <div class="grid grid-cols-2 gap-3">
       <div>
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label><select id="nilai-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="handleNilaiKelasChange()"></select>
       </div>
       <div>
-       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">NSL <span class="text-gray-400 font-normal">(Nilai Semester Lalu)</span></label><input id="nilai-nsl" type="number" min="0" max="100" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" title="Hanya patokan, tidak mempengaruhi Nilai Akhir">
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">NSL <span class="text-gray-400 font-normal">(Nilai Semester Lalu)</span></label><input id="nilai-nsl" type="number" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 outline-none text-sm font-semibold cursor-not-allowed" title="Otomatis dari Nilai Akhir semester sebelumnya. Hanya patokan, tidak mempengaruhi Nilai Akhir">
       </div>
      </div>
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Siswa</label><select id="nilai-nama" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput()"></select>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Siswa</label><select id="nilai-nama" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput();updateNilaiNSLInput()"></select>
      </div>
      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
       <div>
@@ -1407,12 +1420,14 @@ function doLogout() {
 
 // ===================== RESET ALL & PROMOTION METHODS =====================
 function resetAllPraktikum() {
-    showConfirm('Reset Semua Praktikum', 'Apakah Anda yakin ingin me-reset SEMUA nilai praktikum siswa ke 0 pada semester yang sedang aktif? Tindakan ini akan mengatur ulang nilai pada 20 sesi praktikum untuk seluruh siswa.', () => {
+    showConfirmPassword('Reset Semua Praktikum', 'Reset semua nilai praktikum siswa ke 0 pada semester dan Tahun Ajaran yang aktif? Tindakan ini akan mengatur ulang nilai pada 20 sesi praktikum. Masukkan password untuk konfirmasi.', () => {
         const praktikum = getData('praktikum');
         const sem = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
+        const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+        const siswaKeySet = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.nama + '||' + s.kelas));
 
         const updated = praktikum.map(p => {
-            if ((p.semester || 'Ganjil') === sem) {
+            if ((p.semester || 'Ganjil') === sem && siswaKeySet.has(p.nama + '||' + p.kelas)) {
                 return { ...p, nilai: 0, grade: 'E', status: 'supreme', scores: Array(20).fill(0) };
             }
             return p;
@@ -1425,12 +1440,13 @@ function resetAllPraktikum() {
 }
 
 function resetAllNilai() {
-    showConfirm('Reset Semua Nilai', 'Apakah Anda yakin ingin me-reset SEMUA komponen nilai (Tugas, UH, Quiz, UAS) siswa ke 0 untuk semester ini? Nilai akhir (NA) & Grade akan disesuaikan otomatis.', () => {
+    showConfirmPassword('Reset Semua Nilai', 'Reset semua komponen nilai (Tugas, UH, Quiz, UAS) siswa ke 0 untuk semester dan Tahun Ajaran yang aktif? Nilai akhir (NA) & Grade akan disesuaikan otomatis. Masukkan password untuk konfirmasi.', () => {
         const nilai = getData('nilai');
         const sem = document.getElementById('filter-semester-nilai')?.value || 'Ganjil';
+        const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
         
         const updated = nilai.map(n => {
-            if ((n.semester || 'Ganjil') === sem) {
+            if ((n.semester || 'Ganjil') === sem && (n.tahun || tahun) === tahun) {
                 const pScore = n.praktikum || 0; // retain inherited praktikum scores
                 const na = calcNA(0, 0, 0, pScore, 0);
                 return {
@@ -2355,15 +2371,17 @@ function resetAnakWali() { showConfirm('Reset Anak Wali', 'Hapus seluruh data an
 function exportAnakWali() { exportXLSX(getData('anak_wali').map(s => ({ 'No. Absen': s.absen || '', 'Nama Lengkap': s.nama, Panggilan: s.panggilan, Kelas: s.kelas, Catatan: s.catatan || '' })), 'Anak_Wali'); }
 function importAnakWali(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { const wb = XLSX.read(ev.target.result, { type: 'binary' }); const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); const data = getData('anak_wali'); rows.forEach(r => { const nama = r['Nama Lengkap'] || r.Nama || r.nama || ''; const s = getData('siswa').find(x => x.nama === nama); if (s && !data.some(x => x.siswaId === s.id)) data.push({ id: genId(), siswaId: s.id, absen: s.absen, nama: s.nama, panggilan: s.panggilan, kelas: s.kelas, catatan: r.Catatan || '' }); }); setData('anak_wali', data); renderAnakWali(); showToast('Data Anak Wali berhasil diimport!'); } catch { showToast('Gagal memproses file import!', 'error'); } }; reader.readAsBinaryString(file); e.target.value = ''; }
 document.getElementById('form-anak-wali').addEventListener('submit', function(e) { e.preventDefault(); const data = getData('anak_wali'); const selected = [...document.querySelectorAll('input[name="anak-wali-siswa-item"]:checked')].map(input => input.value); const students = getData('siswa'); let added = 0; selected.forEach(id => { const s = students.find(x => x.id === id); if (s && !data.some(x => x.siswaId === s.id)) { data.push({ id: genId(), siswaId: s.id, absen: s.absen, nama: s.nama, panggilan: s.panggilan, kelas: s.kelas, catatan: '' }); added++; } }); setData('anak_wali', data); closeModal('modal-anak-wali'); document.querySelector('#form-anak-wali button[type="submit"]')?.classList.add('hidden'); renderAnakWali(); showToast(added ? `${added} data Anak Wali berhasil ditambahkan!` : 'Pilih minimal satu siswa terlebih dahulu.', added ? 'success' : 'info'); });
-function resetAbsensi() { showConfirm('Reset Absensi', 'Hapus seluruh data absensi pada semester dan filter saat ini?', () => { const sem = document.getElementById('filter-semester-absensi')?.value || 'Ganjil'; const data = getData('absensi').filter(a => (a.semester || 'Ganjil') !== sem); setData('absensi', data); renderAbsensi(); refreshDashboard(); showToast('Data Absensi pada semester ini berhasil di-reset!'); }); }
+function resetAbsensi() { showConfirmPassword('Reset Absensi', 'Hapus seluruh data absensi pada semester dan Tahun Ajaran yang aktif? Masukkan password untuk konfirmasi.', () => { const sem = document.getElementById('filter-semester-absensi')?.value || 'Ganjil'; const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027'; const siswaKeySet = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.nama + '||' + s.kelas)); const data = getData('absensi').filter(a => !((a.semester || 'Ganjil') === sem && siswaKeySet.has(a.nama + '||' + a.kelas))); setData('absensi', data); renderAbsensi(); refreshDashboard(); showToast('Data Absensi pada semester & Tahun Ajaran ini berhasil di-reset!'); }); }
 function resetJurnal() { showConfirm('Reset Jurnal', 'Hapus seluruh data jurnal mengajar?', () => { setData('jurnal', []); renderJurnal(); refreshDashboard(); showToast('Data Jurnal berhasil di-reset!'); }); }
 function openKeaktifanModal() { showToast('Status keaktifan dikelola langsung pada tabel siswa.', 'info'); }
 function resetKeaktifan() {
-    showConfirm('Reset Keaktifan', 'Hapus seluruh catatan keaktifan pada semester yang sedang aktif?', () => {
+    showConfirmPassword('Reset Keaktifan', 'Hapus seluruh catatan keaktifan pada semester dan Tahun Ajaran yang aktif? Masukkan password untuk konfirmasi.', () => {
         const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
-        setData('keaktifan', getData('keaktifan').filter(x => (x.semester || 'Ganjil') !== sem));
+        const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+        const siswaIdSet = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.id));
+        setData('keaktifan', getData('keaktifan').filter(x => !((x.semester || 'Ganjil') === sem && siswaIdSet.has(x.siswaId))));
         renderKeaktifan();
-        showToast('Data Keaktifan berhasil di-reset!');
+        showToast('Data Keaktifan pada semester & Tahun Ajaran ini berhasil di-reset!');
     });
 }
 function exportKeaktifan() { const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil'; exportXLSX(getData('siswa').map(s => { const a = getData('keaktifan').find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || {}; return { Semester: sem, Kelas: s.kelas, Nama: s.nama, Status: a.status || 'supreme', Point: a.point ?? 0 }; }), 'Keaktifan_Siswa'); }
@@ -3106,6 +3124,35 @@ function showConfirm(title, text, callback, confirmLabel = 'Ya, Hapus') {
     document.getElementById('modal-confirm').classList.remove('hidden');
 }
 
+// Konfirmasi khusus untuk tombol Reset - wajib masukkan password login yang sama
+function showConfirmPassword(title, text, callback) {
+    document.getElementById('confirm-pw-title').textContent = title;
+    document.getElementById('confirm-pw-text').textContent = text;
+    document.getElementById('confirm-pw-input').value = '';
+    document.getElementById('confirm-pw-error').classList.add('hidden');
+    const btn = document.getElementById('confirm-pw-yes');
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', async () => {
+        const pw = document.getElementById('confirm-pw-input').value;
+        const creds = getCreds();
+        let isMatch = false;
+        if (creds.is_hashed) {
+            const inputHash = await hashPassword(pw);
+            isMatch = inputHash === creds.password;
+        } else {
+            isMatch = pw === creds.password;
+        }
+        if (isMatch) {
+            closeModal('modal-confirm-password');
+            callback();
+        } else {
+            document.getElementById('confirm-pw-error').classList.remove('hidden');
+        }
+    });
+    document.getElementById('modal-confirm-password').classList.remove('hidden');
+}
+
 function deleteSiswa(id) {
     showConfirm('Hapus Siswa', 'Apakah Anda yakin ingin menghapus data siswa ini?', () => {
         const data = getData('siswa').filter(x => x.id !== id);
@@ -3496,6 +3543,7 @@ function importNilai(e) {
             rows.forEach(r => {
                 const kelas = r['Kelas'] || r.kelas || '';
                 const nama = r['Nama'] || r.nama || '';
+                const tahun = r['Tahun Ajaran'] || r.tahun || (localStorage.getItem('default_tahun_ajaran') || '2026/2027');
                 const nsl = (r['NSL'] !== undefined && r['NSL'] !== '') ? parseFloat(r['NSL']) : null;
                 const tugas = parseFloat(r['Tugas'] || r.tugas || 0);
                 const uh = parseFloat(r['UH'] || r.uh || 0);
@@ -3508,9 +3556,10 @@ function importNilai(e) {
                 const grade = getGrade(parseFloat(na));
 
                 if (kelas && nama) {
-                    const existsIdx = data.findIndex(n => n.kelas === kelas && n.nama === nama && (n.semester || 'Ganjil') === semester);
+                    const existsIdx = data.findIndex(n => n.kelas === kelas && n.nama === nama && n.tahun === tahun && (n.semester || 'Ganjil') === semester);
                     const obj = {
                         semester,
+                        tahun,
                         kelas,
                         nama,
                         nsl,
@@ -3736,6 +3785,45 @@ function exportAbsensi() {
     exportXLSX(data, 'Absensi');
 }
 
+function printAbsensi() {
+    const sem = document.getElementById('filter-semester-absensi')?.value || 'Ganjil';
+    const kelas = document.getElementById('filter-kelas-absensi')?.value || '';
+    const tgl = document.getElementById('filter-tgl-absensi')?.value || '';
+    if (!kelas) {
+        showToast('Pilih Kelas di filter terlebih dahulu sebelum mencetak.', 'error');
+        return;
+    }
+    let data = getData('absensi').filter(a => (a.semester || 'Ganjil') === sem && a.kelas === kelas);
+    if (tgl) data = data.filter(a => a.tanggal === tgl);
+    if (!data.length) {
+        showToast('Tidak ada data absensi untuk dicetak.', 'error');
+        return;
+    }
+
+    const siswaList = getData('siswa');
+    data = [...data].sort((a, b) => {
+        if (a.tanggal !== b.tanggal) return (a.tanggal || '').localeCompare(b.tanggal || '');
+        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
+        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+        return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
+    });
+
+    const rows = data.map(a => {
+        const s = siswaList.find(x => x.nama === a.nama && x.kelas === a.kelas);
+        return `<tr><td>${a.tanggal}</td><td>${s?.absen || '-'}</td><td>${a.nama}</td><td>${a.status}</td></tr>`;
+    }).join('');
+
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+        showToast('Jendela cetak tidak dapat dibuka.', 'error');
+        return;
+    }
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Absensi ${kelas}</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Absensi Siswa - ${kelas}</h1><p>Semester ${sem}${tgl ? ' &bull; Tanggal ' + tgl : ''}</p><table><thead><tr><th>Tanggal</th><th>No. Absen</th><th>Nama</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+}
+
 // ===================== NILAI CRUD =====================
 function calcNA(t, uh, q, p, uas) { return (t * 0.3 + uh * 0.1 + q * 0.1 + p * 0.2 + uas * 0.3).toFixed(1); }
 function getGrade(na) { if (na >= 90) return 'A'; if (na >= 80) return 'B'; if (na >= 70) return 'C'; if (na >= 60) return 'D'; return 'E'; }
@@ -3762,6 +3850,28 @@ function updateNilaiQuizInput() {
     if (qInput) qInput.value = qScore;
 }
 
+function updateNilaiNSLInput() {
+    const sem = document.getElementById('nilai-semester').value;
+    const kelas = document.getElementById('nilai-kelas').value;
+    const nama = document.getElementById('nilai-nama').value;
+    const siswaRecord = getData('siswa').find(s => s.nama === nama && s.kelas === kelas);
+    const tahun = siswaRecord ? siswaRecord.tahun : (localStorage.getItem('default_tahun_ajaran') || '2026/2027');
+    const nilai = getData('nilai');
+    let nslValue = null;
+    if (sem === 'Genap') {
+        const ganjilRecord = nilai.find(n => n.nama === nama && n.tahun === tahun && (n.semester || 'Ganjil') === 'Ganjil');
+        nslValue = ganjilRecord ? parseFloat(ganjilRecord.na) : null;
+    } else {
+        const prevTahun = getAdjacentTahunAjaran(tahun, -1);
+        if (prevTahun) {
+            const genapRecordPrev = nilai.find(n => n.nama === nama && n.tahun === prevTahun && (n.semester || 'Ganjil') === 'Genap');
+            nslValue = genapRecordPrev ? parseFloat(genapRecordPrev.na) : null;
+        }
+    }
+    const nslInput = document.getElementById('nilai-nsl');
+    if (nslInput) nslInput.value = nslValue ?? '';
+}
+
 function handleNilaiKelasChange() {
     const selectedKelas = document.getElementById('nilai-kelas').value;
     const siswa = getData('siswa').filter(s => s.kelas === selectedKelas);
@@ -3771,11 +3881,13 @@ function handleNilaiKelasChange() {
         selectNama.innerHTML = '<option value="">-- Tidak ada siswa di kelas ini --</option>';
         if (document.getElementById('nilai-praktikum')) document.getElementById('nilai-praktikum').value = 0;
         if (document.getElementById('nilai-quiz')) document.getElementById('nilai-quiz').value = 0;
+        if (document.getElementById('nilai-nsl')) document.getElementById('nilai-nsl').value = '';
         return;
     }
     selectNama.innerHTML = siswa.map(s => `<option value="${s.nama}">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</option>`).join('');
     updateNilaiPraktikumInput();
     updateNilaiQuizInput();
+    updateNilaiNSLInput();
 }
 
 function openNilaiModal(id) {
@@ -3842,6 +3954,16 @@ function deleteNilai(id) {
     });
 }
 
+// Mencari Tahun Ajaran sebelum/sesudah tahun tertentu berdasarkan daftar di menu Tahun Ajaran
+function getAdjacentTahunAjaran(currentTahun, direction) {
+    const list = [...new Set(getData('tahun_ajaran').map(t => t.nama).filter(Boolean))];
+    list.sort((a, b) => (parseInt(a) || 0) - (parseInt(b) || 0));
+    const idx = list.indexOf(currentTahun);
+    if (idx === -1) return null;
+    const targetIdx = idx + direction;
+    return (targetIdx >= 0 && targetIdx < list.length) ? list[targetIdx] : null;
+}
+
 function syncNilai() {
     const siswa = getData('siswa');
     let nilai = getData('nilai');
@@ -3882,7 +4004,12 @@ function syncNilai() {
     });
     nilai = deduped;
 
-    siswa.forEach(s => {
+    // Hanya proses siswa pada Tahun Ajaran yang sedang aktif (default), supaya data nilai tahun-tahun
+    // sebelumnya tidak ikut ter-generate ulang - namun tetap tersimpan untuk keperluan NSL
+    const currentTahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const prevTahun = getAdjacentTahunAjaran(currentTahun, -1);
+
+    siswa.filter(s => s.tahun === currentTahun).forEach(s => {
         // Find corresponding praktikum score
         const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
         const pScore = pRecord ? (pRecord.nilai || 0) : 0;
@@ -3891,11 +4018,23 @@ function syncNilai() {
         const kRecord = keaktifan.find(k => k.siswaId === s.id && (k.semester || 'Ganjil') === sem);
         const qScore = kRecord ? (kRecord.point || 0) : 0;
 
-        const existsIdx = nilai.findIndex(n => n.nama === s.nama && n.kelas === s.kelas && (n.semester || 'Ganjil') === sem);
+        // NSL: Semester Genap -> NA Semester Ganjil tahun ajaran yang sama.
+        // Semester Ganjil -> NA Semester Genap tahun ajaran sebelumnya (kalau ada).
+        let nslValue = null;
+        if (sem === 'Genap') {
+            const ganjilRecord = nilai.find(n => n.nama === s.nama && n.tahun === currentTahun && (n.semester || 'Ganjil') === 'Ganjil');
+            nslValue = ganjilRecord ? parseFloat(ganjilRecord.na) : null;
+        } else if (prevTahun) {
+            const genapRecordPrev = nilai.find(n => n.nama === s.nama && n.tahun === prevTahun && (n.semester || 'Ganjil') === 'Genap');
+            nslValue = genapRecordPrev ? parseFloat(genapRecordPrev.na) : null;
+        }
+
+        const existsIdx = nilai.findIndex(n => n.nama === s.nama && n.kelas === s.kelas && n.tahun === currentTahun && (n.semester || 'Ganjil') === sem);
         if (existsIdx > -1) {
-            if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore) {
+            if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore || nilai[existsIdx].nsl !== nslValue) {
                 nilai[existsIdx].praktikum = pScore;
                 nilai[existsIdx].quiz = qScore;
+                nilai[existsIdx].nsl = nslValue;
                 nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].uh, qScore, pScore, nilai[existsIdx].uas);
                 nilai[existsIdx].grade = getGrade(parseFloat(nilai[existsIdx].na));
                 changed = true;
@@ -3904,9 +4043,10 @@ function syncNilai() {
             nilai.push({
                 id: genId(),
                 semester: sem,
+                tahun: currentTahun,
                 kelas: s.kelas,
                 nama: s.nama,
-                nsl: null,
+                nsl: nslValue,
                 tugas: 0,
                 uh: 0,
                 quiz: qScore,
@@ -3981,7 +4121,7 @@ function renderNilai() {
 }
 
 function exportNilai() {
-    const data = getData('nilai').map(n => ({ Semester: n.semester || 'Ganjil', Kelas: n.kelas, Nama: n.nama, NSL: n.nsl ?? '', Tugas: n.tugas, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
+    const data = getData('nilai').map(n => ({ 'Tahun Ajaran': n.tahun || '', Semester: n.semester || 'Ganjil', Kelas: n.kelas, Nama: n.nama, NSL: n.nsl ?? '', Tugas: n.tugas, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
     exportXLSX(data, 'Nilai');
 }
 
@@ -4297,6 +4437,7 @@ function renderJurnal() {
             <td class="px-4 py-3">${j.mapel}</td>
             <td class="px-4 py-3 text-gray-800 dark:text-white max-w-[200px] truncate">${j.materi}${j.catatan ? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate" title="${j.catatan}"><i class="bi bi-sticky"></i> ${j.catatan}</div>` : ''}</td>
             <td class="px-4 py-3 text-center">
+                <button onclick="printJurnalSatu('${j.id}')" class="text-blue-500 hover:text-blue-700 mr-2" title="Print jurnal ini"><i class="bi bi-printer"></i></button>
                 <button onclick="openJurnalModal('${j.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button>
                 <button onclick="deleteJurnal('${j.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button>
             </td>
@@ -4314,6 +4455,31 @@ function renderJurnal() {
 function exportJurnal() {
     const data = getData('jurnal').map(j => ({ Tanggal: j.tanggal, Hari: j.hari, Jam: j.jam, Kelas: j.kelas, 'Mata Pelajaran': j.mapel, Materi: j.materi, 'Jml Hadir': j.hadir, Status: j.statusPembelajaran, Catatan: j.catatan }));
     exportXLSX(data, 'Jurnal_Mengajar');
+}
+
+function printJurnalSatu(id) {
+    const j = getData('jurnal').find(x => x.id === id);
+    if (!j) return;
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+        showToast('Jendela cetak tidak dapat dibuka.', 'error');
+        return;
+    }
+    const rows = [
+        ['Tanggal', j.tanggal || '-'],
+        ['Hari', j.hari || '-'],
+        ['Jam', j.jam || '-'],
+        ['Kelas', j.kelas || '-'],
+        ['Mata Pelajaran', j.mapel || '-'],
+        ['Materi', j.materi || '-'],
+        ['Jumlah Hadir', j.hadir ?? '-'],
+        ['Status Pembelajaran', j.statusPembelajaran || '-'],
+        ['Catatan', j.catatan || '-']
+    ].map(([label, val]) => `<tr><th>${label}</th><td>${val}</td></tr>`).join('');
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jurnal Mengajar - ${j.kelas}</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 18px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0;width:180px}@media print{body{padding:0}}</style></head><body><h1>Jurnal Mengajar</h1><table>${rows}</table></body></html>`);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
 }
 
 // ===================== EXPORT XLSX =====================
