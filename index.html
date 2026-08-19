@@ -2273,6 +2273,15 @@ function updateDateIndo() {
 }
 
 // ===================== NAVIGATION =====================
+// Otomatis pilih kelas pertama pada filter tertentu saat navigasi baru, supaya data tidak tercampur semua kelas
+function autoSelectFirstKelas(filterId, isNewNavigation) {
+    const kelasFilter = document.getElementById(filterId);
+    if (isNewNavigation && kelasFilter && !kelasFilter.value) {
+        const kelasList = [...new Set(getData('siswa').map(s => s.kelas))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+        if (kelasList.length) kelasFilter.value = kelasList[0];
+    }
+}
+
 function showPage(page) {
     const isNewNavigation = page !== currentPage;
     currentPage = page;
@@ -2293,15 +2302,14 @@ function showPage(page) {
     
     if (page === 'dashboard') refreshDashboard();
     if (page === 'siswa') {
-        const kelasFilter = document.getElementById('filter-kelas-siswa');
-        if (isNewNavigation && kelasFilter && !kelasFilter.value) {
-            const kelasList = [...new Set(getData('siswa').map(s => s.kelas))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-            if (kelasList.length) kelasFilter.value = kelasList[0];
-        }
+        autoSelectFirstKelas('filter-kelas-siswa', isNewNavigation);
         renderSiswa();
     }
     if (page === 'anak-wali') renderAnakWali();
-    if (page === 'keaktifan') renderKeaktifan();
+    if (page === 'keaktifan') {
+        autoSelectFirstKelas('filter-kelas-keaktifan', isNewNavigation);
+        renderKeaktifan();
+    }
     if (page === 'kelas') renderKelas();
     if (page === 'mapel') renderMapel();
     if (page === 'materi') renderMateri();
@@ -2324,8 +2332,14 @@ function showPage(page) {
         }
         renderAbsensi();
     }
-    if (page === 'nilai') { renderNilai(); }
-    if (page === 'praktikum') renderPraktikum();
+    if (page === 'nilai') {
+        autoSelectFirstKelas('filter-kelas-nilai', isNewNavigation);
+        renderNilai();
+    }
+    if (page === 'praktikum') {
+        autoSelectFirstKelas('filter-kelas-praktikum', isNewNavigation);
+        renderPraktikum();
+    }
     if (page === 'jurnal') { populateMapelSelects(); sortJurnalTerbaru(false); renderJurnal(); }
     if (page === 'tugas') renderTugas();
     if (page === 'tahun-ajaran') renderTahunAjaran();
@@ -4140,8 +4154,9 @@ function renderNilai() {
 }
 
 function exportNilai() {
-    const data = getData('nilai').map(n => ({ 'Tahun Ajaran': n.tahun || '', Semester: n.semester || 'Ganjil', Kelas: n.kelas, Nama: n.nama, NSL: n.nsl ?? '', Tugas: n.tugas, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
-    exportXLSX(data, 'Nilai');
+    const sem = document.getElementById('filter-semester-nilai')?.value || 'Ganjil';
+    const data = getData('nilai').filter(n => (n.semester || 'Ganjil') === sem).map(n => ({ 'Tahun Ajaran': n.tahun || '', Semester: n.semester || 'Ganjil', Kelas: n.kelas, Nama: n.nama, NSL: n.nsl ?? '', Tugas: n.tugas, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
+    exportXLSX(data, `Nilai_${sem}`);
 }
 
 // ===================== JADWAL CRUD =====================
