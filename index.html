@@ -116,9 +116,7 @@
        <div id="breadcrumb" class="text-sm text-gray-500 dark:text-gray-400"><span class="text-primary font-medium">Dashboard</span>
        </div>
       </div>
-      <div class="flex items-center gap-3">
-       <div class="relative"><input id="global-search" type="text" placeholder="Cari..." class="w-32 sm:w-48 px-3 py-1.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary">
-       </div><button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"> <i id="dark-icon" class="bi bi-moon text-gray-700 dark:text-white"></i> </button> <button onclick="showNotifications()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 relative"> <i class="bi bi-bell text-gray-700 dark:text-white"></i> <span id="notif-badge" class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center">3</span> </button>
+      <div class="flex items-center gap-3"><button onclick="toggleDarkMode()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"> <i id="dark-icon" class="bi bi-moon text-gray-700 dark:text-white"></i> </button> <button onclick="showNotifications()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 relative"> <i class="bi bi-bell text-gray-700 dark:text-white"></i> <span id="notif-badge" class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center">3</span> </button>
        <div class="flex items-center gap-2 cursor-pointer hover:opacity-80" onclick="openProfilModal()"><img data-template-id="admin-avatar" id="current-admin-avatar" class="canva-image w-8 h-8 rounded-full object-cover" loading="lazy" src="canva://MAHQlcELuS0/1" alt="WhatsApp style default avatar placeholder"> <span class="hidden sm:block text-sm font-medium text-gray-700 dark:text-white" id="current-admin-name">Pak Jupi</span>
        </div>
       </div>
@@ -2367,12 +2365,12 @@ function saveAnakWaliCatatan(id, status, catatan) { const data = getData('anak_w
 
 document.getElementById('form-anak-wali-edit').addEventListener('submit', function(e) { e.preventDefault(); const id = document.getElementById('anak-wali-edit-id').value; const item = getData('anak_wali').find(s => s.id === id); saveAnakWaliCatatan(id, item?.status || 'supreme', document.getElementById('anak-wali-edit-catatan').value); });
 function deleteAnakWali(id) { setData('anak_wali', getData('anak_wali').filter(s => s.id !== id)); renderAnakWali(); }
-function resetAnakWali() { showConfirm('Reset Anak Wali', 'Hapus seluruh data anak wali?', () => { setData('anak_wali', []); renderAnakWali(); showToast('Data Anak Wali berhasil di-reset!'); }); }
+function resetAnakWali() { showConfirmPassword('Reset Anak Wali', 'Hapus seluruh data anak wali? Masukkan password untuk konfirmasi.', () => { setData('anak_wali', []); renderAnakWali(); showToast('Data Anak Wali berhasil di-reset!'); }); }
 function exportAnakWali() { exportXLSX(getData('anak_wali').map(s => ({ 'No. Absen': s.absen || '', 'Nama Lengkap': s.nama, Panggilan: s.panggilan, Kelas: s.kelas, Catatan: s.catatan || '' })), 'Anak_Wali'); }
 function importAnakWali(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { const wb = XLSX.read(ev.target.result, { type: 'binary' }); const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); const data = getData('anak_wali'); rows.forEach(r => { const nama = r['Nama Lengkap'] || r.Nama || r.nama || ''; const s = getData('siswa').find(x => x.nama === nama); if (s && !data.some(x => x.siswaId === s.id)) data.push({ id: genId(), siswaId: s.id, absen: s.absen, nama: s.nama, panggilan: s.panggilan, kelas: s.kelas, catatan: r.Catatan || '' }); }); setData('anak_wali', data); renderAnakWali(); showToast('Data Anak Wali berhasil diimport!'); } catch { showToast('Gagal memproses file import!', 'error'); } }; reader.readAsBinaryString(file); e.target.value = ''; }
 document.getElementById('form-anak-wali').addEventListener('submit', function(e) { e.preventDefault(); const data = getData('anak_wali'); const selected = [...document.querySelectorAll('input[name="anak-wali-siswa-item"]:checked')].map(input => input.value); const students = getData('siswa'); let added = 0; selected.forEach(id => { const s = students.find(x => x.id === id); if (s && !data.some(x => x.siswaId === s.id)) { data.push({ id: genId(), siswaId: s.id, absen: s.absen, nama: s.nama, panggilan: s.panggilan, kelas: s.kelas, catatan: '' }); added++; } }); setData('anak_wali', data); closeModal('modal-anak-wali'); document.querySelector('#form-anak-wali button[type="submit"]')?.classList.add('hidden'); renderAnakWali(); showToast(added ? `${added} data Anak Wali berhasil ditambahkan!` : 'Pilih minimal satu siswa terlebih dahulu.', added ? 'success' : 'info'); });
 function resetAbsensi() { showConfirmPassword('Reset Absensi', 'Hapus seluruh data absensi pada semester dan Tahun Ajaran yang aktif? Masukkan password untuk konfirmasi.', () => { const sem = document.getElementById('filter-semester-absensi')?.value || 'Ganjil'; const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027'; const siswaKeySet = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.nama + '||' + s.kelas)); const data = getData('absensi').filter(a => !((a.semester || 'Ganjil') === sem && siswaKeySet.has(a.nama + '||' + a.kelas))); setData('absensi', data); renderAbsensi(); refreshDashboard(); showToast('Data Absensi pada semester & Tahun Ajaran ini berhasil di-reset!'); }); }
-function resetJurnal() { showConfirm('Reset Jurnal', 'Hapus seluruh data jurnal mengajar?', () => { setData('jurnal', []); renderJurnal(); refreshDashboard(); showToast('Data Jurnal berhasil di-reset!'); }); }
+function resetJurnal() { showConfirmPassword('Reset Jurnal', 'Hapus seluruh data jurnal mengajar? Masukkan password untuk konfirmasi.', () => { setData('jurnal', []); renderJurnal(); refreshDashboard(); showToast('Data Jurnal berhasil di-reset!'); }); }
 function openKeaktifanModal() { showToast('Status keaktifan dikelola langsung pada tabel siswa.', 'info'); }
 function resetKeaktifan() {
     showConfirmPassword('Reset Keaktifan', 'Hapus seluruh catatan keaktifan pada semester dan Tahun Ajaran yang aktif? Masukkan password untuk konfirmasi.', () => {
@@ -2570,7 +2568,7 @@ function openKelasModal() {
 }
 
 function resetKelas() {
-    showConfirm('Reset Data Kelas', 'Hapus seluruh data kelas dan siswa di dalamnya?', () => {
+    showConfirmPassword('Reset Data Kelas', 'Hapus seluruh data kelas dan siswa di dalamnya? Masukkan password untuk konfirmasi.', () => {
         setData('custom_kelas', []);
         setData('siswa', []);
         setData('absensi', getData('absensi').filter(a => false));
@@ -2583,7 +2581,7 @@ function resetKelas() {
 }
 
 function resetSiswa() {
-    showConfirm('Reset Data Siswa', 'Hapus seluruh data siswa?', () => {
+    showConfirmPassword('Reset Data Siswa', 'Hapus seluruh data siswa? Masukkan password untuk konfirmasi.', () => {
         setData('siswa', []); setData('anak_wali', []);
         renderSiswa(); populateKelasFilters(); refreshDashboard();
         showToast('Data siswa berhasil di-reset!');
@@ -2591,13 +2589,13 @@ function resetSiswa() {
 }
 
 function resetJadwal() {
-    showConfirm('Reset Jadwal Mengajar', 'Hapus seluruh jadwal mengajar?', () => {
+    showConfirmPassword('Reset Jadwal Mengajar', 'Hapus seluruh jadwal mengajar? Masukkan password untuk konfirmasi.', () => {
         setData('jadwal', []); renderJadwal(); showToast('Jadwal berhasil di-reset!');
     });
 }
 
 function resetJam() {
-    showConfirm('Reset Jam Mengajar', 'Hapus seluruh jam mengajar?', () => {
+    showConfirmPassword('Reset Jam Mengajar', 'Hapus seluruh jam mengajar? Masukkan password untuk konfirmasi.', () => {
         setData('jam', []); renderJam(); populateJamSelects(); showToast('Jam mengajar berhasil di-reset!');
     });
 }
@@ -2890,7 +2888,7 @@ function deleteMateri(id) {
     });
 }
 function resetMateri() {
-    showConfirm('Reset Materi Pembelajaran', 'Hapus seluruh data materi pembelajaran?', () => {
+    showConfirmPassword('Reset Materi Pembelajaran', 'Hapus seluruh data materi pembelajaran? Masukkan password untuk konfirmasi.', () => {
         setData('materi', []);
         renderMateri();
         showToast('Data Materi Pembelajaran berhasil di-reset!');
@@ -2981,7 +2979,7 @@ function importTugas(e) {
     reader.readAsBinaryString(file); e.target.value = '';
 }
 function resetTugas() {
-    showConfirm('Reset Tugas', 'Hapus seluruh data tugas siswa?', () => { setData('tugas', []); renderTugas(); showToast('Data tugas berhasil di-reset!'); });
+    showConfirmPassword('Reset Tugas', 'Hapus seluruh data tugas siswa? Masukkan password untuk konfirmasi.', () => { setData('tugas', []); renderTugas(); showToast('Data tugas berhasil di-reset!'); });
 }
 document.getElementById('form-tugas').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -3850,7 +3848,7 @@ function updateNilaiQuizInput() {
     if (qInput) qInput.value = qScore;
 }
 
-function updateNilaiNSLInput() {
+function updateNilaiNSLInput(manualFallback) {
     const sem = document.getElementById('nilai-semester').value;
     const kelas = document.getElementById('nilai-kelas').value;
     const nama = document.getElementById('nilai-nama').value;
@@ -3869,7 +3867,23 @@ function updateNilaiNSLInput() {
         }
     }
     const nslInput = document.getElementById('nilai-nsl');
-    if (nslInput) nslInput.value = nslValue ?? '';
+    if (!nslInput) return nslValue;
+    if (nslValue !== null) {
+        // Ada data NA semester sebelumnya -> otomatis & readonly
+        nslInput.value = nslValue;
+        nslInput.readOnly = true;
+        nslInput.title = 'Otomatis dari Nilai Akhir semester sebelumnya. Hanya patokan, tidak mempengaruhi Nilai Akhir';
+        nslInput.classList.add('bg-gray-100', 'dark:bg-gray-600', 'text-gray-500', 'dark:text-gray-400', 'cursor-not-allowed');
+        nslInput.classList.remove('bg-white', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-white');
+    } else {
+        // Belum ada data pembanding -> boleh diisi manual
+        nslInput.value = manualFallback ?? '';
+        nslInput.readOnly = false;
+        nslInput.title = 'Data semester lalu belum tersedia. Boleh diisi manual sebagai patokan (tidak mempengaruhi Nilai Akhir)';
+        nslInput.classList.remove('bg-gray-100', 'dark:bg-gray-600', 'text-gray-500', 'dark:text-gray-400', 'cursor-not-allowed');
+        nslInput.classList.add('bg-white', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-white');
+    }
+    return nslValue;
 }
 
 function handleNilaiKelasChange() {
@@ -3920,7 +3934,7 @@ function openNilaiModal(id) {
             }
             namaSelect.value = n.nama;
 
-            document.getElementById('nilai-nsl').value = n.nsl ?? '';
+            updateNilaiNSLInput(n.nsl);
             document.getElementById('nilai-tugas').value = n.tugas;
             document.getElementById('nilai-uh').value = n.uh;
             document.getElementById('nilai-quiz').value = n.quiz;
@@ -3972,13 +3986,18 @@ function syncNilai() {
     const sem = document.getElementById('filter-semester-nilai') ? document.getElementById('filter-semester-nilai').value : 'Ganjil';
     let changed = false;
 
+    // Tahun Ajaran yang sedang aktif (default) - dipakai juga untuk migrasi data lama yang belum punya field tahun
+    const currentTahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const prevTahun = getAdjacentTahunAjaran(currentTahun, -1);
+
     // Hapus data nilai yatim (sisa siswa yang sudah dihapus/berganti nama sebelum nama+kelas-nya tersinkron)
     const siswaKeySet = new Set(siswa.map(s => s.nama + '||' + s.kelas));
     const beforeCount = nilai.length;
     nilai = nilai.filter(n => siswaKeySet.has(n.nama + '||' + n.kelas));
     if (nilai.length !== beforeCount) changed = true;
 
-    // Gabungkan data ganda (sisa dari saat nilai masih terpisah per Mata Pelajaran) jadi satu per siswa per semester
+    // Gabungkan data ganda (sisa dari saat nilai masih terpisah per Mata Pelajaran, atau sisa dari data lama
+    // yang belum punya field tahun) jadi satu per siswa per semester per Tahun Ajaran
     const groups = {};
     nilai.forEach(n => {
         const k = n.nama + '||' + n.kelas + '||' + (n.semester || 'Ganjil');
@@ -3986,6 +4005,7 @@ function syncNilai() {
     });
     const deduped = [];
     Object.values(groups).forEach(group => {
+        const tahunFound = group.find(g => g.tahun)?.tahun || currentTahun;
         if (group.length > 1) {
             changed = true;
             const maxField = f => Math.max(...group.map(g => Number(g[f]) || 0));
@@ -3993,21 +4013,18 @@ function syncNilai() {
             deduped.push({
                 ...group[0],
                 semester: group[0].semester || 'Ganjil',
+                tahun: tahunFound,
                 tugas: maxField('tugas'),
                 uh: maxField('uh'),
                 uas: maxField('uas'),
                 nsl: nslFound ?? null
             });
         } else {
-            deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil' });
+            if (!group[0].tahun) changed = true;
+            deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil', tahun: tahunFound });
         }
     });
     nilai = deduped;
-
-    // Hanya proses siswa pada Tahun Ajaran yang sedang aktif (default), supaya data nilai tahun-tahun
-    // sebelumnya tidak ikut ter-generate ulang - namun tetap tersimpan untuk keperluan NSL
-    const currentTahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
-    const prevTahun = getAdjacentTahunAjaran(currentTahun, -1);
 
     siswa.filter(s => s.tahun === currentTahun).forEach(s => {
         // Find corresponding praktikum score
@@ -4031,10 +4048,12 @@ function syncNilai() {
 
         const existsIdx = nilai.findIndex(n => n.nama === s.nama && n.kelas === s.kelas && n.tahun === currentTahun && (n.semester || 'Ganjil') === sem);
         if (existsIdx > -1) {
-            if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore || nilai[existsIdx].nsl !== nslValue) {
+            // NSL hanya ditimpa kalau ada data otomatis (nslValue !== null); kalau tidak, biarkan nilai manual yang tersimpan
+            const nextNsl = nslValue !== null ? nslValue : nilai[existsIdx].nsl;
+            if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore || nilai[existsIdx].nsl !== nextNsl) {
                 nilai[existsIdx].praktikum = pScore;
                 nilai[existsIdx].quiz = qScore;
-                nilai[existsIdx].nsl = nslValue;
+                nilai[existsIdx].nsl = nextNsl;
                 nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].uh, qScore, pScore, nilai[existsIdx].uas);
                 nilai[existsIdx].grade = getGrade(parseFloat(nilai[existsIdx].na));
                 changed = true;
@@ -4558,14 +4577,6 @@ document.addEventListener('click', function(e) {
     if (!panel.classList.contains('hidden') && !e.target.closest('#notif-panel') && !e.target.closest('[onclick="showNotifications()"]')) {
         panel.classList.add('hidden');
     }
-});
-
-// ===================== GLOBAL SEARCH =====================
-document.getElementById('global-search').addEventListener('input', function(e) {
-    const q = e.target.value.toLowerCase();
-    if (!q) return;
-    const siswa = getData('siswa').filter(s => s.nama.toLowerCase().includes(q));
-    if (siswa.length) { showPage('siswa'); document.getElementById('search-siswa').value = q; renderSiswa(); }
 });
 
 // ===================== INIT =====================
