@@ -2759,7 +2759,7 @@ function populateKelasFilters() {
     const siswa = getData('siswa');
     const customKelas = getData('custom_kelas');
     const kelas = [...new Set([...siswa.map(s => s.kelas), ...customKelas])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-    ['filter-kelas-siswa', 'filter-kelas-absensi', 'filter-kelas-nilai', 'filter-kelas-jurnal', 'filter-kelas-jadwal', 'filter-kelas-praktikum'].forEach(id => {
+    ['filter-kelas-siswa', 'filter-kelas-absensi', 'filter-kelas-nilai', 'filter-kelas-jurnal', 'filter-kelas-jadwal', 'filter-kelas-praktikum', 'filter-kelas-keaktifan'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         const val = el.value;
@@ -3812,17 +3812,17 @@ function printAbsensi() {
         return;
     }
 
-    const siswaList = getData('siswa');
-    data = [...data].sort((a, b) => {
-        if (a.tanggal !== b.tanggal) return (a.tanggal || '').localeCompare(b.tanggal || '');
-        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
-        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
-        return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
-    });
+    const siswaList = getData('siswa').filter(s => s.kelas === kelas).sort((a, b) => (parseInt(a.absen) || 999) - (parseInt(b.absen) || 999));
+    const uniqueDates = [...new Set(data.map(a => a.tanggal))].sort();
+    const statusAbbr = { Hadir: 'H', Sakit: 'S', Izin: 'I', Dispen: 'D', Alpa: 'A' };
 
-    const rows = data.map(a => {
-        const s = siswaList.find(x => x.nama === a.nama && x.kelas === a.kelas);
-        return `<tr><td>${a.tanggal}</td><td>${s?.absen || '-'}</td><td>${a.nama}</td><td>${a.status}</td></tr>`;
+    const headerCols = uniqueDates.map(d => `<th>${(d || '').slice(8, 10)}/${(d || '').slice(5, 7)}</th>`).join('');
+    const rows = siswaList.map(s => {
+        const cells = uniqueDates.map(d => {
+            const rec = data.find(a => a.nama === s.nama && a.kelas === s.kelas && a.tanggal === d);
+            return `<td>${rec ? (statusAbbr[rec.status] || rec.status[0]) : '-'}</td>`;
+        }).join('');
+        return `<tr><td>${s.absen || '-'}</td><td class="nama-col">${s.nama}</td>${cells}</tr>`;
     }).join('');
 
     const printWindow = window.open('', '_blank');
@@ -3830,7 +3830,7 @@ function printAbsensi() {
         showToast('Jendela cetak tidak dapat dibuka.', 'error');
         return;
     }
-    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Absensi ${kelas}</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Absensi Siswa - ${kelas}</h1><p>Semester ${sem}${tgl ? ' &bull; Tanggal ' + tgl : ''}</p><table><thead><tr><th>Tanggal</th><th>No. Absen</th><th>Nama</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Absensi ${kelas}</title><style>@page{size:landscape;margin:12mm}body{font-family:Arial,sans-serif;color:#111;font-size:10px}h1{margin:0 0 2px;font-size:16px}p{margin:0 0 10px;color:#555;font-size:11px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:3px 4px;text-align:center}th{background:#e2e8f0}.nama-col{text-align:left;white-space:nowrap}.legend{margin-top:10px;font-size:10px;color:#555}@media print{body{padding:0}}</style></head><body><h1>Rekap Absensi Siswa - ${kelas}</h1><p>Semester ${sem}${tgl ? ' &bull; Tanggal ' + tgl : ''}</p><table><thead><tr><th>No</th><th class="nama-col">Nama</th>${headerCols}</tr></thead><tbody>${rows}</tbody></table><div class="legend">Keterangan: H = Hadir, S = Sakit, I = Izin, D = Dispen, A = Alpa</div></body></html>`);
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
@@ -4232,14 +4232,28 @@ function exportJadwal() {
 }
 
 function printJadwal() {
-    const jadwalPage = document.getElementById('page-jadwal');
-    if (!jadwalPage) return;
+    let data = getData('jadwal');
+    const sem = document.getElementById('filter-semester-jadwal').value;
+    const hari = document.getElementById('filter-hari-jadwal').value;
+    const kelas = document.getElementById('filter-kelas-jadwal').value;
+    data = data.filter(j => (j.semester || 'Ganjil') === sem);
+    if (hari) data = data.filter(j => j.hari === hari);
+    if (kelas) data = data.filter(j => j.kelas === kelas);
+    const dayOrder = { 'Senin': 1, 'Selasa': 2, 'Rabu': 3, 'Kamis': 4, 'Jumat': 5, 'Sabtu': 6, 'Minggu': 7 };
+    data = [...data].sort((a, b) => (dayOrder[a.hari] || 9) - (dayOrder[b.hari] || 9));
+
+    if (!data.length) {
+        showToast('Tidak ada data jadwal untuk dicetak.', 'error');
+        return;
+    }
+
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
         showToast('Jendela cetak tidak dapat dibuka.', 'error');
         return;
     }
-    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jadwal Mengajar</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 18px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Jadwal Mengajar</h1>${jadwalPage.querySelector('table')?.outerHTML || '<p>Belum ada jadwal.</p>'}</body></html>`);
+    const rows = data.map(j => `<tr><td>${j.hari}</td><td>${j.jam}</td><td>${j.kelas}</td></tr>`).join('');
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jadwal Mengajar</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Jadwal Mengajar</h1><p>Semester ${sem}</p><table><thead><tr><th>Hari</th><th>Jam</th><th>Kelas</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
