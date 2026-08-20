@@ -3814,13 +3814,12 @@ function printAbsensi() {
 
     const siswaList = getData('siswa').filter(s => s.kelas === kelas).sort((a, b) => (parseInt(a.absen) || 999) - (parseInt(b.absen) || 999));
     const uniqueDates = [...new Set(data.map(a => a.tanggal))].sort();
-    const statusAbbr = { Hadir: 'H', Sakit: 'S', Izin: 'I', Dispen: 'D', Alpa: 'A' };
 
     const headerCols = uniqueDates.map(d => `<th>${(d || '').slice(8, 10)}/${(d || '').slice(5, 7)}</th>`).join('');
     const rows = siswaList.map(s => {
         const cells = uniqueDates.map(d => {
             const rec = data.find(a => a.nama === s.nama && a.kelas === s.kelas && a.tanggal === d);
-            return `<td>${rec ? (statusAbbr[rec.status] || rec.status[0]) : '-'}</td>`;
+            return `<td>${rec ? rec.status : '-'}</td>`;
         }).join('');
         return `<tr><td>${s.absen || '-'}</td><td class="nama-col">${s.nama}</td>${cells}</tr>`;
     }).join('');
@@ -3830,7 +3829,7 @@ function printAbsensi() {
         showToast('Jendela cetak tidak dapat dibuka.', 'error');
         return;
     }
-    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Absensi ${kelas}</title><style>@page{size:landscape;margin:12mm}body{font-family:Arial,sans-serif;color:#111;font-size:10px}h1{margin:0 0 2px;font-size:16px}p{margin:0 0 10px;color:#555;font-size:11px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:3px 4px;text-align:center}th{background:#e2e8f0}.nama-col{text-align:left;white-space:nowrap}.legend{margin-top:10px;font-size:10px;color:#555}@media print{body{padding:0}}</style></head><body><h1>Rekap Absensi Siswa - ${kelas}</h1><p>Semester ${sem}${tgl ? ' &bull; Tanggal ' + tgl : ''}</p><table><thead><tr><th>No</th><th class="nama-col">Nama</th>${headerCols}</tr></thead><tbody>${rows}</tbody></table><div class="legend">Keterangan: H = Hadir, S = Sakit, I = Izin, D = Dispen, A = Alpa</div></body></html>`);
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Absensi ${kelas}</title><style>@page{size:landscape;margin:12mm}body{font-family:Arial,sans-serif;color:#111;font-size:10px}h1{margin:0 0 2px;font-size:16px}p{margin:0 0 10px;color:#555;font-size:11px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:3px 4px;text-align:center}th{background:#e2e8f0}.nama-col{text-align:left;white-space:nowrap}@media print{body{padding:0}}</style></head><body><h1>Rekap Absensi Siswa - ${kelas}</h1><p>Semester ${sem}${tgl ? ' &bull; Tanggal ' + tgl : ''}</p><table><thead><tr><th>No</th><th class="nama-col">Nama</th>${headerCols}</tr></thead><tbody>${rows}</tbody></table></body></html>`);
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
