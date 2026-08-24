@@ -604,7 +604,7 @@
    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in">
     <h3 id="modal-tugas-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Tugas Siswa</h3>
     <form id="form-tugas" class="space-y-3"><input type="hidden" id="tugas-id">
-     <div><label for="tugas-nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Tugas</label><input id="tugas-nama" type="text" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary" placeholder="Contoh: Proyek Algoritma">
+     <div><label for="tugas-nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Tugas</label><input id="tugas-nama" type="text" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary" placeholder="Contoh: Tugas Pemrograman Web">
      </div>
      <div><label for="tugas-kelas" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label><select id="tugas-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary"></select>
      </div>
@@ -645,7 +645,7 @@
    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in">
     <h3 id="modal-ulangan-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Ulangan Harian</h3>
     <form id="form-ulangan" class="space-y-3"><input type="hidden" id="ulangan-id">
-     <div><label for="ulangan-nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Ulangan</label><input id="ulangan-nama" type="text" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary" placeholder="Contoh: Ulangan Harian Bab 2">
+     <div><label for="ulangan-nama" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Ulangan</label><input id="ulangan-nama" type="text" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary" placeholder="Contoh: Ulangan Harian Pemrograman Web">
      </div>
      <div><label for="ulangan-kelas" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label><select id="ulangan-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary"></select>
      </div>
@@ -2692,7 +2692,7 @@ function exportKelas() {
         if (!kelasMap[s.kelas]) kelasMap[s.kelas] = [];
         kelasMap[s.kelas].push(s);
     });
-    const classes = [...new Set([...Object.keys(kelasMap), ...customKelas])].sort();
+    const classes = [...new Set([...Object.keys(kelasMap), ...customKelas])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     
     const data = classes.map(k => ({
         'Nama Kelas': k,
@@ -3002,7 +3002,7 @@ function openTugasModal(id) {
     document.getElementById('modal-tugas-title').textContent = id ? 'Edit Tugas Siswa' : 'Tambah Tugas Siswa';
     populateKelasSelects();
     const select = document.getElementById('tugas-kelas');
-    const classes = [...new Set([...getData('siswa').map(s => s.kelas), ...getData('custom_kelas')])].sort();
+    const classes = [...new Set([...getData('siswa').map(s => s.kelas), ...getData('custom_kelas')])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     select.innerHTML = classes.map(k => `<option value="${k}">${k}</option>`).join('');
     if (id) {
         const task = getData('tugas').find(t => t.id === id);
@@ -3101,7 +3101,7 @@ function openUlanganModal(id) {
     document.getElementById('modal-ulangan-title').textContent = id ? 'Edit Ulangan Harian' : 'Tambah Ulangan Harian';
     populateKelasSelects();
     const select = document.getElementById('ulangan-kelas');
-    const classes = [...new Set([...getData('siswa').map(s => s.kelas), ...getData('custom_kelas')])].sort();
+    const classes = [...new Set([...getData('siswa').map(s => s.kelas), ...getData('custom_kelas')])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     select.innerHTML = classes.map(k => `<option value="${k}">${k}</option>`).join('');
     if (id) {
         const task = getData('ulangan_harian').find(t => t.id === id);
