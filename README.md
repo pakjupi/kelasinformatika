@@ -1,1 +1,1 @@
-# kelasinformatika
+# kelas-informatika
