@@ -124,7 +124,7 @@
       </div>
      </div>
     </header><!-- Page Content -->
-    <main class="flex-1 p-4 sm:p-6 overflow-y-auto"><!-- Dashboard Page -->
+    <main class="flex-1 min-w-0 p-4 sm:p-6 overflow-y-auto"><!-- Dashboard Page -->
      <div id="page-dashboard" class="page-content fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <div>
@@ -368,6 +368,7 @@
         <table class="w-full text-sm">
          <thead class="bg-gray-50 dark:bg-gray-700/50">
           <tr>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 w-14">No.</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Materi Pembelajaran</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 w-24">Aksi</th>
           </tr>
@@ -878,6 +879,9 @@
      </div>
      <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="materi-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Urutan Materi <span class="text-gray-400 font-normal">(1, 2, 3, dst)</span></label> <input id="materi-urutan" type="number" min="1" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" placeholder="Contoh: 1">
      </div>
      <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Materi Pembelajaran</label> <input id="materi-nama" type="text" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" placeholder="Contoh: Berpikir Komputasional">
@@ -1551,7 +1555,7 @@ const PAGE_SIZE_SISWA = 40;
 const PAGE_SIZE_ABSENSI = 40;
 const PAGE_SIZE_PRAKTIKUM = 40;
 const PAGE_SIZE_NILAI = 40;
-const PAGE_SIZE_JURNAL = 40;
+const PAGE_SIZE_JURNAL = 10;
 const PAGE_SIZE_ANAK_WALI = 20;
 
 // Default Mapel data helper
@@ -2109,6 +2113,7 @@ function initApp() {
             const obj = {
                 kelas: document.getElementById('materi-kelas').value,
                 semester: document.getElementById('materi-semester').value,
+                urutan: parseInt(document.getElementById('materi-urutan').value) || 0,
                 nama: document.getElementById('materi-nama').value.trim()
             };
             if (id) {
@@ -2951,6 +2956,8 @@ function renderMateri() {
         const orderA = classOrder[a.kelas] || 99;
         const orderB = classOrder[b.kelas] || 99;
         if (orderA !== orderB) return orderA - orderB;
+        const uA = a.urutan || 999, uB = b.urutan || 999;
+        if (uA !== uB) return uA - uB;
         return a.nama.localeCompare(b.nama);
     });
 
@@ -2958,7 +2965,7 @@ function renderMateri() {
     if (!tbody) return;
 
     if (!data.length) {
-        tbody.innerHTML = '<tr><td colspan="2" class="px-4 py-8 text-center text-gray-400">Belum ada materi pembelajaran. Klik tombol Tambah Materi.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="3" class="px-4 py-8 text-center text-gray-400">Belum ada materi pembelajaran. Klik tombol Tambah Materi.</td></tr>';
         return;
     }
 
@@ -2972,12 +2979,13 @@ function renderMateri() {
                             'bg-purple-50/70 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300';
             html += `
                 <tr class="${bgClass} font-bold border-t border-b border-gray-100 dark:border-gray-700/50">
-                    <td colspan="2" class="px-4 py-2.5 text-xs uppercase tracking-wider">${currentGroup}</td>
+                    <td colspan="3" class="px-4 py-2.5 text-xs uppercase tracking-wider">${currentGroup}</td>
                 </tr>
             `;
         }
         html += `
             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400 font-semibold w-14">${m.urutan || '-'}</td>
                 <td class="px-4 py-3 text-gray-800 dark:text-white font-medium pl-6">${m.nama}</td>
                 <td class="px-4 py-3 text-center">
                     <button onclick="openMateriModal('${m.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button>
@@ -2999,12 +3007,25 @@ function openMateriModal(id) {
             document.getElementById('materi-id').value = m.id;
             document.getElementById('materi-kelas').value = m.kelas;
             document.getElementById('materi-semester').value = m.semester || 'Ganjil';
+            document.getElementById('materi-urutan').value = m.urutan || '';
             document.getElementById('materi-nama').value = m.nama;
         }
     } else {
-        document.getElementById('materi-semester').value = document.getElementById('filter-semester-materi')?.value || 'Ganjil';
+        const kelas = document.getElementById('materi-kelas').value;
+        const sem = document.getElementById('filter-semester-materi')?.value || 'Ganjil';
+        document.getElementById('materi-semester').value = sem;
+        updateMateriUrutanSuggestion();
+        document.getElementById('materi-kelas').onchange = updateMateriUrutanSuggestion;
+        document.getElementById('materi-semester').onchange = updateMateriUrutanSuggestion;
     }
     document.getElementById('modal-materi').classList.remove('hidden');
+}
+function updateMateriUrutanSuggestion() {
+    const kelas = document.getElementById('materi-kelas').value;
+    const sem = document.getElementById('materi-semester').value;
+    const existing = getData('materi').filter(m => m.kelas === kelas && (m.semester || 'Ganjil') === sem);
+    const maxUrutan = existing.reduce((max, m) => Math.max(max, m.urutan || 0), 0);
+    document.getElementById('materi-urutan').value = maxUrutan + 1;
 }
 
 function deleteMateri(id) {
@@ -3589,7 +3610,7 @@ function importSiswa(e) {
 }
 
 function exportMateri() {
-    const data = getData('materi').map(m => ({ 'Jenjang Kelas': m.kelas, 'Materi Pembelajaran': m.nama }));
+    const data = getData('materi').map(m => ({ 'Jenjang Kelas': m.kelas, Semester: m.semester || 'Ganjil', Urutan: m.urutan || '', 'Materi Pembelajaran': m.nama }));
     exportXLSX(data, 'Materi_Pembelajaran');
 }
 
@@ -3604,9 +3625,11 @@ function importMateri(e) {
             let addedCount = 0;
             rows.forEach(r => {
                 const kelas = r['Jenjang Kelas'] || r.kelas || r.Kelas || '';
+                const semester = r['Semester'] || r.semester || 'Ganjil';
+                const urutan = parseInt(r['Urutan'] || r.urutan) || 0;
                 const nama = r['Materi Pembelajaran'] || r['Nama Materi'] || r.nama || '';
                 if (kelas && nama) {
-                    data.push({ id: genId(), kelas: kelas, nama: nama });
+                    data.push({ id: genId(), kelas: kelas, semester: semester, urutan: urutan, nama: nama });
                     addedCount++;
                 }
             });
