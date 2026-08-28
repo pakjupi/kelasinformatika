@@ -46,6 +46,74 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         .dark ::-webkit-scrollbar-thumb { background: #475569; }
         .table-container { overflow-x: auto; }
+        /* Stabilkan ukuran grafik dashboard agar tidak berubah-ubah saat data realtime masuk. */
+        #chart-siswa, #chart-kehadiran { display: block; width: 100% !important; height: 280px !important; max-height: 280px; }
+        .dashboard-chart-box { position: relative; height: 320px; min-height: 320px; }
+
+        /* Mobile action rail: keep Edit/Delete reachable without dragging the table to the far right. */
+        .mobile-action-cell {
+            position: sticky !important;
+            right: 0 !important;
+            z-index: 20;
+            min-width: 112px;
+            width: 112px;
+            white-space: nowrap;
+            border-left: 1px solid #e5e7eb;
+        }
+        .mobile-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            min-width: 42px;
+            min-height: 42px;
+            padding: 0.5rem;
+            border-radius: 0.65rem;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .mobile-action-label { display: none; }
+        @media (max-width: 768px) {
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+            .mobile-action-cell {
+                min-width: 118px;
+                width: 118px;
+                padding-left: 0.35rem !important;
+                padding-right: 0.35rem !important;
+                background-clip: padding-box;
+                box-shadow: -8px 0 12px -8px rgba(15,23,42,.28) !important;
+            }
+            .mobile-action-btn {
+                min-width: 50px;
+                min-height: 46px;
+                padding: 0.45rem 0.55rem;
+                margin: 0 !important;
+                flex-direction: column;
+                line-height: 1;
+            }
+            .mobile-action-btn i { font-size: 1.05rem; }
+            .mobile-action-label {
+                display: block;
+                font-size: 9px;
+                font-weight: 700;
+                line-height: 1;
+                margin-top: 2px;
+            }
+            .mobile-action-header {
+                position: sticky !important;
+                right: 0;
+                z-index: 30;
+                min-width: 118px;
+                width: 118px;
+                background: rgb(249 250 251) !important;
+                box-shadow: -8px 0 12px -8px rgba(15,23,42,.22);
+            }
+            .dark .mobile-action-header { background: rgb(55 65 81) !important; }
+        }
         .mobile-filter-bar { width: 100%; }
         .mobile-filter-bar select,
         .mobile-filter-bar input { min-height: 44px; touch-action: manipulation; }
@@ -95,14 +163,307 @@
             .table-container td.sticky button i {
                 font-size: 1.1rem;
             }
+            /* Mobile action rail: keep Edit/Hapus reachable without needing to drag
+               the wide table all the way to its far-right edge. */
+            .mobile-action-header,
+            .mobile-action-cell {
+                position: sticky !important;
+                right: 0 !important;
+                z-index: 30;
+                width: 174px !important;
+                min-width: 174px !important;
+                max-width: 174px !important;
+                background-clip: padding-box;
+            }
+            .mobile-action-cell {
+                z-index: 25;
+                padding: 6px !important;
+            }
+            .mobile-action-cell .mobile-action-btn {
+                width: 50px !important;
+                min-width: 50px !important;
+                height: 46px !important;
+                min-height: 46px !important;
+                padding: 4px 2px !important;
+                margin: 0 2px !important;
+                display: inline-flex !important;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 1px;
+                border-radius: 10px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .mobile-action-cell .mobile-action-btn i {
+                font-size: 1.15rem !important;
+                line-height: 1;
+            }
+            .mobile-action-cell .mobile-action-label {
+                display: inline !important;
+                font-size: 9px;
+                line-height: 1;
+                font-weight: 600;
+            }
             #page-jurnal .table-container table,
             #page-praktikum .table-container table,
             #page-keaktifan .table-container table,
             #page-nilai .table-container table {
                 min-width: 760px;
             }
+
+            /* Jurnal: Mapel is available in the form, but not needed in the
+               compact mobile list, giving the action rail more visual priority. */
+            #page-jurnal .table-container th:nth-child(5),
+            #page-jurnal .table-container td:nth-child(5) {
+                display: none;
+            }
         }
         @media (max-width: 768px) { .sidebar { transform: translateX(-100%); position: fixed; z-index: 50; } .sidebar.open { transform: translateX(0); } }
+        @media (max-width: 768px) {
+            .table-container {
+                position: relative;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior-x: contain;
+            }
+            .table-container .mobile-action-header,
+            .table-container .mobile-action-cell {
+                position: sticky !important;
+                right: 0 !important;
+                z-index: 40;
+                box-shadow: -8px 0 14px -8px rgba(15, 23, 42, 0.35) !important;
+            }
+            .table-container .mobile-action-header { z-index: 50; }
+            #page-jurnal .table-container table { min-width: 690px; }
+            #page-praktikum .table-container table,
+            #page-keaktifan .table-container table { min-width: 650px; }
+            #page-nilai .table-container table { min-width: 760px; }
+        }
+    
+        /* Mobile tables: use responsive cards instead of forcing horizontal table scrolling. */
+        @media (max-width: 768px) {
+            #page-jurnal .table-container,
+            #page-praktikum .table-container,
+            #page-keaktifan .table-container,
+            #page-nilai .table-container {
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                width: 100%;
+            }
+
+            #page-jurnal .table-container table,
+            #page-praktikum .table-container table,
+            #page-keaktifan .table-container table,
+            #page-nilai .table-container table {
+                min-width: 0 !important;
+                width: 100% !important;
+                display: block;
+            }
+
+            #page-jurnal .table-container thead,
+            #page-praktikum .table-container thead,
+            #page-keaktifan .table-container thead,
+            #page-nilai .table-container thead {
+                display: none !important;
+            }
+
+            #page-jurnal .table-container tbody,
+            #page-praktikum .table-container tbody,
+            #page-keaktifan .table-container tbody,
+            #page-nilai .table-container tbody {
+                display: block;
+                width: 100%;
+            }
+
+            #page-jurnal .table-container tbody tr,
+            #page-praktikum .table-container tbody tr,
+            #page-keaktifan .table-container tbody tr,
+            #page-nilai .table-container tbody tr {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) 92px;
+                width: 100%;
+                box-sizing: border-box;
+                position: relative;
+                margin: 0;
+                padding: 8px 0;
+                border-bottom: 1px solid #e5e7eb;
+                background: #fff;
+            }
+
+            .dark #page-jurnal .table-container tbody tr,
+            .dark #page-praktikum .table-container tbody tr,
+            .dark #page-keaktifan .table-container tbody tr,
+            .dark #page-nilai .table-container tbody tr {
+                background: rgb(31 41 55);
+                border-bottom-color: rgb(55 65 81);
+            }
+
+            #page-jurnal .table-container tbody td,
+            #page-praktikum .table-container tbody td,
+            #page-keaktifan .table-container tbody td,
+            #page-nilai .table-container tbody td {
+                display: flex !important;
+                align-items: center;
+                min-width: 0 !important;
+                width: auto !important;
+                padding: 8px 10px !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                border: 0 !important;
+                position: static !important;
+                box-shadow: none !important;
+                background: transparent !important;
+            }
+
+            #page-jurnal .table-container tbody td:not(.mobile-action-cell),
+            #page-praktikum .table-container tbody td:not(.mobile-action-cell),
+            #page-keaktifan .table-container tbody td:not(.mobile-action-cell),
+            #page-nilai .table-container tbody td:not(.mobile-action-cell) {
+                grid-column: 1;
+            }
+
+            #page-jurnal .table-container tbody td.mobile-action-cell,
+            #page-praktikum .table-container tbody td.mobile-action-cell,
+            #page-keaktifan .table-container tbody td.mobile-action-cell,
+            #page-nilai .table-container tbody td.mobile-action-cell {
+                grid-column: 2 !important;
+                grid-row: 1 / -1 !important;
+                align-self: center;
+                justify-content: center;
+                align-items: center;
+                gap: 6px;
+                padding: 8px 4px !important;
+                width: 92px !important;
+                min-width: 92px !important;
+                max-width: 92px !important;
+                border-left: 1px solid #e5e7eb !important;
+                background: rgba(255,255,255,.96) !important;
+                box-shadow: -6px 0 12px -10px rgba(15,23,42,.5) !important;
+                z-index: 5;
+            }
+
+            .dark #page-jurnal .table-container tbody td.mobile-action-cell,
+            .dark #page-praktikum .table-container tbody td.mobile-action-cell,
+            .dark #page-keaktifan .table-container tbody td.mobile-action-cell,
+            .dark #page-nilai .table-container tbody td.mobile-action-cell {
+                background: rgba(31,41,55,.97) !important;
+                border-left-color: rgb(75 85 99) !important;
+            }
+
+            #page-jurnal .table-container tbody td.mobile-action-cell .mobile-action-btn,
+            #page-praktikum .table-container tbody td.mobile-action-cell .mobile-action-btn,
+            #page-keaktifan .table-container tbody td.mobile-action-cell .mobile-action-btn,
+            #page-nilai .table-container tbody td.mobile-action-cell .mobile-action-btn {
+                flex: 0 0 40px;
+                width: 40px !important;
+                min-width: 40px !important;
+                height: 44px !important;
+                min-height: 44px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                display: inline-flex !important;
+                flex-direction: row !important;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            #page-jurnal .table-container tbody td.mobile-action-cell .mobile-action-btn i,
+            #page-praktikum .table-container tbody td.mobile-action-cell .mobile-action-btn i,
+            #page-keaktifan .table-container tbody td.mobile-action-cell .mobile-action-btn i,
+            #page-nilai .table-container tbody td.mobile-action-cell .mobile-action-btn i {
+                font-size: 1.25rem !important;
+                line-height: 1;
+            }
+
+            .mobile-action-label { display: none !important; }
+
+            /* Compact information labels. */
+            #page-jurnal .table-container tbody td:nth-child(1)::before { content: 'Tanggal'; }
+            #page-jurnal .table-container tbody td:nth-child(2)::before { content: 'Hari'; }
+            #page-jurnal .table-container tbody td:nth-child(3)::before { content: 'Jam'; }
+            #page-jurnal .table-container tbody td:nth-child(4)::before { content: 'Kelas'; }
+            #page-jurnal .table-container tbody td:nth-child(6)::before { content: 'Materi'; }
+
+            #page-praktikum .table-container tbody td:nth-child(1)::before { content: 'Status'; }
+            #page-praktikum .table-container tbody td:nth-child(2)::before { content: 'Kelas'; }
+            #page-praktikum .table-container tbody td:nth-child(3)::before { content: 'Siswa'; }
+            #page-praktikum .table-container tbody td:nth-child(4)::before { content: 'Nilai'; }
+            #page-praktikum .table-container tbody td:nth-child(5)::before { content: 'Grade'; }
+
+            #page-keaktifan .table-container tbody td:nth-child(1)::before { content: 'Status'; }
+            #page-keaktifan .table-container tbody td:nth-child(2)::before { content: 'Kelas'; }
+            #page-keaktifan .table-container tbody td:nth-child(3)::before { content: 'Siswa'; }
+            #page-keaktifan .table-container tbody td:nth-child(4)::before { content: 'Point'; }
+
+            #page-nilai .table-container tbody td:nth-child(1)::before { content: 'Kelas'; }
+            #page-nilai .table-container tbody td:nth-child(2)::before { content: 'Siswa'; }
+            #page-nilai .table-container tbody td:nth-child(3)::before { content: 'NSL'; }
+            #page-nilai .table-container tbody td:nth-child(4)::before { content: 'Tugas'; }
+            #page-nilai .table-container tbody td:nth-child(5)::before { content: 'UH'; }
+            #page-nilai .table-container tbody td:nth-child(6)::before { content: 'Quiz'; }
+            #page-nilai .table-container tbody td:nth-child(7)::before { content: 'Praktikum'; }
+            #page-nilai .table-container tbody td:nth-child(8)::before { content: 'UAS'; }
+            #page-nilai .table-container tbody td:nth-child(9)::before { content: 'NA'; }
+            #page-nilai .table-container tbody td:nth-child(10)::before { content: 'Grade'; }
+
+            #page-jurnal .table-container tbody td:not(.mobile-action-cell)::before,
+            #page-praktikum .table-container tbody td:not(.mobile-action-cell)::before,
+            #page-keaktifan .table-container tbody td:not(.mobile-action-cell)::before,
+            #page-nilai .table-container tbody td:not(.mobile-action-cell)::before {
+                flex: 0 0 76px;
+                width: 76px;
+                margin-right: 8px;
+                color: #64748b;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+            }
+
+            .dark #page-jurnal .table-container tbody td:not(.mobile-action-cell)::before,
+            .dark #page-praktikum .table-container tbody td:not(.mobile-action-cell)::before,
+            .dark #page-keaktifan .table-container tbody td:not(.mobile-action-cell)::before,
+            .dark #page-nilai .table-container tbody td:not(.mobile-action-cell)::before {
+                color: #94a3b8;
+            }
+
+            /* Jurnal Mapel is intentionally omitted on mobile. */
+            #page-jurnal .table-container tbody td:nth-child(5) { display: none !important; }
+
+            /* Keep the main identity fields visually prominent. */
+            #page-jurnal .table-container tbody td:nth-child(6),
+            #page-praktikum .table-container tbody td:nth-child(3),
+            #page-keaktifan .table-container tbody td:nth-child(3),
+            #page-nilai .table-container tbody td:nth-child(2) {
+                font-weight: 600;
+            }
+
+            /* Empty-state rows must remain a normal full-width message. */
+            #page-jurnal .table-container tbody tr:has(td[colspan]),
+            #page-praktikum .table-container tbody tr:has(td[colspan]),
+            #page-keaktifan .table-container tbody tr:has(td[colspan]),
+            #page-nilai .table-container tbody tr:has(td[colspan]) {
+                display: block !important;
+                padding: 8px;
+            }
+            #page-jurnal .table-container tbody tr:has(td[colspan]) td,
+            #page-praktikum .table-container tbody tr:has(td[colspan]) td,
+            #page-keaktifan .table-container tbody tr:has(td[colspan]) td,
+            #page-nilai .table-container tbody tr:has(td[colspan]) td {
+                display: block !important;
+                width: 100% !important;
+                text-align: center;
+            }
+            #page-jurnal .table-container tbody tr:has(td[colspan]) td::before,
+            #page-praktikum .table-container tbody tr:has(td[colspan]) td::before,
+            #page-keaktifan .table-container tbody tr:has(td[colspan]) td::before,
+            #page-nilai .table-container tbody tr:has(td[colspan]) td::before { display:none !important; }
+        }
     </style>
   <script src="/_sdk/0e8d3a91e1c6f495.data_sdk.js" type="text/javascript" integrity="sha512-c00oDoGjsMgluCLLEyVl3suwEkgjOGGplVFbsilUoBg4aMKNmsL3mwsc9r0dPn95qiSZyjBousQXgROkAW7p/w=="></script>
   <script src="/_sdk/04cc6185e046f597.resizing_sdk.js" type="text/javascript" integrity="sha512-CiE/G92aQF0nxneFg1kdOvXih8sQ1Z2a2QI3+r/WvzJwQqH6+IyB3iL07OkJmpm3ABAaf07+FnqWny98f5sR6w=="></script>
@@ -252,11 +613,11 @@
        </div>
       </div><!-- Charts -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-       <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+       <div class="dashboard-chart-box bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
         <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Jumlah Kehadiran Siswa per Kelas</h3>
         <canvas id="chart-siswa"></canvas>
        </div>
-       <div class="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
+       <div class="dashboard-chart-box bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
         <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Deadline Tugas Terdekat</h3>
         <div id="dashboard-tugas-terdekat" class="space-y-3"></div>
        </div>
@@ -350,7 +711,7 @@
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">UAS</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">NA</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Grade</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
           </tr>
          </thead>
          <tbody id="nilai-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -380,7 +741,7 @@
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Nama Siswa</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Nilai Akhir</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Grade</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
           </tr>
          </thead>
          <tbody id="praktikum-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -516,7 +877,7 @@
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Kelas</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Mapel</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Materi</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
           </tr>
          </thead>
          <tbody id="jurnal-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -583,7 +944,7 @@
            <th class="px-4 py-3 text-left">Kelas</th>
            <th class="px-4 py-3 text-left">Nama Siswa</th>
            <th class="px-4 py-3 text-left">Point</th>
-           <th class="px-4 py-3 text-center sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
+           <th class="px-4 py-3 text-center sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
           </tr>
          </thead>
          <tbody id="keaktifan-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -1316,19 +1677,46 @@ const firebaseConfig = {
 
 // Dengarkan perubahan data secara real-time dari perangkat lain
 let refreshTimer = null;
+function refreshCurrentPageData() {
+    // Refresh data tanpa menjalankan showPage(), sehingga menu yang sedang dibuka
+    // tidak ditutup/dihilangkan dan posisi scroll/filter pengguna tidak ikut terganggu.
+    switch (currentPage) {
+        case 'dashboard': refreshDashboard(); break;
+        case 'siswa': renderSiswa(); break;
+        case 'anak-wali': renderAnakWali(); break;
+        case 'keaktifan': renderKeaktifan(); break;
+        case 'kelas': renderKelas(); break;
+        case 'mapel': renderMapel(); break;
+        case 'materi': renderMateri(); break;
+        case 'jam': renderJam(); break;
+        case 'jadwal': renderJadwal(); break;
+        case 'absensi': renderAbsensi(); break;
+        case 'nilai': renderNilai(); break;
+        case 'praktikum': renderPraktikum(); break;
+        case 'jurnal': renderJurnal(); break;
+        case 'tugas': renderTugas(); break;
+        case 'ulangan': renderUlangan(); break;
+        case 'tahun-ajaran': renderTahunAjaran(); break;
+    }
+}
+
 function scheduleUIRefresh() {
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(() => {
         const appPage = document.getElementById('app-page');
-        if (appPage && !appPage.classList.contains('hidden')) {
-            // Jangan timpa tampilan saat user sedang menyeleksi/copy teks (mis. kolom Catatan Jurnal)
-            if (window.getSelection && window.getSelection().toString().length > 0) {
-                refreshTimer = setTimeout(scheduleUIRefresh, 1000);
-                return;
-            }
-            showPage(currentPage);
+        if (!appPage || appPage.classList.contains('hidden')) return;
+
+        // Jangan melakukan render ketika pengguna sedang memilih/copy teks.
+        if (window.getSelection && window.getSelection().toString().length > 0) {
+            scheduleUIRefresh();
+            return;
         }
-    }, 400);
+
+        // Jangan pernah memanggil showPage() dari sinkronisasi realtime.
+        // Ini mencegah menu terakhir terlihat "menghilang"/berkedip saat pengguna
+        // sedang berpindah menu atau menyentuh tabel.
+        refreshCurrentPageData();
+    }, 1000);
 }
 
 function startRealtimeSync() {
@@ -1777,9 +2165,9 @@ function renderPraktikum() {
                 <td class="px-4 py-3 font-medium text-gray-800 dark:text-white">${displayName}</td>
                 <td class="px-4 py-3 text-center font-bold text-gray-800 dark:text-white">${p.nilai}</td>
                 <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">${p.grade}</span></td>
-                <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">
-                    <button onclick="openPraktikumModal('${p.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button>
-                    <button onclick="deletePraktikum('${p.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button>
+                <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell">
+                    <button onclick="openPraktikumModal('${p.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button>
+                    <button onclick="deletePraktikum('${p.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button>
                 </td>
             </tr>
         `;
@@ -2589,7 +2977,7 @@ function renderKeaktifan() {
     const paged = filtered.slice((keaktifanPage - 1) * 40, keaktifanPage * 40);
     const tbody = document.getElementById('keaktifan-tbody');
     if (!tbody) return;
-    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = a.status === 'excellent' ? '#10B981' : a.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${a.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]"><button onclick="editKeaktifan('${s.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
+    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = a.status === 'excellent' ? '#10B981' : a.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${a.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell"><button onclick="editKeaktifan('${s.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
     document.getElementById('keaktifan-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Hal ${keaktifanPage}/${totalPages} (${filtered.length} data)</span><div class="flex gap-1"><button onclick="keaktifanPage=Math.max(1,keaktifanPage-1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Prev</button><button onclick="keaktifanPage=Math.min(${totalPages},keaktifanPage+1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Next</button></div>`;
 }
 function renderKeaktifanPointCircles(value = 0) {
@@ -3356,7 +3744,7 @@ function updateCharts() {
     chartSiswa = new Chart(document.getElementById('chart-siswa'), {
         type: 'bar',
         data: { labels: kelas, datasets: [{ label: 'Kehadiran', data: kelas.map(k => { const latestDate = absensi.filter(a => a.kelas === k).map(a => a.tanggal).filter(Boolean).sort().pop(); return latestDate ? absensi.filter(a => a.kelas === k && a.tanggal === latestDate && a.status === 'Hadir').length : 0; }), backgroundColor: '#2563EB', borderRadius: 8 }] },
-        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { color: textColor }, grid: { color: gridColor } }, x: { ticks: { color: textColor }, grid: { display: false } } } }
+        options: { responsive: true, maintainAspectRatio: false, animation: false, transitions: { active: { animation: { duration: 0 } } }, plugins: { legend: { display: false } }, scales: { y: { ticks: { color: textColor }, grid: { color: gridColor } }, x: { ticks: { color: textColor }, grid: { display: false } } } }
     });
 
     const total = absensi.length || 1;
@@ -3369,7 +3757,7 @@ function updateCharts() {
     chartKehadiran = new Chart(document.getElementById('chart-kehadiran'), {
         type: 'doughnut',
         data: { labels: ['Hadir', 'Sakit', 'Izin', 'Dispen', 'Alpa'], datasets: [{ data: [hadir, sakit, izin, dispen, alpa], backgroundColor: ['#10B981', '#F59E0B', '#3B82F6', '#8B5CF6', '#EF4444'], borderWidth: 0 }] },
-        options: { responsive: true, plugins: { legend: { labels: { color: textColor } } } }
+        options: { responsive: true, maintainAspectRatio: false, animation: false, transitions: { active: { animation: { duration: 0 } } }, plugins: { legend: { labels: { color: textColor } } } }
     });
 }
 
@@ -4459,9 +4847,9 @@ function renderNilai() {
             <td class="px-4 py-3 text-center">${n.uas}</td>
             <td class="px-4 py-3 text-center font-bold">${n.na}</td>
             <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${gradeColors[n.grade]}">${n.grade}</span></td>
-            <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">
-                <button onclick="openNilaiModal('${n.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button>
-                <button onclick="deleteNilai('${n.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button>
+            <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell">
+                <button onclick="openNilaiModal('${n.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button>
+                <button onclick="deleteNilai('${n.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button>
             </td>
         </tr>
     `}).join('') : '<tr><td colspan="11" class="px-4 py-8 text-center text-gray-400">Belum ada data nilai</td></tr>';
@@ -4806,10 +5194,10 @@ function renderJurnal() {
             <td class="px-4 py-3">${j.kelas}</td>
             <td class="px-4 py-3">${j.mapel}</td>
             <td class="px-4 py-3 text-gray-800 dark:text-white max-w-[200px]"><span class="block truncate">${j.materi}</span>${j.catatan ? `<button type="button" onclick="alert('Catatan:\\n\\n${j.catatan.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate w-full text-left hover:underline"><i class="bi bi-sticky"></i> ${j.catatan}</button>` : ''}</td>
-            <td class="px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">
-                <button onclick="printJurnalSatu('${j.id}')" class="text-blue-500 hover:text-blue-700 p-1.5 text-base" title="Print jurnal ini"><i class="bi bi-printer"></i></button>
-                <button onclick="openJurnalModal('${j.id}')" class="text-primary hover:text-blue-700 p-1.5 text-base" title="Edit jurnal ini"><i class="bi bi-pencil-square"></i></button>
-                <button onclick="deleteJurnal('${j.id}')" class="text-red-500 hover:text-red-700 p-1.5 text-base" title="Hapus jurnal ini"><i class="bi bi-trash"></i></button>
+            <td class="px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell">
+                <button onclick="printJurnalSatu('${j.id}')" class="mobile-action-btn text-blue-500 hover:text-blue-700" title="Print"><i class="bi bi-printer"></i></button>
+                <button onclick="openJurnalModal('${j.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button>
+                <button onclick="deleteJurnal('${j.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button>
             </td>
         </tr>
     `).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada jurnal</td></tr>';
