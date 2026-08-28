@@ -278,7 +278,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-nilai" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-nilai" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="">Semua Kelas</option> </select> <input id="search-nilai" type="text" placeholder="Cari nama..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderNilai()">
+       <div class="p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-nilai" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-nilai" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="">Semua Kelas</option> </select> <input id="search-nilai" type="text" placeholder="Cari nama..." class="col-span-2 sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderNilai()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -294,7 +294,7 @@
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">UAS</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">NA</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Grade</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Aksi</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
           </tr>
          </thead>
          <tbody id="nilai-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -313,7 +313,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()"> <select id="filter-status-praktikum" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select>
+       <div class="p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <select id="filter-status-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -324,7 +324,7 @@
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Nama Siswa</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Nilai Akhir</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Grade</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Aksi</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
           </tr>
          </thead>
          <tbody id="praktikum-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -429,7 +429,7 @@
           <tr>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Hari</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Jam</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300" title="Bentrok jam istirahat">Ket.</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300" title="Bentrok jam istirahat">Istirahat</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Kelas</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Jenjang Kelas</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Mata Pelajaran</th>
@@ -460,7 +460,7 @@
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Kelas</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Mapel</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Materi</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Aksi</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
           </tr>
          </thead>
          <tbody id="jurnal-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -517,7 +517,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()"> <select id="filter-status-keaktifan" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select>
+       <div class="p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <select id="filter-status-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -527,7 +527,7 @@
            <th class="px-4 py-3 text-left">Kelas</th>
            <th class="px-4 py-3 text-left">Nama Siswa</th>
            <th class="px-4 py-3 text-left">Point</th>
-           <th class="px-4 py-3 text-center">Aksi</th>
+           <th class="px-4 py-3 text-center sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">Aksi</th>
           </tr>
          </thead>
          <tbody id="keaktifan-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -1721,7 +1721,7 @@ function renderPraktikum() {
                 <td class="px-4 py-3 font-medium text-gray-800 dark:text-white">${displayName}</td>
                 <td class="px-4 py-3 text-center font-bold text-gray-800 dark:text-white">${p.nilai}</td>
                 <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">${p.grade}</span></td>
-                <td class="px-4 py-3 text-center">
+                <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">
                     <button onclick="openPraktikumModal('${p.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button>
                     <button onclick="deletePraktikum('${p.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button>
                 </td>
@@ -2533,7 +2533,7 @@ function renderKeaktifan() {
     const paged = filtered.slice((keaktifanPage - 1) * 40, keaktifanPage * 40);
     const tbody = document.getElementById('keaktifan-tbody');
     if (!tbody) return;
-    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = a.status === 'excellent' ? '#10B981' : a.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${a.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center"><button onclick="editKeaktifan('${s.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
+    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = a.status === 'excellent' ? '#10B981' : a.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${a.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]"><button onclick="editKeaktifan('${s.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
     document.getElementById('keaktifan-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Hal ${keaktifanPage}/${totalPages} (${filtered.length} data)</span><div class="flex gap-1"><button onclick="keaktifanPage=Math.max(1,keaktifanPage-1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Prev</button><button onclick="keaktifanPage=Math.min(${totalPages},keaktifanPage+1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Next</button></div>`;
 }
 function renderKeaktifanPointCircles(value = 0) {
@@ -4403,7 +4403,7 @@ function renderNilai() {
             <td class="px-4 py-3 text-center">${n.uas}</td>
             <td class="px-4 py-3 text-center font-bold">${n.na}</td>
             <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${gradeColors[n.grade]}">${n.grade}</span></td>
-            <td class="px-4 py-3 text-center">
+            <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">
                 <button onclick="openNilaiModal('${n.id}')" class="text-primary hover:text-blue-700 mr-2"><i class="bi bi-pencil-square"></i></button>
                 <button onclick="deleteNilai('${n.id}')" class="text-red-500 hover:text-red-700"><i class="bi bi-trash"></i></button>
             </td>
@@ -4519,7 +4519,7 @@ function printJadwal() {
         return;
     }
     const rows = data.map(j => `<tr><td>${j.hari}</td><td>${j.jam}</td><td>${j.kelas}</td><td>${isBentrokIstirahat(j.jam) ? '☕ Istirahat' : ''}</td></tr>`).join('');
-    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jadwal Mengajar</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Jadwal Mengajar</h1><p>Semester ${sem}</p><table><thead><tr><th>Hari</th><th>Jam</th><th>Kelas</th><th>Ket.</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jadwal Mengajar</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Jadwal Mengajar</h1><p>Semester ${sem}</p><table><thead><tr><th>Hari</th><th>Jam</th><th>Kelas</th><th>Istirahat</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
@@ -4750,7 +4750,7 @@ function renderJurnal() {
             <td class="px-4 py-3">${j.kelas}</td>
             <td class="px-4 py-3">${j.mapel}</td>
             <td class="px-4 py-3 text-gray-800 dark:text-white max-w-[200px]"><span class="block truncate">${j.materi}</span>${j.catatan ? `<button type="button" onclick="alert('Catatan:\\n\\n${j.catatan.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate w-full text-left hover:underline"><i class="bi bi-sticky"></i> ${j.catatan}</button>` : ''}</td>
-            <td class="px-4 py-3 text-center whitespace-nowrap">
+            <td class="px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)]">
                 <button onclick="printJurnalSatu('${j.id}')" class="text-blue-500 hover:text-blue-700 p-1.5 text-base" title="Print jurnal ini"><i class="bi bi-printer"></i></button>
                 <button onclick="openJurnalModal('${j.id}')" class="text-primary hover:text-blue-700 p-1.5 text-base" title="Edit jurnal ini"><i class="bi bi-pencil-square"></i></button>
                 <button onclick="deleteJurnal('${j.id}')" class="text-red-500 hover:text-red-700 p-1.5 text-base" title="Hapus jurnal ini"><i class="bi bi-trash"></i></button>
