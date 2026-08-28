@@ -4659,39 +4659,7 @@ function printAbsensi() {
         showToast('Jendela cetak tidak dapat dibuka.', 'error');
         return;
     }
-    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Absensi ${kelas}</title><style>@page{size:landscape;margin:12mm}body{font-family:Arial,sans-serif;color:#111;font-size:10px}h1{margin:0 0 2px;font-size:16px}p{margin:0 0 10px;color:#555;font-size:11px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:3px 4px;text-align:center}th{background:#e2e8f0}.nama-col{text-align:left;white-space:nowrap}@media print{body{padding:0}}</style></head><body><h1>Rekap Absensi Siswa - ${kelas}</h1><p>Semester ${sem}${tgl ? ' &bull; Tanggal ' + tgl : ''}</p><table><thead><tr><th>No</th><th class="nama-col">Nama</th>${headerCols}</tr></thead><tbody>${rows}</tbody></table><script>
-(function () {
-    function markMobileActionTables(root) {
-        const scope = root && root.querySelectorAll ? root : document;
-        scope.querySelectorAll('.table-container table').forEach(function (table) {
-            const headers = table.querySelectorAll('thead th');
-            if (!headers.length) return;
-            const lastHeader = headers[headers.length - 1];
-            if ((lastHeader.textContent || '').trim().toLowerCase() !== 'aksi') return;
-            table.setAttribute('data-mobile-actions', 'true');
-            lastHeader.classList.add('mobile-global-action-header');
-            table.querySelectorAll('tbody tr').forEach(function (row) {
-                const cells = row.children;
-                if (cells.length && !row.querySelector('td[colspan]')) {
-                    cells[cells.length - 1].classList.add('mobile-global-action-cell');
-                }
-            });
-        });
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        markMobileActionTables(document);
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                mutation.addedNodes.forEach(function (node) {
-                    if (node.nodeType === 1) markMobileActionTables(node);
-                });
-            });
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-    });
-})();
-</script>
-</body></html>`);
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Absensi ${kelas}</title><style>@page{size:landscape;margin:12mm}body{font-family:Arial,sans-serif;color:#111;font-size:10px}h1{margin:0 0 2px;font-size:16px}p{margin:0 0 10px;color:#555;font-size:11px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:3px 4px;text-align:center}th{background:#e2e8f0}.nama-col{text-align:left;white-space:nowrap}@media print{body{padding:0}}</style></head><body><h1>Rekap Absensi Siswa - ${kelas}</h1><p>Semester ${sem}${tgl ? ' &bull; Tanggal ' + tgl : ''}</p><table><thead><tr><th>No</th><th class="nama-col">Nama</th>${headerCols}</tr></thead><tbody>${rows}</tbody></table></body></html>`);
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
@@ -5115,39 +5083,7 @@ function printJadwal() {
         return;
     }
     const rows = data.map(j => `<tr><td>${j.hari}</td><td>${j.jam}</td><td>${j.kelas}</td><td>${isBentrokIstirahat(j.jam) ? '☕ Istirahat' : ''}</td></tr>`).join('');
-    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jadwal Mengajar</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Jadwal Mengajar</h1><p>Semester ${sem}</p><table><thead><tr><th>Hari</th><th>Jam</th><th>Kelas</th><th>Istirahat</th></tr></thead><tbody>${rows}</tbody></table><script>
-(function () {
-    function markMobileActionTables(root) {
-        const scope = root && root.querySelectorAll ? root : document;
-        scope.querySelectorAll('.table-container table').forEach(function (table) {
-            const headers = table.querySelectorAll('thead th');
-            if (!headers.length) return;
-            const lastHeader = headers[headers.length - 1];
-            if ((lastHeader.textContent || '').trim().toLowerCase() !== 'aksi') return;
-            table.setAttribute('data-mobile-actions', 'true');
-            lastHeader.classList.add('mobile-global-action-header');
-            table.querySelectorAll('tbody tr').forEach(function (row) {
-                const cells = row.children;
-                if (cells.length && !row.querySelector('td[colspan]')) {
-                    cells[cells.length - 1].classList.add('mobile-global-action-cell');
-                }
-            });
-        });
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        markMobileActionTables(document);
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                mutation.addedNodes.forEach(function (node) {
-                    if (node.nodeType === 1) markMobileActionTables(node);
-                });
-            });
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-    });
-})();
-</script>
-</body></html>`);
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jadwal Mengajar</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 4px}p{margin:0 0 18px;color:#555}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0}@media print{body{padding:0}}</style></head><body><h1>Jadwal Mengajar</h1><p>Semester ${sem}</p><table><thead><tr><th>Hari</th><th>Jam</th><th>Kelas</th><th>Istirahat</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
@@ -5418,39 +5354,7 @@ function printJurnalSatu(id) {
         ['Status Pembelajaran', j.statusPembelajaran || '-'],
         ['Catatan', j.catatan || '-']
     ].map(([label, val]) => `<tr><th>${label}</th><td>${val}</td></tr>`).join('');
-    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jurnal Mengajar - ${j.kelas}</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 18px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0;width:180px}@media print{body{padding:0}}</style></head><body><h1>Jurnal Mengajar</h1><table>${rows}</table><script>
-(function () {
-    function markMobileActionTables(root) {
-        const scope = root && root.querySelectorAll ? root : document;
-        scope.querySelectorAll('.table-container table').forEach(function (table) {
-            const headers = table.querySelectorAll('thead th');
-            if (!headers.length) return;
-            const lastHeader = headers[headers.length - 1];
-            if ((lastHeader.textContent || '').trim().toLowerCase() !== 'aksi') return;
-            table.setAttribute('data-mobile-actions', 'true');
-            lastHeader.classList.add('mobile-global-action-header');
-            table.querySelectorAll('tbody tr').forEach(function (row) {
-                const cells = row.children;
-                if (cells.length && !row.querySelector('td[colspan]')) {
-                    cells[cells.length - 1].classList.add('mobile-global-action-cell');
-                }
-            });
-        });
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        markMobileActionTables(document);
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                mutation.addedNodes.forEach(function (node) {
-                    if (node.nodeType === 1) markMobileActionTables(node);
-                });
-            });
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-    });
-})();
-</script>
-</body></html>`);
+    printWindow.document.write(`<!doctype html><html lang="id"><head><meta charset="UTF-8"><title>Jurnal Mengajar - ${j.kelas}</title><style>body{font-family:Arial,sans-serif;padding:24px;color:#111}h1{margin:0 0 18px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left}th{background:#e2e8f0;width:180px}@media print{body{padding:0}}</style></head><body><h1>Jurnal Mengajar</h1><table>${rows}</table></body></html>`);
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
