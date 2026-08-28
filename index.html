@@ -46,6 +46,62 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         .dark ::-webkit-scrollbar-thumb { background: #475569; }
         .table-container { overflow-x: auto; }
+        .mobile-filter-bar { width: 100%; }
+        .mobile-filter-bar select,
+        .mobile-filter-bar input { min-height: 44px; touch-action: manipulation; }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); position: fixed; z-index: 50; }
+            .sidebar.open { transform: translateX(0); }
+            .mobile-filter-bar {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 10px !important;
+                padding: 12px !important;
+            }
+            .mobile-filter-bar > * {
+                width: 100% !important;
+                min-width: 0 !important;
+                grid-column: 1 / -1 !important;
+            }
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+            .table-container table {
+                min-width: 720px;
+            }
+            .table-container td.sticky,
+            .table-container th.sticky {
+                min-width: 128px;
+            }
+            .table-container td.sticky {
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
+            .table-container td.sticky button {
+                width: 44px;
+                height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 2px !important;
+                padding: 0.5rem !important;
+                border-radius: 10px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .table-container td.sticky button i {
+                font-size: 1.1rem;
+            }
+            #page-jurnal .table-container table,
+            #page-praktikum .table-container table,
+            #page-keaktifan .table-container table,
+            #page-nilai .table-container table {
+                min-width: 760px;
+            }
+        }
         @media (max-width: 768px) { .sidebar { transform: translateX(-100%); position: fixed; z-index: 50; } .sidebar.open { transform: translateX(0); } }
     </style>
   <script src="/_sdk/0e8d3a91e1c6f495.data_sdk.js" type="text/javascript" integrity="sha512-c00oDoGjsMgluCLLEyVl3suwEkgjOGGplVFbsilUoBg4aMKNmsL3mwsc9r0dPn95qiSZyjBousQXgROkAW7p/w=="></script>
@@ -278,7 +334,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-nilai" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-nilai" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="">Semua Kelas</option> </select> <input id="search-nilai" type="text" placeholder="Cari nama..." class="col-span-2 sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderNilai()">
+       <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-nilai" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-nilai" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilai()"> <option value="">Semua Kelas</option> </select> <input id="search-nilai" type="text" placeholder="Cari nama..." class="col-span-2 sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderNilai()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -313,7 +369,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <select id="filter-status-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()">
+       <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <select id="filter-status-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -448,7 +504,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="">Semua Kelas</option> </select> <select id="filter-hari-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="">Semua Hari</option> <option>Senin</option><option>Selasa</option><option>Rabu</option><option>Kamis</option><option>Jumat</option> </select> <input id="filter-tgl-jurnal" type="date" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()">
+       <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="">Semua Kelas</option> </select> <select id="filter-hari-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="">Semua Hari</option> <option>Senin</option><option>Selasa</option><option>Rabu</option><option>Kamis</option><option>Jumat</option> </select> <input id="filter-tgl-jurnal" type="date" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -517,7 +573,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <select id="filter-status-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()">
+       <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Kelas</option></select> <select id="filter-status-keaktifan" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="keaktifanPage=1;renderKeaktifan()"><option value="">Semua Status</option><option value="supreme">Supreme</option><option value="average">Average</option><option value="excellent">Excellent</option></select> <input id="search-keaktifan" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="keaktifanPage=1;renderKeaktifan()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
