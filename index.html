@@ -287,7 +287,7 @@
                 box-sizing: border-box;
                 position: relative;
                 margin: 0;
-                padding: 8px 0;
+                padding: 3px 0;
                 border-bottom: 1px solid #e5e7eb;
                 background: #fff;
             }
@@ -308,7 +308,7 @@
                 align-items: center;
                 min-width: 0 !important;
                 width: auto !important;
-                padding: 8px 10px !important;
+                padding: 4px 10px !important;
                 white-space: normal !important;
                 overflow-wrap: anywhere;
                 border: 0 !important;
@@ -424,6 +424,7 @@
                 font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: .04em;
+                text-align: right;
             }
 
             .dark #page-jurnal .table-container tbody td:not(.mobile-action-cell)::before,
@@ -435,6 +436,19 @@
 
             /* Jurnal Mapel is intentionally omitted on mobile. */
             #page-jurnal .table-container tbody td:nth-child(5) { display: none !important; }
+
+            /* Materi & Catatan: stack on their own full-width lines so at least
+               a couple of words are visible before truncating with ellipsis. */
+            #page-jurnal .table-container tbody td:nth-child(6) {
+                flex-wrap: wrap;
+                row-gap: 2px;
+            }
+            #page-jurnal .table-container tbody td:nth-child(6) > span,
+            #page-jurnal .table-container tbody td:nth-child(6) > button {
+                flex: 1 1 100%;
+                width: 100%;
+                max-width: 100%;
+            }
 
             /* Keep the main identity fields visually prominent. */
             #page-jurnal .table-container tbody td:nth-child(6),
