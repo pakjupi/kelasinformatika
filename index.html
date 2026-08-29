@@ -282,7 +282,7 @@
             #page-keaktifan .table-container tbody tr,
             #page-nilai .table-container tbody tr {
                 display: grid !important;
-                grid-template-columns: minmax(0, 1fr) 92px;
+                grid-template-columns: minmax(0, 1fr) 60px;
                 width: 100%;
                 box-sizing: border-box;
                 position: relative;
@@ -333,11 +333,12 @@
                 align-self: center;
                 justify-content: center;
                 align-items: center;
+                flex-direction: column !important;
                 gap: 6px;
                 padding: 8px 4px !important;
-                width: 92px !important;
-                min-width: 92px !important;
-                max-width: 92px !important;
+                width: 60px !important;
+                min-width: 60px !important;
+                max-width: 60px !important;
                 border-left: 1px solid #e5e7eb !important;
                 background: rgba(255,255,255,.96) !important;
                 box-shadow: -6px 0 12px -10px rgba(15,23,42,.5) !important;
@@ -356,11 +357,11 @@
             #page-praktikum .table-container tbody td.mobile-action-cell .mobile-action-btn,
             #page-keaktifan .table-container tbody td.mobile-action-cell .mobile-action-btn,
             #page-nilai .table-container tbody td.mobile-action-cell .mobile-action-btn {
-                flex: 0 0 40px;
-                width: 40px !important;
-                min-width: 40px !important;
-                height: 44px !important;
-                min-height: 44px !important;
+                flex: 0 0 auto;
+                width: 44px !important;
+                min-width: 44px !important;
+                height: 40px !important;
+                min-height: 40px !important;
                 padding: 0 !important;
                 margin: 0 !important;
                 display: inline-flex !important;
@@ -528,7 +529,7 @@
      </div>
     </div>
    </aside><!-- Main Content -->
-   <div class="flex-1 flex flex-col md:ml-0"><!-- Top Navbar -->
+   <div class="flex-1 flex flex-col md:ml-0 min-w-0"><!-- Top Navbar -->
     <header class="sticky top-0 z-30 bg-white/80 dark:bg-gray-800/80 backdrop-blur border-b border-gray-200 dark:border-gray-700 px-4 py-3">
      <div class="flex items-center justify-between">
       <div class="flex items-center gap-3"><button onclick="toggleSidebar()" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"> <i class="bi bi-list text-xl text-gray-700 dark:text-white"></i> </button>
