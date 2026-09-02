@@ -633,7 +633,7 @@
         <canvas id="chart-siswa"></canvas>
        </div>
        <div class="dashboard-chart-box bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Deadline Tugas Terdekat</h3>
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Deadline Tugas &amp; Ulangan Terdekat</h3>
         <div id="dashboard-tugas-terdekat" class="space-y-3"></div>
        </div>
       </div>
@@ -3525,8 +3525,23 @@ function renderTugas() {
         const tone = days < 0 ? 'red' : days <= 3 ? 'orange' : 'blue';
         return `<div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700"><div class="flex items-start justify-between gap-3"><div><h3 class="font-bold text-gray-800 dark:text-white">${t.nama}</h3><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Kelas ${t.kelas}</p></div><div class="flex items-center gap-2"><button type="button" onclick="openTugasDetail('${t.id}')" class="text-${tone}-500 text-xl" title="Lihat tugas"><i class="bi bi-clipboard-check"></i></button><button type="button" onclick="openTugasModal('${t.id}')" class="text-primary hover:text-blue-700" title="Edit tugas"><i class="bi bi-pencil-square"></i></button><button type="button" onclick="deleteTugas('${t.id}')" class="text-red-500 hover:text-red-700" title="Hapus tugas"><i class="bi bi-trash"></i></button></div></div><div class="mt-5 rounded-xl bg-${tone}-50 dark:bg-${tone}-900/20 p-3"><p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Deadline</p><p class="font-semibold text-gray-800 dark:text-white">${new Date(t.deadline + 'T00:00:00').toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p><p class="text-sm font-bold text-${tone}-600 dark:text-${tone}-400 mt-1">${label}</p></div></div>`;
     }).join('') : '<div class="col-span-full text-center text-gray-400 py-12 bg-white dark:bg-gray-800 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">Belum ada tugas. Klik tombol Tambah Tugas.</div>';
+    updateDashboardDeadline();
+}
+function updateDashboardDeadline() {
     const dash = document.getElementById('dashboard-tugas-terdekat');
-    if (dash) dash.innerHTML = data.slice(0, 3).length ? data.slice(0, 3).map(t => `<div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50"><div><p class="font-semibold text-sm text-gray-800 dark:text-white">${t.nama}</p><p class="text-xs text-gray-500 dark:text-gray-400">Kelas ${t.kelas}</p></div><span class="text-xs font-bold text-primary">${getDaysLeft(t.deadline)} hari lagi</span></div>`).join('') : '<p class="text-sm text-gray-400">Belum ada deadline tugas.</p>';
+    if (!dash) return;
+    const tugas = getData('tugas').map(t => ({ ...t, _type: 'Tugas' }));
+    const ulangan = getData('ulangan_harian').map(t => ({ ...t, _type: 'Ulangan' }));
+    const combined = [...tugas, ...ulangan]
+        .filter(t => getDaysLeft(t.deadline) >= 0)
+        .sort((a, b) => a.deadline.localeCompare(b.deadline))
+        .slice(0, 5);
+    dash.innerHTML = combined.length ? combined.map(t => {
+        const days = getDaysLeft(t.deadline);
+        const label = days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
+        const badgeColor = t._type === 'Ulangan' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300';
+        return `<div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50"><div><div class="flex items-center gap-2 flex-wrap"><span class="text-[10px] font-bold px-1.5 py-0.5 rounded ${badgeColor}">${t._type}</span><p class="font-semibold text-sm text-gray-800 dark:text-white">${t.nama}</p></div><p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Kelas ${t.kelas}</p></div><span class="text-xs font-bold text-primary whitespace-nowrap">${label}</span></div>`;
+    }).join('') : '<p class="text-sm text-gray-400">Belum ada deadline tugas/ulangan yang aktif.</p>';
 }
 function openTugasDetail(id) {
     const task = getData('tugas').find(t => t.id === id);
@@ -3632,6 +3647,7 @@ function renderUlangan() {
         const tone = days < 0 ? 'red' : days <= 3 ? 'orange' : 'blue';
         return `<div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700"><div class="flex items-start justify-between gap-3"><div><h3 class="font-bold text-gray-800 dark:text-white">${t.nama}</h3><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Kelas ${t.kelas}</p></div><div class="flex items-center gap-2"><button type="button" onclick="openUlanganDetail('${t.id}')" class="text-${tone}-500 text-xl" title="Lihat ulangan"><i class="bi bi-clipboard-check"></i></button><button type="button" onclick="openUlanganModal('${t.id}')" class="text-primary hover:text-blue-700" title="Edit ulangan"><i class="bi bi-pencil-square"></i></button><button type="button" onclick="deleteUlangan('${t.id}')" class="text-red-500 hover:text-red-700" title="Hapus ulangan"><i class="bi bi-trash"></i></button></div></div><div class="mt-5 rounded-xl bg-${tone}-50 dark:bg-${tone}-900/20 p-3"><p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Deadline</p><p class="font-semibold text-gray-800 dark:text-white">${new Date(t.deadline + 'T00:00:00').toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p><p class="text-sm font-bold text-${tone}-600 dark:text-${tone}-400 mt-1">${label}</p></div></div>`;
     }).join('') : '<div class="col-span-full text-center text-gray-400 py-12 bg-white dark:bg-gray-800 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">Belum ada ulangan harian. Klik tombol Tambah Ulangan.</div>';
+    updateDashboardDeadline();
 }
 function openUlanganDetail(id) {
     const task = getData('ulangan_harian').find(t => t.id === id);
