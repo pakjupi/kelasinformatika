@@ -2061,12 +2061,13 @@ function syncPraktikum() {
     let praktikum = getData('praktikum');
     const sem = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
     let changed = false;
+    const norm = s => (s || '').toString().trim().replace(/\s+/g, ' ').toLowerCase();
 
-    // Gabungkan data ganda (nama+kelas+semester sama, sisa dari bug lama) jadi satu,
+    // Gabungkan data ganda (nama+kelas+semester sama - termasuk yang cuma beda spasi/huruf besar-kecil) jadi satu,
     // dengan tetap mempertahankan nilai tertinggi yang pernah diisi di tiap sesi
     const groups = {};
     praktikum.forEach(p => {
-        const k = p.nama + '||' + p.kelas + '||' + (p.semester || 'Ganjil');
+        const k = norm(p.nama) + '||' + norm(p.kelas) + '||' + (p.semester || 'Ganjil');
         (groups[k] = groups[k] || []).push(p);
     });
     const deduped = [];
@@ -2095,7 +2096,7 @@ function syncPraktikum() {
     praktikum = deduped;
 
     siswa.forEach(s => {
-        const exists = praktikum.some(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
+        const exists = praktikum.some(p => norm(p.nama) === norm(s.nama) && norm(p.kelas) === norm(s.kelas) && (p.semester || 'Ganjil') === sem);
         if (!exists) {
             const defaultScores = Array(20).fill(0);
             praktikum.push({
@@ -4739,22 +4740,23 @@ function syncNilai() {
     const keaktifan = getData('keaktifan');
     const sem = document.getElementById('filter-semester-nilai') ? document.getElementById('filter-semester-nilai').value : 'Ganjil';
     let changed = false;
+    const norm = s => (s || '').toString().trim().replace(/\s+/g, ' ').toLowerCase();
 
     // Tahun Ajaran yang sedang aktif (default) - dipakai juga untuk migrasi data lama yang belum punya field tahun
     const currentTahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
     const prevTahun = getAdjacentTahunAjaran(currentTahun, -1);
 
     // Hapus data nilai yatim (sisa siswa yang sudah dihapus/berganti nama sebelum nama+kelas-nya tersinkron)
-    const siswaKeySet = new Set(siswa.map(s => s.nama + '||' + s.kelas));
+    const siswaKeySet = new Set(siswa.map(s => norm(s.nama) + '||' + norm(s.kelas)));
     const beforeCount = nilai.length;
-    nilai = nilai.filter(n => siswaKeySet.has(n.nama + '||' + n.kelas));
+    nilai = nilai.filter(n => siswaKeySet.has(norm(n.nama) + '||' + norm(n.kelas)));
     if (nilai.length !== beforeCount) changed = true;
 
-    // Gabungkan data ganda (sisa dari saat nilai masih terpisah per Mata Pelajaran, atau sisa dari data lama
-    // yang belum punya field tahun) jadi satu per siswa per semester per Tahun Ajaran
+    // Gabungkan data ganda (sisa dari saat nilai masih terpisah per Mata Pelajaran, data lama yang belum punya
+    // field tahun, atau cuma beda spasi/huruf besar-kecil) jadi satu per siswa per semester per Tahun Ajaran
     const groups = {};
     nilai.forEach(n => {
-        const k = n.nama + '||' + n.kelas + '||' + (n.semester || 'Ganjil');
+        const k = norm(n.nama) + '||' + norm(n.kelas) + '||' + (n.semester || 'Ganjil');
         (groups[k] = groups[k] || []).push(n);
     });
     const deduped = [];
@@ -4782,7 +4784,7 @@ function syncNilai() {
 
     siswa.filter(s => s.tahun === currentTahun).forEach(s => {
         // Find corresponding praktikum score
-        const pRecord = praktikum.find(p => p.nama === s.nama && p.kelas === s.kelas && (p.semester || 'Ganjil') === sem);
+        const pRecord = praktikum.find(p => norm(p.nama) === norm(s.nama) && norm(p.kelas) === norm(s.kelas) && (p.semester || 'Ganjil') === sem);
         const pScore = pRecord ? (pRecord.nilai || 0) : 0;
 
         // Find corresponding keaktifan point (nilai akhir keaktifan -> Quiz)
@@ -4793,14 +4795,14 @@ function syncNilai() {
         // Semester Ganjil -> NA Semester Genap tahun ajaran sebelumnya (kalau ada).
         let nslValue = null;
         if (sem === 'Genap') {
-            const ganjilRecord = nilai.find(n => n.nama === s.nama && n.tahun === currentTahun && (n.semester || 'Ganjil') === 'Ganjil');
+            const ganjilRecord = nilai.find(n => norm(n.nama) === norm(s.nama) && n.tahun === currentTahun && (n.semester || 'Ganjil') === 'Ganjil');
             nslValue = ganjilRecord ? parseFloat(ganjilRecord.na) : null;
         } else if (prevTahun) {
-            const genapRecordPrev = nilai.find(n => n.nama === s.nama && n.tahun === prevTahun && (n.semester || 'Ganjil') === 'Genap');
+            const genapRecordPrev = nilai.find(n => norm(n.nama) === norm(s.nama) && n.tahun === prevTahun && (n.semester || 'Ganjil') === 'Genap');
             nslValue = genapRecordPrev ? parseFloat(genapRecordPrev.na) : null;
         }
 
-        const existsIdx = nilai.findIndex(n => n.nama === s.nama && n.kelas === s.kelas && n.tahun === currentTahun && (n.semester || 'Ganjil') === sem);
+        const existsIdx = nilai.findIndex(n => norm(n.nama) === norm(s.nama) && norm(n.kelas) === norm(s.kelas) && n.tahun === currentTahun && (n.semester || 'Ganjil') === sem);
         if (existsIdx > -1) {
             // NSL hanya ditimpa kalau ada data otomatis (nslValue !== null); kalau tidak, biarkan nilai manual yang tersimpan
             const nextNsl = nslValue !== null ? nslValue : nilai[existsIdx].nsl;
