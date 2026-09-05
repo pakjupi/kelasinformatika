@@ -1345,7 +1345,7 @@
     <h3 id="modal-siswa-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Siswa</h3>
     <form id="form-siswa" class="space-y-3"><input type="hidden" id="siswa-id">
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">No. Absen</label><input id="siswa-absen" type="number" min="1" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" placeholder="Contoh: 1">
+      <p class="text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 rounded-lg px-3 py-2"><i class="bi bi-info-circle"></i> No. Absen otomatis diurutkan sesuai abjad nama (A-Z) di dalam kelas.</p>
      </div>
      <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Lengkap</label><input id="siswa-nama" type="text" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
@@ -1875,9 +1875,23 @@ function getData(key) {
     return val;
 }
 function setData(key, data) {
+    if (key === 'siswa' && Array.isArray(data)) {
+        data = recalcAbsenSiswa(data);
+    }
     dataCache[key] = data;
     localStorage.setItem(key, JSON.stringify(data));
     syncToCloud(key, data);
+}
+// Menghitung ulang No. Absen otomatis berdasarkan abjad nama (A-Z) per kelas,
+// supaya urutan absen selalu rapi walau ada siswa baru/pindah/keluar
+function recalcAbsenSiswa(data) {
+    const byKelas = {};
+    data.forEach(s => { (byKelas[s.kelas] = byKelas[s.kelas] || []).push(s); });
+    Object.values(byKelas).forEach(group => {
+        group.sort((a, b) => (a.nama || '').localeCompare(b.nama || '', 'id', { sensitivity: 'base' }));
+        group.forEach((s, i) => { s.absen = i + 1; });
+    });
+    return data;
 }
 function genId() { return Date.now().toString(36) + Math.random().toString(36).substr(2, 5); }
 
@@ -2094,6 +2108,16 @@ function syncPraktikum() {
         }
     });
     praktikum = deduped;
+
+    // Samakan ejaan nama & kelas persis seperti di Data Siswa saat ini (perbaikan sisa spasi/huruf besar-kecil
+    // yang mungkin terbawa saat penggabungan data kembar), supaya No. Absen & Panggilan selalu ketemu saat ditampilkan
+    praktikum.forEach(p => {
+        const match = siswa.find(s => norm(s.nama) === norm(p.nama) && norm(s.kelas) === norm(p.kelas));
+        if (match) {
+            if (p.nama !== match.nama) { p.nama = match.nama; changed = true; }
+            if (p.kelas !== match.kelas) { p.kelas = match.kelas; changed = true; }
+        }
+    });
 
     siswa.forEach(s => {
         const exists = praktikum.some(p => norm(p.nama) === norm(s.nama) && norm(p.kelas) === norm(s.kelas) && (p.semester || 'Ganjil') === sem);
@@ -3801,7 +3825,7 @@ function openSiswaModal(id) {
     populateKelasSelects();
     if (id) {
         const s = getData('siswa').find(x => x.id === id);
-        if (s) { document.getElementById('siswa-id').value = s.id; document.getElementById('siswa-nama').value = s.nama; document.getElementById('siswa-panggilan').value = s.panggilan; document.getElementById('siswa-kelas').value = s.kelas; document.getElementById('siswa-tahun').value = s.tahun; document.getElementById('siswa-absen').value = s.absen || ''; document.getElementById('siswa-status').value = s.status || 'Anggota'; }
+        if (s) { document.getElementById('siswa-id').value = s.id; document.getElementById('siswa-nama').value = s.nama; document.getElementById('siswa-panggilan').value = s.panggilan; document.getElementById('siswa-kelas').value = s.kelas; document.getElementById('siswa-tahun').value = s.tahun; document.getElementById('siswa-status').value = s.status || 'Anggota'; }
     } else {
         document.getElementById('siswa-tahun').value = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
         
@@ -3818,7 +3842,7 @@ document.getElementById('form-siswa').addEventListener('submit', function(e) {
     e.preventDefault();
     const data = getData('siswa');
     const id = document.getElementById('siswa-id').value;
-    const obj = { nama: document.getElementById('siswa-nama').value, panggilan: document.getElementById('siswa-panggilan').value, kelas: document.getElementById('siswa-kelas').value, tahun: document.getElementById('siswa-tahun').value, absen: parseInt(document.getElementById('siswa-absen').value) || 1, status: document.getElementById('siswa-status').value || 'Anggota' };
+    const obj = { nama: document.getElementById('siswa-nama').value.trim(), panggilan: document.getElementById('siswa-panggilan').value.trim(), kelas: document.getElementById('siswa-kelas').value, tahun: document.getElementById('siswa-tahun').value, status: document.getElementById('siswa-status').value || 'Anggota' };
     if (id) {
         const idx = data.findIndex(x => x.id === id);
         const oldNama = data[idx].nama;
@@ -4073,9 +4097,9 @@ function importSiswa(e) {
         const data = getData('siswa');
         const filterKelas = document.getElementById('filter-kelas-siswa')?.value || '';
         rows.forEach(r => {
-            const kelasImport = r['Kelas'] || r.kelas || '';
+            const kelasImport = (r['Kelas'] || r.kelas || '').toString().trim().replace(/\s+/g, ' ');
             if (filterKelas && kelasImport !== filterKelas) return;
-            data.push({ id: genId(), absen: parseInt(r['No. Absen'] || r.absen || '') || (data.length + 1), nama: r['Nama Lengkap'] || r.nama || '', panggilan: r['Panggilan'] || r.panggilan || '', kelas: kelasImport, tahun: r['Tahun Ajaran'] || r.tahun || '', status: (r['Status'] || r['Status Kelas'] || r.status || 'Anggota') === 'Wakil Ketua Kelas' ? 'Wakil Ketua' : (r['Status'] || r['Status Kelas'] || r.status || 'Anggota') });
+            data.push({ id: genId(), nama: (r['Nama Lengkap'] || r.nama || '').toString().trim().replace(/\s+/g, ' '), panggilan: (r['Panggilan'] || r.panggilan || '').toString().trim().replace(/\s+/g, ' '), kelas: kelasImport, tahun: r['Tahun Ajaran'] || r.tahun || '', status: (r['Status'] || r['Status Kelas'] || r.status || 'Anggota') === 'Wakil Ketua Kelas' ? 'Wakil Ketua' : (r['Status'] || r['Status Kelas'] || r.status || 'Anggota') });
         });
         setData('siswa', data);
         renderSiswa();
@@ -4781,6 +4805,16 @@ function syncNilai() {
         }
     });
     nilai = deduped;
+
+    // Samakan ejaan nama & kelas persis seperti di Data Siswa saat ini (perbaikan sisa spasi/huruf besar-kecil
+    // yang mungkin terbawa saat penggabungan data kembar), supaya No. Absen & Panggilan selalu ketemu saat ditampilkan
+    nilai.forEach(n => {
+        const match = siswa.find(s => norm(s.nama) === norm(n.nama) && norm(s.kelas) === norm(n.kelas));
+        if (match) {
+            if (n.nama !== match.nama) { n.nama = match.nama; changed = true; }
+            if (n.kelas !== match.kelas) { n.kelas = match.kelas; changed = true; }
+        }
+    });
 
     siswa.filter(s => s.tahun === currentTahun).forEach(s => {
         // Find corresponding praktikum score
