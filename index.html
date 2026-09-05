@@ -2552,6 +2552,7 @@ function renderTahunAjaran() {
 
 function initApp() {
     initGlobalSettings();
+    ensureAbsenSynced();
     initDefaultMapel();
     initDefaultMateri();
     initDefaultJam();
@@ -3946,7 +3947,22 @@ function applyYearToAllStudents() {
     }, 'Terapkan');
 }
 
+function ensureAbsenSynced() {
+    const data = getData('siswa');
+    const byKelas = {};
+    data.forEach(s => { (byKelas[s.kelas] = byKelas[s.kelas] || []).push(s); });
+    let needsFix = false;
+    Object.values(byKelas).forEach(group => {
+        const sorted = [...group].sort((a, b) => (a.nama || '').localeCompare(b.nama || '', 'id', { sensitivity: 'base' }));
+        sorted.forEach((s, i) => { if ((parseInt(s.absen) || 0) !== i + 1) needsFix = true; });
+    });
+    if (needsFix) {
+        setData('siswa', data);
+    }
+}
+
 function renderSiswa() {
+    ensureAbsenSynced();
     let data = getData('siswa');
     const search = document.getElementById('search-siswa').value.toLowerCase();
     const kelas = document.getElementById('filter-kelas-siswa').value;
