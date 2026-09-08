@@ -2152,6 +2152,9 @@ function renderPraktikum() {
     const filterSemester = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
 
     data = data.filter(p => (p.semester || 'Ganjil') === filterSemester);
+    const currentTahunPraktikum = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const siswaKeySetPraktikum = new Set(getData('siswa').filter(s => s.tahun === currentTahunPraktikum).map(s => s.nama + '||' + s.kelas));
+    const totalSemesterPraktikum = data.filter(p => siswaKeySetPraktikum.has(p.nama + '||' + p.kelas)).length;
     if (filterKelas) {
         data = data.filter(p => p.kelas === filterKelas);
     }
@@ -2217,7 +2220,7 @@ function renderPraktikum() {
     }).join('') : '<tr><td colspan="6" class="px-4 py-8 text-center text-gray-400">Tidak ada data praktikum ditemukan.</td></tr>';
 
     document.getElementById('praktikum-pagination').innerHTML = `
-        <span class="text-sm text-gray-500 dark:text-gray-400">Hal ${praktikumPage}/${totalPages} (${data.length} data)</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">Page ${praktikumPage}/${totalPages} (${data.length} data dari total ${totalSemesterPraktikum} data)</span>
         <div class="flex gap-1">
             <button onclick="praktikumPage=Math.max(1,praktikumPage-1);renderPraktikum()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${praktikumPage===1?'opacity-50':''}">Prev</button>
             <button onclick="praktikumPage=Math.min(${totalPages},praktikumPage+1);renderPraktikum()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${praktikumPage===totalPages?'opacity-50':''}">Next</button>
@@ -2961,7 +2964,7 @@ function renderAnakWali() {
     const start = (anakWaliPage - 1) * PAGE_SIZE_ANAK_WALI;
     const paged = students.slice(start, start + PAGE_SIZE_ANAK_WALI);
     tbody.innerHTML = paged.length ? paged.map(s => { const active = getData('keaktifan').find(x => x.siswaId === s.siswaId) || { status: 'supreme' }; const color = active.status === 'expert' ? '#008080' : active.status === 'excellent' ? '#60A5FA' : active.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-anak-wali-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${active.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.absen || '-'}</td><td class="px-4 py-3 font-medium">${s.nama}</td><td class="px-4 py-3">${s.panggilan}</td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3">${s.catatan || '-'}</td><td class="px-4 py-3 text-center"><button onclick="editAnakWali('${s.id}')" class="text-primary hover:text-blue-700 mr-2" title="Edit catatan"><i class="bi bi-pencil-square"></i></button><button onclick="deleteAnakWali('${s.id}')" class="text-red-500" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada data Anak Wali.</td></tr>';
-    document.getElementById('anak-wali-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Hal ${anakWaliPage}/${totalPages} (${students.length} data)</span><div class="flex gap-1"><button onclick="anakWaliPage=Math.max(1,anakWaliPage-1);renderAnakWali()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Prev</button><button onclick="anakWaliPage=Math.min(${totalPages},anakWaliPage+1);renderAnakWali()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Next</button></div>`;
+    document.getElementById('anak-wali-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Page ${anakWaliPage}/${totalPages} (${paged.length} data dari total ${students.length} data)</span><div class="flex gap-1"><button onclick="anakWaliPage=Math.max(1,anakWaliPage-1);renderAnakWali()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Prev</button><button onclick="anakWaliPage=Math.min(${totalPages},anakWaliPage+1);renderAnakWali()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Next</button></div>`;
 }
 function populateAnakWaliStudents() {
     const kelas = document.getElementById('anak-wali-kelas')?.value || '';
@@ -3016,13 +3019,16 @@ function renderKeaktifan() {
         const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' };
         return (!kelas || s.kelas === kelas) && (!statusFilter || (a.status || 'supreme') === statusFilter) && (!search || `${s.nama} ${s.panggilan} ${s.absen || ''}`.toLowerCase().includes(search));
     });
+    const currentTahunKeaktifan = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const siswaIdSetKeaktifan = new Set(students.filter(s => s.tahun === currentTahunKeaktifan).map(s => s.id));
+    const totalSemesterKeaktifan = active.filter(k => (k.semester || 'Ganjil') === sem && siswaIdSetKeaktifan.has(k.siswaId)).length;
     const totalPages = Math.ceil(filtered.length / PAGE_SIZE_ANAK_WALI) || 1;
     if (keaktifanPage > totalPages) keaktifanPage = totalPages;
     const paged = filtered.slice((keaktifanPage - 1) * 40, keaktifanPage * 40);
     const tbody = document.getElementById('keaktifan-tbody');
     if (!tbody) return;
     tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = a.status === 'expert' ? '#008080' : a.status === 'excellent' ? '#60A5FA' : a.status === 'average' ? '#C4A482' : '#9CA3AF'; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="Status keaktifan: ${a.status || 'supreme'}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell"><button onclick="editKeaktifan('${s.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
-    document.getElementById('keaktifan-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Hal ${keaktifanPage}/${totalPages} (${filtered.length} data)</span><div class="flex gap-1"><button onclick="keaktifanPage=Math.max(1,keaktifanPage-1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Prev</button><button onclick="keaktifanPage=Math.min(${totalPages},keaktifanPage+1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Next</button></div>`;
+    document.getElementById('keaktifan-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Page ${keaktifanPage}/${totalPages} (${filtered.length} data dari total ${totalSemesterKeaktifan} data)</span><div class="flex gap-1"><button onclick="keaktifanPage=Math.max(1,keaktifanPage-1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Prev</button><button onclick="keaktifanPage=Math.min(${totalPages},keaktifanPage+1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Next</button></div>`;
 }
 function renderKeaktifanPointCircles(value = 0) {
     const wrap = document.getElementById('keaktifan-point-circles');
@@ -3967,6 +3973,7 @@ function ensureAbsenSynced() {
 function renderSiswa() {
     ensureAbsenSynced();
     let data = getData('siswa');
+    const totalSiswaKeseluruhan = data.length;
     const search = document.getElementById('search-siswa').value.toLowerCase();
     const kelas = document.getElementById('filter-kelas-siswa').value;
     const tahun = document.getElementById('filter-tahun-siswa')?.value;
@@ -4013,7 +4020,7 @@ function renderSiswa() {
     `).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa</td></tr>';
 
     document.getElementById('siswa-pagination').innerHTML = `
-        <span class="text-sm text-gray-500 dark:text-gray-400">Hal ${siswaPage}/${totalPages} (${data.length} data)</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">Page ${siswaPage}/${totalPages} (${data.length} data dari total ${totalSiswaKeseluruhan} data)</span>
         <div class="flex gap-1">
             <button onclick="siswaPage=Math.max(1,siswaPage-1);renderSiswa()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${siswaPage===1?'opacity-50':''}">Prev</button>
             <button onclick="siswaPage=Math.min(${totalPages},siswaPage+1);renderSiswa()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${siswaPage===totalPages?'opacity-50':''}">Next</button>
@@ -4506,6 +4513,7 @@ function renderAbsensi() {
 
     const siswaKeySetTahun = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.nama + '||' + s.kelas));
     data = data.filter(a => (a.semester || 'Ganjil') === sem && siswaKeySetTahun.has(a.nama + '||' + a.kelas));
+    const totalSemester = data.length;
     if (tgl) data = data.filter(a => a.tanggal === tgl);
     if (kelas) data = data.filter(a => a.kelas === kelas);
     if (search) {
@@ -4557,7 +4565,7 @@ function renderAbsensi() {
     `).join('') : '<tr><td colspan="5" class="px-4 py-8 text-center text-gray-400">Belum ada data absensi</td></tr>';
 
     document.getElementById('absensi-pagination').innerHTML = `
-        <span class="text-sm text-gray-500 dark:text-gray-400">Hal ${absensiPage}/${totalPages} (${data.length} data)</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">Page ${absensiPage}/${totalPages} (${data.length} data dari total ${totalSemester} data)</span>
         <div class="flex gap-1">
             <button onclick="absensiPage=Math.max(1,absensiPage-1);renderAbsensi()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${absensiPage===1?'opacity-50':''}">Prev</button>
             <button onclick="absensiPage=Math.min(${totalPages},absensiPage+1);renderAbsensi()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${absensiPage===totalPages?'opacity-50':''}">Next</button>
@@ -4900,6 +4908,8 @@ function renderNilai() {
     const kelas = document.getElementById('filter-kelas-nilai').value;
     const search = document.getElementById('search-nilai').value.toLowerCase();
     data = data.filter(n => (n.semester || 'Ganjil') === sem);
+    const currentTahunNilai = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const totalSemester = data.filter(n => (n.tahun || currentTahunNilai) === currentTahunNilai).length;
     if (kelas) data = data.filter(n => n.kelas === kelas);
     if (search) { const siswaListForSearch = getData('siswa'); data = data.filter(n => { const siswa = siswaListForSearch.find(s => s.nama === n.nama && s.kelas === n.kelas); return n.nama.toLowerCase().includes(search) || String(siswa?.absen || '').toLowerCase().includes(search) || (siswa?.panggilan || '').toLowerCase().includes(search); }); }
 
@@ -4942,7 +4952,7 @@ function renderNilai() {
     `}).join('') : '<tr><td colspan="11" class="px-4 py-8 text-center text-gray-400">Belum ada data nilai</td></tr>';
 
     document.getElementById('nilai-pagination').innerHTML = `
-        <span class="text-sm text-gray-500 dark:text-gray-400">Hal ${nilaiPage}/${totalPages} (${data.length} data)</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">Page ${nilaiPage}/${totalPages} (${data.length} data dari total ${totalSemester} data)</span>
         <div class="flex gap-1">
             <button onclick="nilaiPage=Math.max(1,nilaiPage-1);renderNilai()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${nilaiPage===1?'opacity-50':''}">Prev</button>
             <button onclick="nilaiPage=Math.min(${totalPages},nilaiPage+1);renderNilai()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${nilaiPage===totalPages?'opacity-50':''}">Next</button>
@@ -5259,6 +5269,8 @@ function renderJurnal() {
     const tgl = document.getElementById('filter-tgl-jurnal').value;
     const kelas = document.getElementById('filter-kelas-jurnal').value;
     data = data.filter(j => (j.semester || 'Ganjil') === sem);
+    const currentTahunJurnal = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const totalSemesterJurnal = data.filter(j => (j.tahun || currentTahunJurnal) === currentTahunJurnal).length;
     if (hari) data = data.filter(j => j.hari === hari);
     if (tgl) data = data.filter(j => j.tanggal === tgl);
     if (kelas) data = data.filter(j => j.kelas === kelas);
@@ -5290,7 +5302,7 @@ function renderJurnal() {
     `).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada jurnal</td></tr>';
 
     document.getElementById('jurnal-pagination').innerHTML = `
-        <span class="text-sm text-gray-500 dark:text-gray-400">Hal ${jurnalPage}/${totalPages} (${data.length} data)</span>
+        <span class="text-sm text-gray-500 dark:text-gray-400">Page ${jurnalPage}/${totalPages} (${data.length} data dari total ${totalSemesterJurnal} data)</span>
         <div class="flex gap-1">
             <button onclick="jurnalPage=Math.max(1,jurnalPage-1);renderJurnal()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${jurnalPage===1?'opacity-50':''}">Prev</button>
             <button onclick="jurnalPage=Math.min(${totalPages},jurnalPage+1);renderJurnal()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${jurnalPage===totalPages?'opacity-50':''}">Next</button>
