@@ -575,7 +575,8 @@
        <div class="flex gap-2"><button onclick="backupData()" class="px-3 py-1.5 text-sm bg-accent text-white rounded-lg hover:bg-green-600 transition"><i class="bi bi-cloud-download"></i> Backup</button> <button onclick="document.getElementById('restore-input').click()" class="px-3 py-1.5 text-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg hover:bg-gray-300 transition"><i class="bi bi-cloud-upload"></i> Restore</button> <input id="restore-input" type="file" accept=".json" class="hidden" onchange="restoreData(event)">
        </div>
       </div><!-- Stats Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+      <div class="flex flex-col-reverse lg:flex-col gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
        <div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 order-5">
         <div class="flex items-center justify-between">
          <div>
@@ -636,6 +637,7 @@
         <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Deadline Tugas &amp; Ulangan Terdekat</h3>
         <div id="dashboard-tugas-terdekat" class="space-y-3"></div>
        </div>
+      </div>
       </div>
      </div><!-- Data Siswa Page -->
      <div id="page-siswa" class="page-content hidden fade-in">
@@ -733,6 +735,7 @@
         </table>
        </div>
        <div id="nilai-pagination" class="p-4 flex items-center justify-between border-t border-gray-100 dark:border-gray-700"></div>
+       <p class="px-4 pb-4 text-xs text-gray-400 dark:text-gray-500">Persentase Nilai Akhir: Tugas 30% + UH 10% + Quiz 10% + Praktikum 20% + UAS 30%</p>
       </div>
      </div><!-- Praktikum Page -->
      <div id="page-praktikum" class="page-content hidden fade-in">
@@ -4630,7 +4633,7 @@ function printAbsensi() {
 }
 
 // ===================== NILAI CRUD =====================
-function calcNA(t, uh, q, p, uas) { return (t * 0.3 + uh * 0.1 + q * 0.1 + p * 0.2 + uas * 0.3).toFixed(1); }
+function calcNA(t, uh, q, p, uas) { return Math.round(t * 0.3 + uh * 0.1 + q * 0.1 + p * 0.2 + uas * 0.3).toString(); }
 function getGrade(na) { if (na >= 90) return 'A'; if (na >= 80) return 'B'; if (na >= 70) return 'C'; if (na >= 60) return 'D'; return 'E'; }
 
 function updateNilaiPraktikumInput() {
