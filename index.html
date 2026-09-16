@@ -2130,12 +2130,15 @@ function syncNilaiTugas() {
     Object.values(groups).forEach(group => {
         if (group.length > 1) {
             changed = true;
-            const scores = Array(5).fill(0);
+            const scores = Array(5).fill(null);
             group.forEach(p => {
-                const s = p.scores || Array(5).fill(p.nilai || 0);
-                for (let i = 0; i < 5; i++) scores[i] = Math.max(scores[i], Number(s[i]) || 0);
+                const s = p.scores || Array(5).fill(null);
+                for (let i = 0; i < 5; i++) {
+                    if (s[i] !== null && s[i] !== undefined) scores[i] = Math.max(scores[i] ?? 0, Number(s[i]) || 0);
+                }
             });
-            const nilai = Math.round(scores.reduce((a, b) => a + b, 0) / 5);
+            const filled = scores.filter(v => v !== null);
+            const nilai = filled.length > 0 ? Math.round(filled.reduce((a, b) => a + b, 0) / filled.length) : 0;
             deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil', scores, nilai });
         } else {
             deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil' });
@@ -2161,7 +2164,7 @@ function syncNilaiTugas() {
                 kelas: s.kelas,
                 nama: s.nama,
                 nilai: 0,
-                scores: Array(5).fill(0)
+                scores: Array(5).fill(null)
             });
             changed = true;
         }
@@ -2375,7 +2378,7 @@ function resetNilaiTugas() {
 
         const updated = nilaiTugas.map(p => {
             if ((p.semester || 'Ganjil') === sem && siswaKeySet.has(p.nama + '||' + p.kelas)) {
-                return { ...p, nilai: 0, scores: Array(5).fill(0) };
+                return { ...p, nilai: 0, scores: Array(5).fill(null) };
             }
             return p;
         });
@@ -2436,12 +2439,15 @@ function syncNilaiUlangan() {
     Object.values(groups).forEach(group => {
         if (group.length > 1) {
             changed = true;
-            const scores = Array(3).fill(0);
+            const scores = Array(3).fill(null);
             group.forEach(p => {
-                const s = p.scores || Array(3).fill(p.nilai || 0);
-                for (let i = 0; i < 3; i++) scores[i] = Math.max(scores[i], Number(s[i]) || 0);
+                const s = p.scores || Array(3).fill(null);
+                for (let i = 0; i < 3; i++) {
+                    if (s[i] !== null && s[i] !== undefined) scores[i] = Math.max(scores[i] ?? 0, Number(s[i]) || 0);
+                }
             });
-            const nilai = Math.round(scores.reduce((a, b) => a + b, 0) / 3);
+            const filled = scores.filter(v => v !== null);
+            const nilai = filled.length > 0 ? Math.round(filled.reduce((a, b) => a + b, 0) / filled.length) : 0;
             deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil', scores, nilai });
         } else {
             deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil' });
@@ -2467,7 +2473,7 @@ function syncNilaiUlangan() {
                 kelas: s.kelas,
                 nama: s.nama,
                 nilai: 0,
-                scores: Array(3).fill(0)
+                scores: Array(3).fill(null)
             });
             changed = true;
         }
@@ -2681,7 +2687,7 @@ function resetNilaiUlangan() {
 
         const updated = nilaiUlangan.map(p => {
             if ((p.semester || 'Ganjil') === sem && siswaKeySet.has(p.nama + '||' + p.kelas)) {
-                return { ...p, nilai: 0, scores: Array(3).fill(0) };
+                return { ...p, nilai: 0, scores: Array(3).fill(null) };
             }
             return p;
         });
