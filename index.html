@@ -405,12 +405,13 @@
             #page-nilai .table-container tbody td:nth-child(2)::before { content: 'Siswa'; }
             #page-nilai .table-container tbody td:nth-child(3)::before { content: 'NSL'; }
             #page-nilai .table-container tbody td:nth-child(4)::before { content: 'Tugas'; }
-            #page-nilai .table-container tbody td:nth-child(5)::before { content: 'UH'; }
-            #page-nilai .table-container tbody td:nth-child(6)::before { content: 'Quiz'; }
-            #page-nilai .table-container tbody td:nth-child(7)::before { content: 'Praktikum'; }
-            #page-nilai .table-container tbody td:nth-child(8)::before { content: 'UAS'; }
-            #page-nilai .table-container tbody td:nth-child(9)::before { content: 'NA'; }
-            #page-nilai .table-container tbody td:nth-child(10)::before { content: 'Grade'; }
+            #page-nilai .table-container tbody td:nth-child(5)::before { content: 'LKPD'; }
+            #page-nilai .table-container tbody td:nth-child(6)::before { content: 'UH'; }
+            #page-nilai .table-container tbody td:nth-child(7)::before { content: 'Quiz'; }
+            #page-nilai .table-container tbody td:nth-child(8)::before { content: 'Praktikum'; }
+            #page-nilai .table-container tbody td:nth-child(9)::before { content: 'UAS'; }
+            #page-nilai .table-container tbody td:nth-child(10)::before { content: 'NA'; }
+            #page-nilai .table-container tbody td:nth-child(11)::before { content: 'Grade'; }
 
             #page-jurnal .table-container tbody td:not(.mobile-action-cell)::before,
             #page-praktikum .table-container tbody td:not(.mobile-action-cell)::before,
@@ -527,7 +528,7 @@
     </div>
     <div class="p-3 pb-0"><a href="#" onclick="showPage('dashboard')" class="sidebar-link active flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="dashboard"> <i class="bi bi-grid-1x2-fill"></i> Dashboard </a>
     </div>
-    <nav class="flex-1 p-3 pt-1 space-y-1 overflow-y-auto"><a href="#" onclick="showPage('absensi')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="absensi"> <i class="bi bi-calendar-check-fill"></i> Absensi Siswa </a> <a href="#" onclick="showPage('jurnal')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="jurnal"> <i class="bi bi-book-fill"></i> Jurnal Mengajar </a> <a href="#" onclick="showPage('tugas')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="tugas"> <i class="bi bi-clipboard-check-fill"></i> Tugas Siswa </a> <a href="#" onclick="showPage('ulangan')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="ulangan"> <i class="bi bi-file-earmark-check-fill"></i> Ulangan Harian </a> <a href="#" onclick="showPage('praktikum')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="praktikum"> <i class="bi bi-pc-display"></i> Praktikum Siswa </a> <a href="#" onclick="showPage('keaktifan')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="keaktifan"> <i class="bi bi-activity"></i> Keaktifan Siswa </a> <a href="#" onclick="showPage('nilai-tugas')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="nilai-tugas"> <i class="bi bi-pencil-square"></i> Nilai Tugas </a> <a href="#" onclick="showPage('nilai-ulangan')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="nilai-ulangan"> <i class="bi bi-file-earmark-text"></i> Nilai Ulangan </a> <a href="#" onclick="showPage('nilai')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="nilai"> <i class="bi bi-journal-text"></i> Nilai Siswa </a> <a href="#" onclick="showPage('anak-wali')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="anak-wali"> <i class="bi bi-person-hearts"></i> Anak Wali </a>
+    <nav class="flex-1 p-3 pt-1 space-y-1 overflow-y-auto"><a href="#" onclick="showPage('absensi')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="absensi"> <i class="bi bi-calendar-check-fill"></i> Absensi Siswa </a> <a href="#" onclick="showPage('jurnal')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="jurnal"> <i class="bi bi-book-fill"></i> Jurnal Mengajar </a> <a href="#" onclick="showPage('tugas')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="tugas"> <i class="bi bi-clipboard-check-fill"></i> Tugas Siswa </a> <a href="#" onclick="showPage('ulangan')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="ulangan"> <i class="bi bi-file-earmark-check-fill"></i> Ulangan Harian </a> <a href="#" onclick="showPage('praktikum')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="praktikum"> <i class="bi bi-pc-display"></i> Praktikum Siswa </a> <a href="#" onclick="showPage('keaktifan')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="keaktifan"> <i class="bi bi-activity"></i> Keaktifan Siswa </a> <a href="#" onclick="showPage('nilai-tugas')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="nilai-tugas"> <i class="bi bi-pencil-square"></i> Nilai Tugas </a> <a href="#" onclick="showPage('nilai-lkpd')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="nilai-lkpd"> <i class="bi bi-card-checklist"></i> Nilai LKPD </a> <a href="#" onclick="showPage('nilai-ulangan')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="nilai-ulangan"> <i class="bi bi-file-earmark-text"></i> Nilai Ulangan </a> <a href="#" onclick="showPage('nilai')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="nilai"> <i class="bi bi-journal-text"></i> Nilai Siswa </a> <a href="#" onclick="showPage('anak-wali')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="anak-wali"> <i class="bi bi-person-hearts"></i> Anak Wali </a>
      <hr class="my-3 border-gray-200 dark:border-gray-700"><a href="#" onclick="showPage('kelas')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="kelas"> <i class="bi bi-building"></i> Data Kelas </a> <a href="#" onclick="showPage('siswa')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="siswa"> <i class="bi bi-people-fill"></i> Data Siswa </a> <a href="#" onclick="showPage('materi')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="materi"> <i class="bi bi-bookmark-star-fill"></i> Materi Pembelajaran </a> <a href="#" onclick="showPage('jam')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="jam"> <i class="bi bi-clock-history"></i> Jam Mengajar </a> <a href="#" onclick="showPage('jadwal')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="jadwal"> <i class="bi bi-calendar3"></i> Jadwal Mengajar </a> <a href="#" onclick="showPage('mapel')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="mapel"> <i class="bi bi-book-half"></i> Mata Pelajaran </a> <a href="#" onclick="showPage('tahun-ajaran')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="tahun-ajaran"> <i class="bi bi-calendar-event"></i> Tahun Ajaran </a>
      <hr class="my-3 border-gray-200 dark:border-gray-700"><a href="#" onclick="showPage('import-menu')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="import-menu"> <i class="bi bi-upload"></i> Import Data </a> <a href="#" onclick="showPage('export')" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-300" data-page="export"> <i class="bi bi-download"></i> Export Data </a>
      <hr class="my-3 border-gray-200 dark:border-gray-700"><a href="#" onclick="doLogout()" class="sidebar-link flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-red-500"> <i class="bi bi-box-arrow-left"></i> Logout </a>
@@ -731,6 +732,33 @@
        </div>
        <div id="nilai-tugas-pagination" class="p-4 flex items-center justify-between border-t border-gray-100 dark:border-gray-700"></div>
       </div>
+     </div><!-- Nilai LKPD Page -->
+     <div id="page-nilai-lkpd" class="page-content hidden fade-in">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+       <div>
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-card-checklist text-primary"></i> Nilai LKPD</h1>
+       </div>
+       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiLkpdModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai-lkpd').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai-lkpd" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilaiLkpd(event)"> <button onclick="exportNilaiLkpd()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetNilaiLkpd()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       </div>
+      </div>
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+       <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-nilai-lkpd" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilaiLkpd()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-nilai-lkpd" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderNilaiLkpd()"> <option value="">Semua Kelas</option> </select> <input id="search-nilai-lkpd" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderNilaiLkpd()"> <input id="search-nilai-nilai-lkpd" type="number" min="0" max="100" placeholder="Cari nilai..." class="w-full sm:w-32 px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" oninput="renderNilaiLkpd()">
+       </div>
+       <div class="table-container">
+        <table class="w-full text-sm">
+         <thead class="bg-gray-50 dark:bg-gray-700/50">
+          <tr>
+           <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300 hidden sm:table-cell">Kelas</th>
+           <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Nama Siswa</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Nilai</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
+          </tr>
+         </thead>
+         <tbody id="nilai-lkpd-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
+        </table>
+       </div>
+       <div id="nilai-lkpd-pagination" class="p-4 flex items-center justify-between border-t border-gray-100 dark:border-gray-700"></div>
+      </div>
      </div><!-- Nilai Ulangan Page -->
      <div id="page-nilai-ulangan" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
@@ -776,6 +804,7 @@
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Nama</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300" title="Nilai Semester Lalu">NSL</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Tugas</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">LKPD</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">UH</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Quiz</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Praktikum</th>
@@ -789,7 +818,7 @@
         </table>
        </div>
        <div id="nilai-pagination" class="p-4 flex items-center justify-between border-t border-gray-100 dark:border-gray-700"></div>
-       <p class="px-4 pb-4 text-xs text-gray-400 dark:text-gray-500">Persentase Nilai Akhir: Tugas 30% + UH 10% + Quiz 10% + Praktikum 20% + UAS 30%</p>
+       <p class="px-4 pb-4 text-xs text-gray-400 dark:text-gray-500">Persentase Nilai Akhir: Tugas 30% + LKPD 20% + UH 10% + Quiz 10% + Praktikum 20% + UAS 10%</p>
       </div>
      </div><!-- Praktikum Page -->
      <div id="page-praktikum" class="page-content hidden fade-in">
@@ -1454,7 +1483,7 @@
     <h3 id="modal-nilai-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Nilai</h3>
     <form id="form-nilai" class="space-y-3"><input type="hidden" id="nilai-id">
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="nilai-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput();updateNilaiTugasFieldInput();updateNilaiUHFieldInput();updateNilaiNSLInput()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="nilai-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput();updateNilaiTugasFieldInput();updateNilaiLkpdFieldInput();updateNilaiUHFieldInput();updateNilaiNSLInput()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
      </div>
      <div class="grid grid-cols-2 gap-3">
       <div>
@@ -1465,11 +1494,14 @@
       </div>
      </div>
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Siswa</label><select id="nilai-nama" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput();updateNilaiTugasFieldInput();updateNilaiUHFieldInput();updateNilaiNSLInput()"></select>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Siswa</label><select id="nilai-nama" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateNilaiPraktikumInput();updateNilaiQuizInput();updateNilaiTugasFieldInput();updateNilaiLkpdFieldInput();updateNilaiUHFieldInput();updateNilaiNSLInput()"></select>
      </div>
      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
       <div>
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tugas</label><input id="nilai-tugas" type="number" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 outline-none text-sm font-semibold cursor-not-allowed" title="Otomatis dari rata-rata Nilai Tugas">
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">LKPD</label><input id="nilai-lkpd" type="number" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 outline-none text-sm font-semibold cursor-not-allowed" title="Otomatis dari rata-rata Nilai LKPD">
       </div>
       <div>
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">UH</label><input id="nilai-uh" type="number" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 outline-none text-sm font-semibold cursor-not-allowed" title="Otomatis dari rata-rata Nilai Ulangan">
@@ -1560,6 +1592,41 @@
      </div>
      <div class="flex gap-2 pt-2">
       <button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-nilai-tugas')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Nilai LKPD Modal -->
+  <div id="modal-nilai-lkpd" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-nilai-lkpd')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-6 fade-in max-h-[90vh] overflow-y-auto">
+    <h3 id="modal-nilai-lkpd-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Nilai LKPD</h3>
+    <form id="form-nilai-lkpd" class="space-y-4">
+     <input type="hidden" id="nilai-lkpd-id">
+     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="nilai-lkpd-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kelas</label> <select id="nilai-lkpd-kelas" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"></select>
+      </div>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Siswa</label> <select id="nilai-lkpd-nama" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"></select>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nilai LKPD 1 s.d. 4 <span class="text-gray-400 font-normal">(masing-masing 0-100)</span></label>
+      <div class="grid grid-cols-4 gap-2">
+       <input id="nilai-lkpd-n1" type="number" min="0" max="100" placeholder="0" oninput="updateNilaiLkpdAverage()" class="w-full px-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm text-center">
+       <input id="nilai-lkpd-n2" type="number" min="0" max="100" placeholder="0" oninput="updateNilaiLkpdAverage()" class="w-full px-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm text-center">
+       <input id="nilai-lkpd-n3" type="number" min="0" max="100" placeholder="0" oninput="updateNilaiLkpdAverage()" class="w-full px-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm text-center">
+       <input id="nilai-lkpd-n4" type="number" min="0" max="100" placeholder="0" oninput="updateNilaiLkpdAverage()" class="w-full px-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm text-center">
+      </div>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai (rata-rata)</label> <input id="nilai-lkpd-nilai" type="number" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-300 outline-none text-sm font-bold" placeholder="Dihitung otomatis">
+     </div>
+     <div class="flex gap-2 pt-2">
+      <button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-nilai-lkpd')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
    </div>
@@ -1884,7 +1951,7 @@ function startRealtimeSync() {
 }
 
 // Kunci-kunci data yang akan disinkronkan ke cloud (data administrasi utama)
-const CLOUD_KEYS = ['siswa','absensi','nilai','jurnal','custom_kelas','mapel','materi','jam','jadwal','praktikum','tugas','keaktifan','anak_wali','tahun_ajaran','kelas_jenjang','ulangan_harian','jam_istirahat','nilai_tugas','nilai_ulangan'];
+const CLOUD_KEYS = ['siswa','absensi','nilai','jurnal','custom_kelas','mapel','materi','jam','jadwal','praktikum','tugas','keaktifan','anak_wali','tahun_ajaran','kelas_jenjang','ulangan_harian','jam_istirahat','nilai_tugas','nilai_ulangan','nilai_lkpd'];
 
 let fbApp = null, db = null, cloudUser = null, cloudReady = false;
 let currentPage = 'dashboard';
@@ -2419,6 +2486,315 @@ document.getElementById('form-nilai-tugas').addEventListener('submit', function(
     renderNilaiTugas();
 });
 
+// ===================== NILAI LKPD (mirip Nilai Tugas, 4 kolom nilai) =====================
+let PAGE_SIZE_NILAI_LKPD = 40;
+let nilaiLkpdPage = 1;
+function syncNilaiLkpd() {
+    const siswa = getData('siswa');
+    let nilaiLkpd = getData('nilai_lkpd');
+    const sem = document.getElementById('filter-semester-nilai-lkpd')?.value || 'Ganjil';
+    let changed = false;
+    const norm = s => (s || '').toString().trim().replace(/\s+/g, ' ').toLowerCase();
+
+    // Gabungkan data ganda (nama+kelas+semester sama - termasuk yang cuma beda spasi/huruf besar-kecil) jadi satu
+    const groups = {};
+    nilaiLkpd.forEach(p => {
+        const k = norm(p.nama) + '||' + norm(p.kelas) + '||' + (p.semester || 'Ganjil');
+        (groups[k] = groups[k] || []).push(p);
+    });
+    const deduped = [];
+    Object.values(groups).forEach(group => {
+        if (group.length > 1) {
+            changed = true;
+            const scores = Array(4).fill(null);
+            group.forEach(p => {
+                const s = p.scores || Array(4).fill(null);
+                for (let i = 0; i < 4; i++) {
+                    if (s[i] !== null && s[i] !== undefined) scores[i] = Math.max(scores[i] ?? 0, Number(s[i]) || 0);
+                }
+            });
+            const filled = scores.filter(v => v !== null);
+            const nilai = filled.length > 0 ? Math.round(filled.reduce((a, b) => a + b, 0) / filled.length) : 0;
+            deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil', scores, nilai });
+        } else {
+            deduped.push({ ...group[0], semester: group[0].semester || 'Ganjil' });
+        }
+    });
+    nilaiLkpd = deduped;
+
+    // Samakan ejaan nama & kelas persis seperti di Data Siswa saat ini
+    nilaiLkpd.forEach(p => {
+        const match = siswa.find(s => norm(s.nama) === norm(p.nama) && norm(s.kelas) === norm(p.kelas));
+        if (match) {
+            if (p.nama !== match.nama) { p.nama = match.nama; changed = true; }
+            if (p.kelas !== match.kelas) { p.kelas = match.kelas; changed = true; }
+        }
+    });
+
+    siswa.forEach(s => {
+        const exists = nilaiLkpd.some(p => norm(p.nama) === norm(s.nama) && norm(p.kelas) === norm(s.kelas) && (p.semester || 'Ganjil') === sem);
+        if (!exists) {
+            nilaiLkpd.push({
+                id: genId(),
+                semester: sem,
+                kelas: s.kelas,
+                nama: s.nama,
+                nilai: 0,
+                scores: Array(4).fill(null)
+            });
+            changed = true;
+        }
+    });
+
+    if (changed) {
+        setData('nilai_lkpd', nilaiLkpd);
+    }
+}
+
+function renderNilaiLkpd() {
+    syncNilaiLkpd();
+    let data = getData('nilai_lkpd');
+    const search = document.getElementById('search-nilai-lkpd').value.toLowerCase();
+    const filterKelas = document.getElementById('filter-kelas-nilai-lkpd').value;
+    const filterSemester = document.getElementById('filter-semester-nilai-lkpd')?.value || 'Ganjil';
+
+    data = data.filter(p => (p.semester || 'Ganjil') === filterSemester);
+    const currentTahunNL = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const siswaKeySetNL = new Set(getData('siswa').filter(s => s.tahun === currentTahunNL).map(s => s.nama + '||' + s.kelas));
+    const totalSemesterNL = data.filter(p => siswaKeySetNL.has(p.nama + '||' + p.kelas)).length;
+    if (filterKelas) {
+        data = data.filter(p => p.kelas === filterKelas);
+    }
+    if (search) {
+        const siswaListForSearch = getData('siswa');
+        data = data.filter(p => { const siswa = siswaListForSearch.find(s => s.nama === p.nama && s.kelas === p.kelas); return p.nama.toLowerCase().includes(search) || String(siswa?.absen || '').toLowerCase().includes(search) || (siswa?.panggilan || '').toLowerCase().includes(search); });
+    }
+    const searchNilai = document.getElementById('search-nilai-nilai-lkpd').value;
+    if (searchNilai !== '') {
+        data = data.filter(p => (p.nilai || 0) === parseInt(searchNilai));
+    }
+
+    const siswaList = getData('siswa');
+    data = [...data].sort((a, b) => {
+        const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
+        if (kelasCompare !== 0) return kelasCompare;
+        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
+        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+        return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
+    });
+
+    const tbody = document.getElementById('nilai-lkpd-tbody');
+    if (!tbody) return;
+
+    const totalPages = Math.ceil(data.length / PAGE_SIZE_NILAI_LKPD) || 1;
+    if (nilaiLkpdPage > totalPages) nilaiLkpdPage = totalPages;
+    const start = (nilaiLkpdPage - 1) * PAGE_SIZE_NILAI_LKPD;
+    const paged = data.slice(start, start + PAGE_SIZE_NILAI_LKPD);
+
+    tbody.innerHTML = paged.length ? paged.map(p => {
+        const sInfo = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
+        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})` : p.nama;
+        return `
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                <td class="px-4 py-3 text-gray-600 dark:text-gray-300 font-semibold hidden sm:table-cell">${p.kelas || '-'}</td>
+                <td class="px-4 py-3 font-medium text-gray-800 dark:text-white">${displayName}</td>
+                <td class="px-4 py-3 text-center font-bold text-gray-800 dark:text-white">${p.nilai}</td>
+                <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell">
+                    <button onclick="openNilaiLkpdModal('${p.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button>
+                    <button onclick="deleteNilaiLkpd('${p.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+        `;
+    }).join('') : '<tr><td colspan="4" class="px-4 py-8 text-center text-gray-400">Tidak ada data nilai LKPD ditemukan.</td></tr>';
+
+    document.getElementById('nilai-lkpd-pagination').innerHTML = `
+        <span class="text-sm text-gray-500 dark:text-gray-400">Page ${nilaiLkpdPage}/${totalPages} (${data.length} data dari total ${totalSemesterNL} data)</span>
+        <div class="flex gap-1">
+            <button onclick="nilaiLkpdPage=Math.max(1,nilaiLkpdPage-1);renderNilaiLkpd()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${nilaiLkpdPage===1?'opacity-50':''}">Prev</button>
+            <button onclick="nilaiLkpdPage=Math.min(${totalPages},nilaiLkpdPage+1);renderNilaiLkpd()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${nilaiLkpdPage===totalPages?'opacity-50':''}">Next</button>
+        </div>`;
+}
+
+function handleNilaiLkpdKelasChange() {
+    const selectedKelas = document.getElementById('nilai-lkpd-kelas').value;
+    const siswa = getData('siswa').filter(s => s.kelas === selectedKelas);
+    siswa.sort((a, b) => (parseInt(a.absen) || 999) - (parseInt(b.absen) || 999));
+    const selectNama = document.getElementById('nilai-lkpd-nama');
+    if (!selectNama) return;
+    if (!siswa.length) {
+        selectNama.innerHTML = '<option value="">-- Tidak ada siswa di kelas ini --</option>';
+        return;
+    }
+    selectNama.innerHTML = siswa.map(s => `<option value="${s.nama}">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</option>`).join('');
+}
+
+function updateNilaiLkpdAverage() {
+    let sum = 0, count = 0;
+    for (let i = 1; i <= 4; i++) {
+        const val = document.getElementById(`nilai-lkpd-n${i}`).value;
+        if (val !== '') { sum += parseInt(val) || 0; count++; }
+    }
+    document.getElementById('nilai-lkpd-nilai').value = count > 0 ? Math.round(sum / count) : 0;
+}
+
+function openNilaiLkpdModal(id) {
+    document.getElementById('modal-nilai-lkpd-title').textContent = id ? 'Edit Nilai LKPD' : 'Tambah Nilai LKPD';
+    document.getElementById('form-nilai-lkpd').reset();
+    document.getElementById('nilai-lkpd-id').value = '';
+
+    const siswa = getData('siswa');
+    const customKelas = getData('custom_kelas');
+    const classes = [...new Set([...siswa.map(s => s.kelas), ...customKelas])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    const kelasSelect = document.getElementById('nilai-lkpd-kelas');
+    kelasSelect.innerHTML = classes.map(k => `<option value="${k}">${k}</option>`).join('') || '<option value="">-- Tambahkan Kelas Terlebih Dahulu --</option>';
+    kelasSelect.onchange = handleNilaiLkpdKelasChange;
+
+    document.getElementById('nilai-lkpd-semester').value = document.getElementById('filter-semester-nilai-lkpd')?.value || 'Ganjil';
+    handleNilaiLkpdKelasChange();
+
+    if (id) {
+        const p = getData('nilai_lkpd').find(x => x.id === id);
+        if (p) {
+            document.getElementById('nilai-lkpd-id').value = p.id;
+            kelasSelect.value = p.kelas || '';
+            handleNilaiLkpdKelasChange();
+            const namaSelect = document.getElementById('nilai-lkpd-nama');
+            if (namaSelect && p.nama) {
+                if (![...namaSelect.options].some(opt => opt.value === p.nama)) {
+                    const opt = document.createElement('option');
+                    opt.value = p.nama;
+                    opt.textContent = p.nama;
+                    namaSelect.appendChild(opt);
+                }
+                namaSelect.value = p.nama;
+            }
+            document.getElementById('nilai-lkpd-semester').value = p.semester || 'Ganjil';
+            const scores = p.scores || Array(4).fill(p.nilai || 0);
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`nilai-lkpd-n${i}`).value = scores[i - 1] ?? '';
+            }
+            updateNilaiLkpdAverage();
+        }
+    } else {
+        kelasSelect.value = document.getElementById('filter-kelas-nilai-lkpd').value || (classes[0] || '');
+        handleNilaiLkpdKelasChange();
+        updateNilaiLkpdAverage();
+    }
+    document.getElementById('modal-nilai-lkpd').classList.remove('hidden');
+}
+
+function deleteNilaiLkpd(id) {
+    showConfirm('Hapus Nilai LKPD', 'Apakah Anda yakin ingin menghapus data nilai LKPD ini?', () => {
+        setData('nilai_lkpd', getData('nilai_lkpd').filter(x => x.id !== id));
+        showToast('Data nilai LKPD berhasil dihapus!');
+        renderNilaiLkpd();
+    });
+}
+
+function exportNilaiLkpd() {
+    const data = getData('nilai_lkpd').map(p => {
+        const row = { Semester: p.semester || 'Ganjil', Kelas: p.kelas || '', 'Nama Siswa': p.nama || '' };
+        const scores = p.scores || Array(4).fill(p.nilai || 0);
+        for (let i = 1; i <= 4; i++) row[`Nilai ${i}`] = scores[i - 1] ?? '';
+        row['Nilai'] = p.nilai || 0;
+        return row;
+    });
+    exportXLSX(data, 'Nilai_LKPD');
+}
+
+function importNilaiLkpd(e) {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+        try {
+            const wb = XLSX.read(ev.target.result, { type: 'binary' });
+            const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+            const data = getData('nilai_lkpd');
+            let addedCount = 0;
+            rows.forEach(r => {
+                const semester = r['Semester'] || r.semester || 'Ganjil';
+                const kelas = r['Kelas'] || r.kelas || '';
+                const nama = r['Nama Siswa'] || r['Nama'] || r.nama || '';
+                const scores = [];
+                let sum = 0, count = 0;
+                for (let i = 1; i <= 4; i++) {
+                    const raw = r[`Nilai ${i}`];
+                    if (raw === undefined || raw === '') {
+                        scores.push(null);
+                    } else {
+                        const sVal = parseFloat(raw) || 0;
+                        scores.push(sVal);
+                        sum += sVal;
+                        count++;
+                    }
+                }
+                const nilai = count > 0 ? Math.round(sum / count) : 0;
+                if (kelas && nama) {
+                    data.push({ id: genId(), semester, kelas, nama, nilai, scores });
+                    addedCount++;
+                }
+            });
+            setData('nilai_lkpd', data);
+            renderNilaiLkpd();
+            showToast(`${addedCount} data nilai LKPD berhasil diimport!`);
+        } catch (err) {
+            showToast('Gagal memproses file import!', 'error');
+        }
+    };
+    reader.readAsBinaryString(file);
+    e.target.value = '';
+}
+
+function resetNilaiLkpd() {
+    showConfirmPassword('Reset Semua Nilai LKPD', 'Reset semua nilai LKPD siswa ke 0 pada semester dan Tahun Ajaran yang aktif? Masukkan password untuk konfirmasi.', () => {
+        const nilaiLkpd = getData('nilai_lkpd');
+        const sem = document.getElementById('filter-semester-nilai-lkpd')?.value || 'Ganjil';
+        const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+        const siswaKeySet = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.nama + '||' + s.kelas));
+
+        const updated = nilaiLkpd.map(p => {
+            if ((p.semester || 'Ganjil') === sem && siswaKeySet.has(p.nama + '||' + p.kelas)) {
+                return { ...p, nilai: 0, scores: Array(4).fill(null) };
+            }
+            return p;
+        });
+
+        setData('nilai_lkpd', updated);
+        showToast('Semua nilai LKPD berhasil di-reset ke 0!');
+        renderNilaiLkpd();
+    });
+}
+document.getElementById('form-nilai-lkpd').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const data = getData('nilai_lkpd');
+    const id = document.getElementById('nilai-lkpd-id').value;
+    const scores = [];
+    for (let i = 1; i <= 4; i++) {
+        const val = document.getElementById(`nilai-lkpd-n${i}`).value;
+        scores.push(val === '' ? null : (parseInt(val) || 0));
+    }
+    const filled = scores.filter(v => v !== null);
+    const nilai = filled.length > 0 ? Math.round(filled.reduce((a, b) => a + b, 0) / filled.length) : 0;
+    const obj = {
+        semester: document.getElementById('nilai-lkpd-semester').value,
+        kelas: document.getElementById('nilai-lkpd-kelas').value,
+        nama: document.getElementById('nilai-lkpd-nama').value.trim(),
+        scores,
+        nilai
+    };
+    if (id) {
+        const idx = data.findIndex(x => x.id === id);
+        data[idx] = { ...data[idx], ...obj };
+        showToast('Nilai LKPD berhasil diperbarui!');
+    } else {
+        data.push({ id: genId(), ...obj });
+        showToast('Nilai LKPD berhasil ditambahkan!');
+    }
+    setData('nilai_lkpd', data);
+    closeModal('modal-nilai-lkpd');
+    renderNilaiLkpd();
+});
+
 // ===================== NILAI ULANGAN (mirip Nilai Tugas, 3 kolom nilai) =====================
 let PAGE_SIZE_NILAI_ULANGAN = 40;
 let nilaiUlanganPage = 1;
@@ -2729,7 +3105,7 @@ document.getElementById('form-nilai-ulangan').addEventListener('submit', functio
 });
 
 function resetAllNilai() {
-    showConfirmPassword('Reset Semua Nilai', 'Reset semua komponen nilai (Tugas, UH, Quiz, UAS) siswa ke 0 untuk semester dan Tahun Ajaran yang aktif? Nilai akhir (NA) & Grade akan disesuaikan otomatis. Masukkan password untuk konfirmasi.', () => {
+    showConfirmPassword('Reset Semua Nilai', 'Reset semua komponen nilai (Tugas, LKPD, UH, Quiz, UAS) siswa ke 0 untuk semester dan Tahun Ajaran yang aktif? Nilai akhir (NA) & Grade akan disesuaikan otomatis. Masukkan password untuk konfirmasi.', () => {
         const nilai = getData('nilai');
         const sem = document.getElementById('filter-semester-nilai')?.value || 'Ganjil';
         const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
@@ -2737,10 +3113,11 @@ function resetAllNilai() {
         const updated = nilai.map(n => {
             if ((n.semester || 'Ganjil') === sem && (n.tahun || tahun) === tahun) {
                 const pScore = n.praktikum || 0; // retain inherited praktikum scores
-                const na = calcNA(0, 0, 0, pScore, 0);
+                const na = calcNA(0, 0, 0, 0, pScore, 0);
                 return {
                     ...n,
                     tugas: 0,
+                    lkpd: 0,
                     uh: 0,
                     quiz: 0,
                     uas: 0,
@@ -3656,7 +4033,7 @@ function showPage(page) {
     document.getElementById('page-' + page).classList.remove('hidden');
     document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
     document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
-    const names = { dashboard: 'Dashboard', siswa: 'Data Siswa', 'anak-wali': 'Anak Wali', keaktifan: 'Keaktifan Siswa', kelas: 'Data Kelas', mapel: 'Mata Pelajaran', materi: 'Materi Pembelajaran', jam: 'Jam Mengajar', jadwal: 'Jadwal Mengajar', absensi: 'Absensi Siswa', 'nilai-tugas': 'Nilai Tugas', 'nilai-ulangan': 'Nilai Ulangan', nilai: 'Nilai Siswa', praktikum: 'Praktikum Siswa', jurnal: 'Jurnal Mengajar', tugas: 'Tugas Siswa', ulangan: 'Ulangan Harian', 'tahun-ajaran': 'Tahun Ajaran', 'import-menu': 'Import Data', export: 'Export Data' };
+    const names = { dashboard: 'Dashboard', siswa: 'Data Siswa', 'anak-wali': 'Anak Wali', keaktifan: 'Keaktifan Siswa', kelas: 'Data Kelas', mapel: 'Mata Pelajaran', materi: 'Materi Pembelajaran', jam: 'Jam Mengajar', jadwal: 'Jadwal Mengajar', absensi: 'Absensi Siswa', 'nilai-tugas': 'Nilai Tugas', 'nilai-lkpd': 'Nilai LKPD', 'nilai-ulangan': 'Nilai Ulangan', nilai: 'Nilai Siswa', praktikum: 'Praktikum Siswa', jurnal: 'Jurnal Mengajar', tugas: 'Tugas Siswa', ulangan: 'Ulangan Harian', 'tahun-ajaran': 'Tahun Ajaran', 'import-menu': 'Import Data', export: 'Export Data' };
     document.getElementById('breadcrumb').innerHTML = `<span class="text-gray-400 cursor-pointer hover:text-primary hover:underline" onclick="showPage('dashboard')">Home</span> / <span class="text-primary font-medium">${names[page]}</span>`;
     
     // Always keep lists and dropdowns fresh
@@ -3698,6 +4075,10 @@ function showPage(page) {
     if (page === 'nilai-tugas') {
         autoSelectFirstKelas('filter-kelas-nilai-tugas', isNewNavigation);
         renderNilaiTugas();
+    }
+    if (page === 'nilai-lkpd') {
+        autoSelectFirstKelas('filter-kelas-nilai-lkpd', isNewNavigation);
+        renderNilaiLkpd();
     }
     if (page === 'nilai-ulangan') {
         autoSelectFirstKelas('filter-kelas-nilai-ulangan', isNewNavigation);
@@ -4192,7 +4573,7 @@ function populateKelasFilters() {
     const siswa = getData('siswa');
     const customKelas = getData('custom_kelas');
     const kelas = [...new Set([...siswa.map(s => s.kelas), ...customKelas])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
-    ['filter-kelas-siswa', 'filter-kelas-absensi', 'filter-kelas-nilai', 'filter-kelas-nilai-tugas', 'filter-kelas-nilai-ulangan', 'filter-kelas-jurnal', 'filter-kelas-jadwal', 'filter-kelas-praktikum', 'filter-kelas-keaktifan'].forEach(id => {
+    ['filter-kelas-siswa', 'filter-kelas-absensi', 'filter-kelas-nilai', 'filter-kelas-nilai-tugas', 'filter-kelas-nilai-lkpd', 'filter-kelas-nilai-ulangan', 'filter-kelas-jurnal', 'filter-kelas-jadwal', 'filter-kelas-praktikum', 'filter-kelas-keaktifan'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         const val = el.value;
@@ -5157,13 +5538,14 @@ function importNilai(e) {
                 const tahun = r['Tahun Ajaran'] || r.tahun || (localStorage.getItem('default_tahun_ajaran') || '2026/2027');
                 const nsl = (r['NSL'] !== undefined && r['NSL'] !== '') ? parseFloat(r['NSL']) : null;
                 const tugas = parseFloat(r['Tugas'] || r.tugas || 0);
+                const lkpd = parseFloat(r['LKPD'] || r.lkpd || 0);
                 const uh = parseFloat(r['UH'] || r.uh || 0);
                 const quiz = parseFloat(r['Quiz'] || r.quiz || 0);
                 const praktikum = parseFloat(r['Praktikum'] || r.praktikum || 0);
                 const uas = parseFloat(r['UAS'] || r.uas || 0);
                 const semester = r['Semester'] || r.semester || 'Ganjil';
                 
-                const na = calcNA(tugas, uh, quiz, praktikum, uas);
+                const na = calcNA(tugas, lkpd, uh, quiz, praktikum, uas);
                 const grade = getGrade(parseFloat(na));
 
                 if (kelas && nama) {
@@ -5175,6 +5557,7 @@ function importNilai(e) {
                         nama,
                         nsl,
                         tugas,
+                        lkpd,
                         uh,
                         quiz,
                         praktikum,
@@ -5459,8 +5842,8 @@ function printAbsensi() {
 }
 
 // ===================== NILAI CRUD =====================
-function calcNA(t, uh, q, p, uas) { return Math.round(t * 0.3 + uh * 0.1 + q * 0.1 + p * 0.2 + uas * 0.3).toString(); }
-function getGrade(na) { if (na >= 90) return 'A'; if (na >= 80) return 'B'; if (na >= 70) return 'C'; if (na >= 60) return 'D'; return 'E'; }
+function calcNA(t, lkpd, uh, q, p, uas) { return Math.round(t * 0.3 + lkpd * 0.2 + uh * 0.1 + q * 0.1 + p * 0.2 + uas * 0.1).toString(); }
+function getGrade(na) { if (na >= 81) return 'A'; if (na >= 61) return 'B'; if (na >= 41) return 'C'; if (na >= 21) return 'D'; return 'E'; }
 
 function updateNilaiPraktikumInput() {
     const sem = document.getElementById('nilai-semester').value;
@@ -5492,6 +5875,16 @@ function updateNilaiTugasFieldInput() {
     const tScore = tRecord ? (tRecord.nilai || 0) : 0;
     const tInput = document.getElementById('nilai-tugas');
     if (tInput) tInput.value = tScore;
+}
+
+function updateNilaiLkpdFieldInput() {
+    const sem = document.getElementById('nilai-semester').value;
+    const kelas = document.getElementById('nilai-kelas').value;
+    const nama = document.getElementById('nilai-nama').value;
+    const lRecord = getData('nilai_lkpd').find(t => t.nama === nama && t.kelas === kelas && (t.semester || 'Ganjil') === sem);
+    const lScore = lRecord ? (lRecord.nilai || 0) : 0;
+    const lInput = document.getElementById('nilai-lkpd');
+    if (lInput) lInput.value = lScore;
 }
 
 function updateNilaiUHFieldInput() {
@@ -5552,6 +5945,7 @@ function handleNilaiKelasChange() {
         if (document.getElementById('nilai-praktikum')) document.getElementById('nilai-praktikum').value = 0;
         if (document.getElementById('nilai-quiz')) document.getElementById('nilai-quiz').value = 0;
         if (document.getElementById('nilai-tugas')) document.getElementById('nilai-tugas').value = 0;
+        if (document.getElementById('nilai-lkpd')) document.getElementById('nilai-lkpd').value = 0;
         if (document.getElementById('nilai-uh')) document.getElementById('nilai-uh').value = 0;
         if (document.getElementById('nilai-nsl')) document.getElementById('nilai-nsl').value = '';
         return;
@@ -5560,6 +5954,7 @@ function handleNilaiKelasChange() {
     updateNilaiPraktikumInput();
     updateNilaiQuizInput();
     updateNilaiTugasFieldInput();
+    updateNilaiLkpdFieldInput();
     updateNilaiUHFieldInput();
     updateNilaiNSLInput();
 }
@@ -5596,6 +5991,7 @@ function openNilaiModal(id) {
 
             updateNilaiNSLInput(n.nsl);
             document.getElementById('nilai-tugas').value = n.tugas;
+            document.getElementById('nilai-lkpd').value = n.lkpd ?? 0;
             document.getElementById('nilai-uh').value = n.uh;
             document.getElementById('nilai-quiz').value = n.quiz;
             document.getElementById('nilai-praktikum').value = n.praktikum;
@@ -5610,8 +6006,8 @@ document.getElementById('form-nilai').addEventListener('submit', function(e) {
     const data = getData('nilai');
     const id = document.getElementById('nilai-id').value;
     const nslVal = document.getElementById('nilai-nsl').value;
-    const obj = { semester: document.getElementById('nilai-semester').value, kelas: document.getElementById('nilai-kelas').value, nama: document.getElementById('nilai-nama').value, nsl: nslVal === '' ? null : +nslVal, tugas: +document.getElementById('nilai-tugas').value, uh: +document.getElementById('nilai-uh').value, quiz: +document.getElementById('nilai-quiz').value, praktikum: +document.getElementById('nilai-praktikum').value, uas: +document.getElementById('nilai-uas').value };
-    obj.na = calcNA(obj.tugas, obj.uh, obj.quiz, obj.praktikum, obj.uas);
+    const obj = { semester: document.getElementById('nilai-semester').value, kelas: document.getElementById('nilai-kelas').value, nama: document.getElementById('nilai-nama').value, nsl: nslVal === '' ? null : +nslVal, tugas: +document.getElementById('nilai-tugas').value, lkpd: +document.getElementById('nilai-lkpd').value, uh: +document.getElementById('nilai-uh').value, quiz: +document.getElementById('nilai-quiz').value, praktikum: +document.getElementById('nilai-praktikum').value, uas: +document.getElementById('nilai-uas').value };
+    obj.na = calcNA(obj.tugas, obj.lkpd, obj.uh, obj.quiz, obj.praktikum, obj.uas);
     obj.grade = getGrade(+obj.na);
     if (id) { const idx = data.findIndex(x => x.id === id); data[idx] = { ...data[idx], ...obj }; showToast('Nilai berhasil diperbarui!'); }
     else { data.push({ id: genId(), ...obj }); showToast('Nilai berhasil ditambahkan!'); }
@@ -5644,6 +6040,7 @@ function syncNilai() {
     const praktikum = getData('praktikum');
     const keaktifan = getData('keaktifan');
     const nilaiTugas = getData('nilai_tugas');
+    const nilaiLkpdData = getData('nilai_lkpd');
     const nilaiUlanganData = getData('nilai_ulangan');
     const sem = document.getElementById('filter-semester-nilai') ? document.getElementById('filter-semester-nilai').value : 'Ganjil';
     let changed = false;
@@ -5712,6 +6109,10 @@ function syncNilai() {
         const tRecord = nilaiTugas.find(t => norm(t.nama) === norm(s.nama) && norm(t.kelas) === norm(s.kelas) && (t.semester || 'Ganjil') === sem);
         const tScore = tRecord ? (tRecord.nilai || 0) : 0;
 
+        // Find corresponding Nilai LKPD score (rata-rata 4 kolom -> LKPD)
+        const lRecord = nilaiLkpdData.find(t => norm(t.nama) === norm(s.nama) && norm(t.kelas) === norm(s.kelas) && (t.semester || 'Ganjil') === sem);
+        const lScore = lRecord ? (lRecord.nilai || 0) : 0;
+
         // Find corresponding Nilai Ulangan score (rata-rata 5 kolom -> UH)
         const uRecord = nilaiUlanganData.find(t => norm(t.nama) === norm(s.nama) && norm(t.kelas) === norm(s.kelas) && (t.semester || 'Ganjil') === sem);
         const uScore = uRecord ? (uRecord.nilai || 0) : 0;
@@ -5731,13 +6132,14 @@ function syncNilai() {
         if (existsIdx > -1) {
             // NSL hanya ditimpa kalau ada data otomatis (nslValue !== null); kalau tidak, biarkan nilai manual yang tersimpan
             const nextNsl = nslValue !== null ? nslValue : nilai[existsIdx].nsl;
-            if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore || nilai[existsIdx].tugas !== tScore || nilai[existsIdx].uh !== uScore || nilai[existsIdx].nsl !== nextNsl) {
+            if (nilai[existsIdx].praktikum !== pScore || nilai[existsIdx].quiz !== qScore || nilai[existsIdx].tugas !== tScore || nilai[existsIdx].lkpd !== lScore || nilai[existsIdx].uh !== uScore || nilai[existsIdx].nsl !== nextNsl) {
                 nilai[existsIdx].praktikum = pScore;
                 nilai[existsIdx].quiz = qScore;
                 nilai[existsIdx].tugas = tScore;
+                nilai[existsIdx].lkpd = lScore;
                 nilai[existsIdx].uh = uScore;
                 nilai[existsIdx].nsl = nextNsl;
-                nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].uh, qScore, pScore, nilai[existsIdx].uas);
+                nilai[existsIdx].na = calcNA(nilai[existsIdx].tugas, nilai[existsIdx].lkpd, nilai[existsIdx].uh, qScore, pScore, nilai[existsIdx].uas);
                 nilai[existsIdx].grade = getGrade(parseFloat(nilai[existsIdx].na));
                 changed = true;
             }
@@ -5750,12 +6152,13 @@ function syncNilai() {
                 nama: s.nama,
                 nsl: nslValue,
                 tugas: tScore,
+                lkpd: lScore,
                 uh: uScore,
                 quiz: qScore,
                 praktikum: pScore,
                 uas: 0,
-                na: calcNA(tScore, uScore, qScore, pScore, 0),
-                grade: getGrade(parseFloat(calcNA(tScore, uScore, qScore, pScore, 0)))
+                na: calcNA(tScore, lScore, uScore, qScore, pScore, 0),
+                grade: getGrade(parseFloat(calcNA(tScore, lScore, uScore, qScore, pScore, 0)))
             });
             changed = true;
         }
@@ -5803,6 +6206,7 @@ function renderNilai() {
             <td class="px-4 py-3 text-gray-800 dark:text-white font-medium">${displayName}</td>
             <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">${n.nsl ?? '-'}</td>
             <td class="px-4 py-3 text-center">${n.tugas}</td>
+            <td class="px-4 py-3 text-center">${n.lkpd ?? 0}</td>
             <td class="px-4 py-3 text-center">${n.uh}</td>
             <td class="px-4 py-3 text-center">${n.quiz}</td>
             <td class="px-4 py-3 text-center">${n.praktikum}</td>
@@ -5814,7 +6218,7 @@ function renderNilai() {
                 <button onclick="deleteNilai('${n.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button>
             </td>
         </tr>
-    `}).join('') : '<tr><td colspan="11" class="px-4 py-8 text-center text-gray-400">Belum ada data nilai</td></tr>';
+    `}).join('') : '<tr><td colspan="12" class="px-4 py-8 text-center text-gray-400">Belum ada data nilai</td></tr>';
 
     document.getElementById('nilai-pagination').innerHTML = `
         <span class="text-sm text-gray-500 dark:text-gray-400">Page ${nilaiPage}/${totalPages} (${data.length} data dari total ${totalSemester} data)</span>
@@ -5826,7 +6230,7 @@ function renderNilai() {
 
 function exportNilai() {
     const sem = document.getElementById('filter-semester-nilai')?.value || 'Ganjil';
-    const data = getData('nilai').filter(n => (n.semester || 'Ganjil') === sem).map(n => ({ 'Tahun Ajaran': n.tahun || '', Semester: n.semester || 'Ganjil', Kelas: n.kelas, Nama: n.nama, NSL: n.nsl ?? '', Tugas: n.tugas, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
+    const data = getData('nilai').filter(n => (n.semester || 'Ganjil') === sem).map(n => ({ 'Tahun Ajaran': n.tahun || '', Semester: n.semester || 'Ganjil', Kelas: n.kelas, Nama: n.nama, NSL: n.nsl ?? '', Tugas: n.tugas, LKPD: n.lkpd ?? 0, UH: n.uh, Quiz: n.quiz, Praktikum: n.praktikum, UAS: n.uas, 'Nilai Akhir': n.na, Grade: n.grade }));
     exportXLSX(data, `Nilai_${sem}`);
 }
 
