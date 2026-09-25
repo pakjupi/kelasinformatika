@@ -756,7 +756,7 @@
      <div id="page-absensi" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-calendar-check-fill text-primary"></i> Absensi Siswa</h1>
-       <div class="flex gap-2 flex-wrap"><button onclick="openBatchAbsensiModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition"><i class="bi bi-calendar2-plus"></i> Absensi Kelas</button> <button onclick="document.getElementById('import-absensi').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-absensi" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importAbsensi(event)"> <button onclick="exportAbsensi()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="printAbsensi()" class="px-4 py-2 bg-blue-500 text-white rounded-xl text-sm font-medium hover:bg-blue-600 transition"><i class="bi bi-printer"></i> Print</button> <button onclick="deleteAbsensiTerfilter()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition"><i class="bi bi-trash"></i> Delete</button> <button onclick="resetAbsensi()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="openBatchAbsensiModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition"><i class="bi bi-calendar2-plus"></i> Absensi Kelas</button> <button onclick="printAbsensi()" class="px-4 py-2 bg-blue-500 text-white rounded-xl text-sm font-medium hover:bg-blue-600 transition"><i class="bi bi-printer"></i> Print</button> <button onclick="deleteAbsensiTerfilter()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition"><i class="bi bi-trash"></i> Delete</button> <button onclick="openFlashAbsensiModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetAbsensi()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -803,7 +803,8 @@
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Izin</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Dispen</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Alpa</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Total Tidak Hadir</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Ketidakhadiran</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Detail</th>
           </tr>
          </thead>
          <tbody id="rekap-absensi-tbody" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
@@ -1876,6 +1877,37 @@
      <div class="flex gap-2 pt-2"><button type="submit" id="btn-mulai-absen" disabled class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary">Mulai Absen</button> <button type="button" onclick="closeModal('modal-batch-absensi')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
+   </div>
+  </div><!-- Flash Absensi Modal -->
+  <div id="modal-flash-absensi" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-absensi')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-gray-500"></i> Flash Absensi</h3>
+    <p id="flash-absensi-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <form id="form-flash-absensi" class="space-y-3">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status Kehadiran</label>
+      <select id="flash-absensi-status" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
+       <option value="Sakit">Sakit</option>
+       <option value="Izin">Izin</option>
+       <option value="Dispen">Dispen</option>
+       <option value="Alpa">Alpa</option>
+      </select>
+     </div>
+     <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Status kehadiran seluruh siswa di kelas &amp; tanggal terpilih akan langsung diubah sekaligus menjadi status yang dipilih di atas.</p>
+     <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-absensi')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Detail Rekap Absensi Modal -->
+  <div id="modal-detail-rekap-absensi" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-detail-rekap-absensi')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in max-h-[85vh] flex flex-col">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1">Detail Ketidakhadiran</h3>
+    <p id="detail-rekap-absensi-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <div id="detail-rekap-absensi-list" class="space-y-2 overflow-y-auto pr-1"></div>
+    <div class="pt-4 mt-2 border-t border-gray-100 dark:border-gray-700"><button type="button" onclick="closeModal('modal-detail-rekap-absensi')" class="w-full py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Tutup</button>
+    </div>
    </div>
   </div><!-- Notification Panel -->
   <div id="notif-panel" class="hidden fixed top-16 right-4 z-50 w-80 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 p-4 fade-in">
@@ -3355,6 +3387,7 @@ let siswaSort = { key: 'nama', asc: true };
 let siswaPage = 1;
 let absensiPage = 1;
 let rekapAbsensiPage = 1;
+let rekapAbsensiDetailCache = {};
 let praktikumPage = 1;
 let nilaiPage = 1;
 let jurnalPage = 1;
@@ -5868,6 +5901,50 @@ document.getElementById('form-batch-absensi').addEventListener('submit', functio
     renderAbsensi();
 });
 
+function openFlashAbsensiModal() {
+    const kl = document.getElementById('filter-kelas-absensi').value;
+    const tgl = document.getElementById('filter-tgl-absensi').value;
+    if (!kl || !tgl) {
+        showToast('Pilih Kelas dan Tanggal terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    document.getElementById('flash-absensi-info').textContent = `Kelas: ${kl} — Tanggal: ${tgl}`;
+    document.getElementById('flash-absensi-status').value = 'Sakit';
+    document.getElementById('modal-flash-absensi').classList.remove('hidden');
+}
+
+document.getElementById('form-flash-absensi').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const kl = document.getElementById('filter-kelas-absensi').value;
+    const tgl = document.getElementById('filter-tgl-absensi').value;
+    const sem = document.getElementById('filter-semester-absensi').value || 'Ganjil';
+    const status = document.getElementById('flash-absensi-status').value;
+    if (!kl || !tgl) {
+        showToast('Pilih Kelas dan Tanggal terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    const tahun = document.getElementById('filter-tahun-absensi')?.value || localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const siswa = getData('siswa').filter(s => s.kelas === kl && s.tahun === tahun);
+    if (!siswa.length) { showToast('Tidak ada siswa di kelas ini!', 'error'); return; }
+
+    const absensi = getData('absensi');
+    let changedCount = 0;
+    siswa.forEach(s => {
+        const existing = absensi.find(a => a.tanggal === tgl && a.nama === s.nama && a.kelas === kl && (a.semester || 'Ganjil') === sem);
+        if (existing) {
+            existing.status = status;
+        } else {
+            absensi.push({ id: genId(), semester: sem, tanggal: tgl, kelas: kl, nama: s.nama, status: status });
+        }
+        changedCount++;
+    });
+
+    setData('absensi', absensi);
+    showToast(`${changedCount} siswa di kelas ${kl} berhasil diubah menjadi "${status}"!`);
+    closeModal('modal-flash-absensi');
+    renderAbsensi();
+});
+
 function openAbsensiModal(id) {
     document.getElementById('modal-absensi-title').textContent = id ? 'Edit Absensi' : 'Tambah Absensi';
     document.getElementById('form-absensi').reset();
@@ -6095,12 +6172,15 @@ function renderRekapAbsensi() {
 
     const absensi = getData('absensi').filter(a => (a.semester || 'Ganjil') === sem);
 
+    rekapAbsensiDetailCache = {};
     const rekapData = siswaList.map(s => {
         const recs = absensi.filter(a => a.nama === s.nama && a.kelas === s.kelas);
         const sakit = recs.filter(a => a.status === 'Sakit').length;
         const izin = recs.filter(a => a.status === 'Izin').length;
         const dispen = recs.filter(a => a.status === 'Dispen').length;
         const alpa = recs.filter(a => a.status === 'Alpa').length;
+        const detail = recs.filter(a => a.status !== 'Hadir').sort((a, b) => (a.tanggal || '').localeCompare(b.tanggal || ''));
+        rekapAbsensiDetailCache[s.id] = { nama: s.nama, kelas: s.kelas, panggilan: s.panggilan, absen: s.absen, detail };
         return { siswa: s, sakit, izin, dispen, alpa, total: sakit + izin + dispen + alpa };
     });
 
@@ -6118,8 +6198,9 @@ function renderRekapAbsensi() {
             <td class="px-4 py-3 text-center">${r.dispen}</td>
             <td class="px-4 py-3 text-center">${r.alpa}</td>
             <td class="px-4 py-3 text-center font-bold">${r.total}</td>
+            <td class="px-4 py-3 text-center"><button onclick="openRekapAbsensiDetail('${r.siswa.id}')" class="text-primary hover:text-blue-700" title="Lihat Detail Ketidakhadiran"><i class="bi bi-eye"></i></button></td>
         </tr>
-    `).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Tidak ada data siswa ditemukan</td></tr>';
+    `).join('') : '<tr><td colspan="8" class="px-4 py-8 text-center text-gray-400">Tidak ada data siswa ditemukan</td></tr>';
 
     document.getElementById('rekap-absensi-pagination').innerHTML = `
         <span class="text-sm text-gray-500 dark:text-gray-400">Page ${rekapAbsensiPage}/${totalPages} (${rekapData.length} data dari total ${totalSemesterRekap} data)</span>
@@ -6127,6 +6208,21 @@ function renderRekapAbsensi() {
             <button onclick="rekapAbsensiPage=Math.max(1,rekapAbsensiPage-1);renderRekapAbsensi()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${rekapAbsensiPage===1?'opacity-50':''}">Prev</button>
             <button onclick="rekapAbsensiPage=Math.min(${totalPages},rekapAbsensiPage+1);renderRekapAbsensi()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${rekapAbsensiPage===totalPages?'opacity-50':''}">Next</button>
         </div>`;
+}
+
+function openRekapAbsensiDetail(siswaId) {
+    const info = rekapAbsensiDetailCache[siswaId];
+    if (!info) return;
+    const statusColors = { Sakit: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400', Izin: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400', Dispen: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400', Alpa: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' };
+    document.getElementById('detail-rekap-absensi-info').textContent = `${info.absen ? info.absen + '. ' : ''}${info.nama} (${info.panggilan}) — ${info.kelas}`;
+    const list = document.getElementById('detail-rekap-absensi-list');
+    list.innerHTML = info.detail.length ? info.detail.map(d => `
+        <div class="flex items-center justify-between px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700">
+            <span class="text-sm text-gray-700 dark:text-gray-300">${d.tanggal}</span>
+            <span class="px-2 py-0.5 rounded-full text-xs font-medium ${statusColors[d.status] || 'bg-gray-100 text-gray-600'}">${d.status}</span>
+        </div>
+    `).join('') : '<p class="text-sm text-gray-400 text-center py-4">Tidak ada catatan ketidakhadiran.</p>';
+    document.getElementById('modal-detail-rekap-absensi').classList.remove('hidden');
 }
 
 function getRekapAbsensiData() {
@@ -6173,7 +6269,7 @@ function exportRekapAbsensi() {
         Izin: r.izin,
         Dispen: r.dispen,
         Alpa: r.alpa,
-        'Total Tidak Hadir': r.total
+        'Ketidakhadiran': r.total
     }));
     exportXLSX(data, 'Rekap_Absensi');
 }
