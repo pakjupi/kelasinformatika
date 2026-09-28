@@ -822,7 +822,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-pencil-square text-primary"></i> Nilai Tugas</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiTugasModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai-tugas').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai-tugas" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilaiTugas(event)"> <button onclick="exportNilaiTugas()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetNilaiTugas()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="resetNilaiTugas()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -852,7 +852,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-card-checklist text-primary"></i> Nilai LKPD</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiLkpdModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai-lkpd').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai-lkpd" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilaiLkpd(event)"> <button onclick="exportNilaiLkpd()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetNilaiLkpd()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="resetNilaiLkpd()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -882,7 +882,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-file-earmark-text text-primary"></i> Nilai Ulangan</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiUlanganModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai-ulangan').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai-ulangan" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilaiUlangan(event)"> <button onclick="exportNilaiUlangan()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetNilaiUlangan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="resetNilaiUlangan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -946,7 +946,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-pc-display text-primary"></i> Praktikum Siswa</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-praktikum" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sederhanakan tampilan untuk proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="openPraktikumModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-praktikum').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-praktikum" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importPraktikum(event)"> <button onclick="exportPraktikum()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="openFlashPraktikumModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetAllPraktikum()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-praktikum" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sederhanakan tampilan untuk proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="openFlashJumlahPraktikumModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="openFlashPraktikumModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-journal-check"></i> Praktikum</button> <button onclick="resetAllPraktikum()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -1150,7 +1150,7 @@
      <div id="page-keaktifan" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-activity text-primary"></i> Keaktifan Siswa</h1>
-       <div class="flex gap-2 flex-wrap"><button id="btn-mode-privat" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="openKeaktifanModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-keaktifan').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-keaktifan" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importKeaktifan(event)"> <button onclick="exportKeaktifan()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetKeaktifan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-mode-privat" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetKeaktifan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -1688,7 +1688,7 @@
   <div id="modal-flash-praktikum" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
    <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-praktikum')"></div>
    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in">
-    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-gray-500"></i> Flash Praktikum</h3>
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-journal-check text-primary"></i> Total Praktikum</h3>
     <p id="flash-praktikum-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
     <form id="form-flash-praktikum" class="space-y-3">
      <div>
@@ -1696,7 +1696,28 @@
       <input id="flash-praktikum-total" type="number" min="0" step="1" required="" placeholder="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
      </div>
      <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Angka ini menjadi total praktikum untuk seluruh siswa di kelas &amp; semester terpilih (tampil sebagai "diikuti / total" di kolom Praktikum).</p>
-     <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-praktikum')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-praktikum')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Flash Jumlah Praktikum Modal -->
+  <div id="modal-flash-jumlah-praktikum" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-jumlah-praktikum')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in max-h-[90vh] flex flex-col">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-gray-500"></i> Flash Praktikum</h3>
+    <p id="flash-jumlah-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <form id="form-flash-jumlah-praktikum" class="flex flex-col min-h-0 space-y-3">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jumlah praktikum yang diikuti</label>
+      <input id="flash-jumlah-value" type="number" min="0" step="1" required="" placeholder="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
+     </div>
+     <div class="flex items-center justify-between">
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Pilih siswa</span>
+      <label class="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 cursor-pointer"><input id="flash-jumlah-all" type="checkbox" onchange="toggleFlashJumlahAll(this.checked)"> Pilih semua</label>
+     </div>
+     <div id="flash-jumlah-list" class="space-y-1 overflow-y-auto pr-1 min-h-0" style="max-height:45vh"></div>
+     <p class="text-xs text-gray-500 dark:text-gray-400">Siswa yang dicentang akan langsung diubah jumlah praktikumnya sekaligus. Siswa yang belum praktikum (0) otomatis tercentang.</p>
+     <div class="flex gap-2 pt-1"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-jumlah-praktikum')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
    </div>
@@ -3823,6 +3844,74 @@ document.getElementById('form-flash-praktikum').addEventListener('submit', funct
     setData('praktikum_total', list);
     showToast(`Total praktikum kelas ${kl} diubah menjadi ${total}!`);
     closeModal('modal-flash-praktikum');
+    renderPraktikum();
+});
+
+// Flash jumlah praktikum: isi jumlah praktikum yang diikuti untuk banyak siswa sekaligus
+function openFlashJumlahPraktikumModal() {
+    const kl = document.getElementById('filter-kelas-praktikum').value;
+    const sem = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
+    if (!kl) {
+        showToast('Pilih Kelas terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    syncPraktikum();
+    const total = getPraktikumTotal(kl, sem);
+    const siswaList = getData('siswa');
+    const recs = getData('praktikum').filter(p => p.kelas === kl && (p.semester || 'Ganjil') === sem)
+        .sort((a, b) => {
+            const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
+            const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+            return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
+        });
+    if (!recs.length) {
+        showToast('Tidak ada siswa di kelas ini!', 'error');
+        return;
+    }
+    document.getElementById('flash-jumlah-info').textContent = `Kelas: ${kl} — Semester ${sem} — Total praktikum: ${total}`;
+    document.getElementById('flash-jumlah-value').value = total;
+    document.getElementById('flash-jumlah-list').innerHTML = recs.map(p => {
+        const s = siswaList.find(x => x.nama === p.nama && x.kelas === p.kelas);
+        const nama = s ? `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})` : p.nama;
+        const j = p.jumlah || 0;
+        return `<label class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
+            <span class="flex items-center gap-2 text-sm text-gray-800 dark:text-white"><input type="checkbox" class="flash-jumlah-cb" value="${p.id}" ${j === 0 ? 'checked' : ''} onchange="syncFlashJumlahAll()"> ${nama}</span>
+            <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${j} / ${total}</span>
+        </label>`;
+    }).join('');
+    syncFlashJumlahAll();
+    document.getElementById('modal-flash-jumlah-praktikum').classList.remove('hidden');
+}
+
+function toggleFlashJumlahAll(checked) {
+    document.querySelectorAll('#flash-jumlah-list .flash-jumlah-cb').forEach(cb => { cb.checked = checked; });
+}
+
+function syncFlashJumlahAll() {
+    const cbs = [...document.querySelectorAll('#flash-jumlah-list .flash-jumlah-cb')];
+    const all = document.getElementById('flash-jumlah-all');
+    if (all) all.checked = cbs.length > 0 && cbs.every(cb => cb.checked);
+}
+
+document.getElementById('form-flash-jumlah-praktikum').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const kl = document.getElementById('filter-kelas-praktikum').value;
+    const sem = document.getElementById('filter-semester-praktikum')?.value || 'Ganjil';
+    const value = Math.max(0, parseInt(document.getElementById('flash-jumlah-value').value) || 0);
+    const total = getPraktikumTotal(kl, sem);
+    if (total > 0 && value > total) {
+        showToast(`Jumlah praktikum tidak boleh lebih dari total (${total})!`, 'error');
+        return;
+    }
+    const ids = new Set([...document.querySelectorAll('#flash-jumlah-list .flash-jumlah-cb:checked')].map(cb => cb.value));
+    if (!ids.size) {
+        showToast('Pilih minimal satu siswa!', 'error');
+        return;
+    }
+    const data = getData('praktikum').map(p => ids.has(p.id) ? { ...p, jumlah: value } : p);
+    setData('praktikum', data);
+    showToast(`${ids.size} siswa diubah menjadi ${value} praktikum!`);
+    closeModal('modal-flash-jumlah-praktikum');
     renderPraktikum();
 });
 
