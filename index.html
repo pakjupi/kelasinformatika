@@ -766,6 +766,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
        <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-absensi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderAbsensi()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <input id="filter-tgl-absensi" type="date" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderAbsensi()"> <select id="filter-kelas-absensi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderAbsensi()"> <option value="">Semua Kelas</option> </select> <select id="filter-tahun-absensi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="this.dataset.userPicked='1';renderAbsensi()" title="Tahun Ajaran yang sedang dilihat/di-reset"></select> <input id="search-absensi" type="text" placeholder="Cari nama..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderAbsensi()">
        </div>
+       <div id="absensi-kelas-hari" class="px-4 py-3 flex flex-wrap items-center gap-2 border-b border-gray-100 dark:border-gray-700"></div>
        <div class="table-container">
         <table class="w-full text-sm">
          <thead class="bg-gray-50 dark:bg-gray-700/50">
@@ -4481,7 +4482,8 @@ function showPage(page) {
     if (page === 'jadwal') { populateMapelSelects(); renderJadwal(); }
     if (page === 'absensi') {
         const attendanceDate = document.getElementById('filter-tgl-absensi');
-        const todayStr = new Date().toISOString().split('T')[0];
+        const now = new Date();
+        const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
         // Saat baru masuk menu: default tanggal hari ini & filter kelas "Semua Kelas"
         if (isNewNavigation) {
             if (attendanceDate) attendanceDate.value = todayStr;
@@ -6175,6 +6177,44 @@ function deleteAbsensi(id) {
     });
 }
 
+// Daftar kelas yang punya jadwal mengajar pada hari sesuai tanggal terpilih.
+// Abu-abu muda = belum ada absensi pada tanggal tersebut, hijau = sudah ada.
+function renderAbsensiKelasHari(sem, tgl, tahun) {
+    const box = document.getElementById('absensi-kelas-hari');
+    if (!box) return;
+    if (!tgl) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+    box.classList.remove('hidden');
+    const hariNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const hari = hariNames[new Date(tgl + 'T00:00:00').getDay()];
+    const kelasList = [...new Set(getData('jadwal')
+        .filter(j => j.hari === hari && (j.semester || 'Ganjil') === sem && (j.tahun || tahun) === tahun)
+        .map(j => j.kelas).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    if (!kelasList.length) {
+        box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400">Tidak ada jadwal mengajar pada hari ${hari}.</span>`;
+        return;
+    }
+    const siswaKeySet = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.nama + '||' + s.kelas));
+    const sudahAbsen = new Set(getData('absensi')
+        .filter(a => a.tanggal === tgl && (a.semester || 'Ganjil') === sem && siswaKeySet.has(a.nama + '||' + a.kelas))
+        .map(a => a.kelas));
+    box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400 mr-1">Jadwal hari ${hari}:</span>` + kelasList.map(kl => {
+        const done = sudahAbsen.has(kl);
+        const cls = done
+            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+            : 'bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200';
+        const title = done ? 'Sudah ada absensi' : 'Belum ada absensi';
+        return `<button type="button" onclick="pilihKelasAbsensi('${kl}')" title="${title}" class="px-3 py-1 rounded-full text-xs font-medium transition hover:opacity-80 ${cls}">${done ? '<i class="bi bi-check2"></i> ' : ''}${kl}</button>`;
+    }).join('');
+}
+
+function pilihKelasAbsensi(kelas) {
+    const sel = document.getElementById('filter-kelas-absensi');
+    if (!sel) return;
+    sel.value = kelas;
+    renderAbsensi();
+}
+
 function renderAbsensi() {
     let data = getData('absensi');
     const sem = document.getElementById('filter-semester-absensi').value;
@@ -6190,6 +6230,7 @@ function renderAbsensi() {
         tahunSelect.value = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
     }
     const tahun = tahunSelect ? tahunSelect.value : (localStorage.getItem('default_tahun_ajaran') || '2026/2027');
+    renderAbsensiKelasHari(sem, tgl, tahun);
 
     const siswaKeySetTahun = new Set(getData('siswa').filter(s => s.tahun === tahun).map(s => s.nama + '||' + s.kelas));
     data = data.filter(a => (a.semester || 'Ganjil') === sem && siswaKeySetTahun.has(a.nama + '||' + a.kelas));
