@@ -2480,6 +2480,11 @@ function renderNilaiTugas() {
         });
     }
     data = [...data].sort((a, b) => {
+        const totalA = filledColsMap[a.kelas] ? filledColsMap[a.kelas].size : 0;
+        const totalB = filledColsMap[b.kelas] ? filledColsMap[b.kelas].size : 0;
+        const belumA = totalA > 0 && countFilledScores(a.scores) < totalA;
+        const belumB = totalB > 0 && countFilledScores(b.scores) < totalB;
+        if (belumA !== belumB) return belumA ? -1 : 1;
         const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
         if (kelasCompare !== 0) return kelasCompare;
         const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
@@ -2825,6 +2830,11 @@ function renderNilaiLkpd() {
         });
     }
     data = [...data].sort((a, b) => {
+        const totalA = filledColsMap[a.kelas] ? filledColsMap[a.kelas].size : 0;
+        const totalB = filledColsMap[b.kelas] ? filledColsMap[b.kelas].size : 0;
+        const belumA = totalA > 0 && countFilledScores(a.scores) < totalA;
+        const belumB = totalB > 0 && countFilledScores(b.scores) < totalB;
+        if (belumA !== belumB) return belumA ? -1 : 1;
         const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
         if (kelasCompare !== 0) return kelasCompare;
         const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
@@ -3170,6 +3180,11 @@ function renderNilaiUlangan() {
         });
     }
     data = [...data].sort((a, b) => {
+        const totalA = filledColsMap[a.kelas] ? filledColsMap[a.kelas].size : 0;
+        const totalB = filledColsMap[b.kelas] ? filledColsMap[b.kelas].size : 0;
+        const belumA = totalA > 0 && countFilledScores(a.scores) < totalA;
+        const belumB = totalB > 0 && countFilledScores(b.scores) < totalB;
+        if (belumA !== belumB) return belumA ? -1 : 1;
         const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
         if (kelasCompare !== 0) return kelasCompare;
         const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
