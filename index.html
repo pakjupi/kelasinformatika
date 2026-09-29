@@ -3608,16 +3608,26 @@ function renderPraktikum() {
     if (search) {
         const siswaListForSearch = getData('siswa'); data = data.filter(p => { const siswa = siswaListForSearch.find(s => s.nama === p.nama && s.kelas === p.kelas); return p.nama.toLowerCase().includes(search) || String(siswa?.absen || '').toLowerCase().includes(search) || (siswa?.panggilan || '').toLowerCase().includes(search); });
     }
+    const siswaList = getData('siswa');
+    const keaktifanListPraktikum = getData('keaktifan');
     if (filterStatus) {
-        data = data.filter(p => (p.status || 'supreme') === filterStatus);
+        data = data.filter(p => {
+            const linkedStudent = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
+            const linkedActivity = linkedStudent ? keaktifanListPraktikum.find(x => x.siswaId === linkedStudent.id) : null;
+            return (linkedActivity?.status || p.status || 'supreme') === filterStatus;
+        });
     }
     const searchNilai = document.getElementById('search-nilai-praktikum').value;
     if (searchNilai !== '') {
         data = data.filter(p => (p.nilai || 0) === parseInt(searchNilai));
     }
 
-    const siswaList = getData('siswa');
     data = [...data].sort((a, b) => {
+        const totalA = getPraktikumTotal(a.kelas, filterSemester);
+        const totalB = getPraktikumTotal(b.kelas, filterSemester);
+        const belumA = totalA > 0 && (a.jumlah || 0) < totalA;
+        const belumB = totalB > 0 && (b.jumlah || 0) < totalB;
+        if (belumA !== belumB) return belumA ? -1 : 1;
         const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
         if (kelasCompare !== 0) return kelasCompare;
         const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
