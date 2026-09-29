@@ -823,7 +823,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-pencil-square text-primary"></i> Nilai Tugas</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button onclick="resetNilaiTugas()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-tugas" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetNilaiTugas()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -853,7 +853,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-card-checklist text-primary"></i> Nilai LKPD</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button onclick="resetNilaiLkpd()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-lkpd" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetNilaiLkpd()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -883,7 +883,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-file-earmark-text text-primary"></i> Nilai Ulangan</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button onclick="resetNilaiUlangan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-ulangan" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetNilaiUlangan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -1665,9 +1665,6 @@
      </div>
      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div class="sm:col-span-2">
-       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Praktikum <span class="text-gray-400 font-normal">(jumlah praktikum yang diikuti siswa)</span></label> <input id="praktikum-jumlah" type="number" min="0" step="1" placeholder="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
-      </div>
-      <div class="sm:col-span-2">
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai</label> <input id="praktikum-nilai" type="number" min="0" max="100" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-300 outline-none text-sm font-bold" placeholder="Dihitung otomatis">
       </div>
       <div class="hidden">
@@ -1679,6 +1676,9 @@
        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Pilih nilai akhir cepat (1 lingkaran = 5 poin)</p>
        <div id="praktikum-point-circles" class="grid grid-cols-10 gap-1.5" aria-label="Pilih nilai akhir praktikum"></div>
       </div>
+     </div>
+     <div class="p-3 rounded-lg border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/20">
+      <label class="block text-sm font-bold text-amber-800 dark:text-amber-300 mb-1"><i class="bi bi-exclamation-triangle-fill"></i> Praktikum <span class="font-normal">(jumlah praktikum yang diikuti siswa — jangan lupa diisi/diedit)</span></label> <input id="praktikum-jumlah" type="number" min="0" step="1" placeholder="0" class="w-full px-3 py-2 border border-amber-300 dark:border-amber-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-amber-400 text-sm font-semibold">
      </div>
      <div class="flex gap-2 pt-2">
       <button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-praktikum')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
@@ -3477,7 +3477,8 @@ let modePrivat = false;
 function toggleModePrivat() {
     modePrivat = !modePrivat;
     showToast(modePrivat ? 'Mode Presentasi aktif - tampilan disederhanakan' : 'Mode Presentasi dimatikan');
-    ['btn-mode-privat', 'btn-presentasi-praktikum', 'btn-presentasi-anakwali'].forEach(bid => {
+    ({ 'praktikum': renderPraktikum, 'keaktifan': renderKeaktifan, 'nilai-tugas': renderNilaiTugas, 'nilai-lkpd': renderNilaiLkpd, 'nilai-ulangan': renderNilaiUlangan }[currentPage] || function(){})();
+    ['btn-mode-privat', 'btn-presentasi-praktikum', 'btn-presentasi-anakwali', 'btn-presentasi-nilai-tugas', 'btn-presentasi-nilai-lkpd', 'btn-presentasi-nilai-ulangan'].forEach(bid => {
         const b = document.getElementById(bid);
         if (b) { b.classList.toggle('bg-teal-600', modePrivat); b.classList.toggle('text-white', modePrivat); }
     });
@@ -3689,8 +3690,8 @@ function renderPraktikum() {
                 <td class="px-4 py-3 text-gray-600 dark:text-gray-300 font-semibold hidden sm:table-cell">${p.kelas || '-'}</td>
                 <td class="px-4 py-3 font-medium text-gray-800 dark:text-white">${displayName}</td>
                 <td class="px-4 py-3 text-center ${belumLengkapPrak ? 'text-orange-600 dark:text-orange-400 font-semibold' : 'text-gray-700 dark:text-gray-200'}">${p.jumlah || 0} / ${totalPrak}${belumLengkapPrak ? ' <i class="bi bi-exclamation-circle-fill text-orange-500" title="Praktikum belum lengkap"></i>' : ''}</td>
-                <td class="px-4 py-3 text-center font-bold text-gray-800 dark:text-white">${p.nilai}</td>
-                <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">${p.grade}</span></td>
+                <td class="px-4 py-3 text-center font-bold text-gray-800 dark:text-white">${modePrivat ? '•••' : p.nilai}</td>
+                <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">${modePrivat ? '-' : p.grade}</span></td>
                 <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell">
                     <button onclick="openPraktikumModal('${p.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button>
                     <button onclick="deletePraktikum('${p.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button>
