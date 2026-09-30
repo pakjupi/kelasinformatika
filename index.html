@@ -1678,7 +1678,14 @@
       </div>
      </div>
      <div class="p-3 rounded-lg border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/20">
-      <label class="block text-sm font-bold text-amber-800 dark:text-amber-300 mb-1"><i class="bi bi-exclamation-triangle-fill"></i> Praktikum <span class="font-normal">(jumlah praktikum yang diikuti siswa — jangan lupa diisi/diedit)</span></label> <input id="praktikum-jumlah" type="number" min="0" step="1" placeholder="0" class="w-full px-3 py-2 border border-amber-300 dark:border-amber-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-amber-400 text-sm font-semibold">
+      <label class="block text-sm font-bold text-amber-800 dark:text-amber-300 mb-1"><i class="bi bi-exclamation-triangle-fill"></i> Praktikum <span class="font-normal">(jumlah praktikum yang diikuti siswa — jangan lupa diisi/diedit)</span></label>
+      <div class="flex items-stretch gap-2">
+       <div class="flex flex-col rounded-lg overflow-hidden border border-amber-300 dark:border-amber-600 shrink-0">
+        <button type="button" onclick="adjustPraktikumJumlah(1)" class="w-9 h-1/2 flex items-center justify-center bg-amber-100 dark:bg-amber-800/40 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-800/60 leading-none" title="Tambah"><i class="bi bi-caret-up-fill"></i></button>
+        <button type="button" onclick="adjustPraktikumJumlah(-1)" class="w-9 h-1/2 flex items-center justify-center bg-amber-100 dark:bg-amber-800/40 text-amber-700 dark:text-amber-300 hover:bg-amber-200 dark:hover:bg-amber-800/60 leading-none border-t border-amber-300 dark:border-amber-600" title="Kurangi"><i class="bi bi-caret-down-fill"></i></button>
+       </div>
+       <input id="praktikum-jumlah" type="number" min="0" step="1" placeholder="0" class="flex-1 min-w-0 px-3 py-2 border border-amber-300 dark:border-amber-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-amber-400 text-sm font-semibold">
+      </div>
      </div>
      <div class="flex gap-2 pt-2">
       <button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-praktikum')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
@@ -1910,6 +1917,18 @@
      <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-jurnal')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
+   </div>
+  </div><!-- Detail Jurnal Modal -->
+  <div id="modal-jurnal-detail" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-jurnal-detail')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-6 fade-in max-h-[90vh] overflow-y-auto">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2"><i class="bi bi-journal-text text-primary"></i> Detail Jurnal Mengajar</h3>
+    <div id="jurnal-detail-body" class="space-y-3 text-sm"></div>
+    <div class="pt-4 mt-2 border-t border-gray-100 dark:border-gray-700 flex gap-2">
+     <button type="button" onclick="printJurnalSatu(document.getElementById('jurnal-detail-id').value)" class="flex-1 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition text-sm"><i class="bi bi-printer"></i> Print</button>
+     <button type="button" onclick="closeModal('modal-jurnal-detail')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Tutup</button>
+    </div>
+    <input type="hidden" id="jurnal-detail-id">
    </div>
   </div><!-- Batch Absensi Modal -->
   <div id="modal-batch-absensi" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -3849,6 +3868,13 @@ function openPraktikumModal(id) {
         calculateAveragePraktikum();
     }
     document.getElementById('modal-praktikum').classList.remove('hidden');
+}
+
+function adjustPraktikumJumlah(delta) {
+    const input = document.getElementById('praktikum-jumlah');
+    if (!input) return;
+    const current = Math.max(0, parseInt(input.value) || 0);
+    input.value = Math.max(0, current + delta);
 }
 
 // Total praktikum per kelas & semester (diatur lewat tombol Flash di menu Praktikum)
@@ -7325,7 +7351,7 @@ function renderJurnal() {
             <td class="px-4 py-3">${j.mapel}</td>
             <td class="px-4 py-3 text-gray-800 dark:text-white max-w-[200px]"><span class="block truncate">${j.materi}</span>${j.catatan ? `<span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block"><i class="bi bi-sticky"></i> ${j.catatan}</span>` : ''}</td>
             <td class="px-4 py-3 text-center whitespace-nowrap sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell">
-                <button onclick="printJurnalSatu('${j.id}')" class="mobile-action-btn text-blue-500 hover:text-blue-700" title="Print"><i class="bi bi-printer"></i></button>
+                <button onclick="openJurnalDetail('${j.id}')" class="mobile-action-btn text-blue-500 hover:text-blue-700" title="Lihat Detail"><i class="bi bi-eye"></i></button>
                 <button onclick="openJurnalModal('${j.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button>
                 <button onclick="deleteJurnal('${j.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button>
             </td>
@@ -7343,6 +7369,41 @@ function renderJurnal() {
 function exportJurnal() {
     const data = getData('jurnal').map(j => ({ Tanggal: j.tanggal, Hari: j.hari, Jam: j.jam, Kelas: j.kelas, 'Mata Pelajaran': j.mapel, Materi: j.materi, 'Jml Hadir': j.hadir, Status: j.statusPembelajaran, Catatan: j.catatan }));
     exportXLSX(data, 'Jurnal_Mengajar');
+}
+
+function openJurnalDetail(id) {
+    const j = getData('jurnal').find(x => x.id === id);
+    if (!j) return;
+    document.getElementById('jurnal-detail-id').value = id;
+
+    const siswaList = getData('siswa');
+    const tidakHadir = getData('absensi').filter(a => a.tanggal === j.tanggal && a.kelas.toLowerCase() === (j.kelas || '').toLowerCase() && (a.semester || 'Ganjil') === (j.semester || 'Ganjil') && a.status !== 'Hadir');
+    const items = tidakHadir.map(a => {
+        const s = siswaList.find(x => x.nama === a.nama && x.kelas.toLowerCase() === (j.kelas || '').toLowerCase());
+        const label = s ? `${s.panggilan || s.nama} (${s.absen || '-'})` : a.nama;
+        return { label, status: a.status, absen: parseInt(s?.absen) || 999 };
+    }).sort((a, b) => a.absen - b.absen);
+
+    const row = (label, val) => `<div class="flex justify-between gap-3 border-b border-gray-100 dark:border-gray-700 pb-2"><span class="text-gray-500 dark:text-gray-400">${label}</span><span class="text-right font-medium text-gray-800 dark:text-white">${val}</span></div>`;
+    document.getElementById('jurnal-detail-body').innerHTML = `
+        ${row('Tanggal', j.tanggal || '-')}
+        ${row('Hari', j.hari || '-')}
+        ${row('Jam', j.jam || '-')}
+        ${row('Kelas', j.kelas || '-')}
+        ${row('Mata Pelajaran', j.mapel || '-')}
+        ${row('Materi', j.materi || '-')}
+        ${row('Jumlah Hadir', j.hadir ?? '-')}
+        ${row('Status Pembelajaran', j.statusPembelajaran || '-')}
+        <div>
+            <span class="text-gray-500 dark:text-gray-400 block mb-1">Catatan</span>
+            <p class="text-gray-800 dark:text-white bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2">${j.catatan ? j.catatan : '-'}</p>
+        </div>
+        <div>
+            <span class="text-gray-500 dark:text-gray-400 block mb-1">Siswa Tidak Hadir</span>
+            <div class="text-gray-800 dark:text-white bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2">${items.length ? items.map(it => `${it.label} <span class="text-gray-400 dark:text-gray-500">- ${it.status}</span>`).join('<br>') : '<span class="text-gray-400">Semua siswa hadir</span>'}</div>
+        </div>
+    `;
+    document.getElementById('modal-jurnal-detail').classList.remove('hidden');
 }
 
 function printJurnalSatu(id) {
