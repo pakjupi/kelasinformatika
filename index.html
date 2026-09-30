@@ -1862,7 +1862,7 @@
     <h3 id="modal-jurnal-title" class="text-lg font-bold text-gray-800 dark:text-white mb-4">Tambah Jurnal</h3>
     <form id="form-jurnal" class="space-y-3"><input type="hidden" id="jurnal-id">
      <div>
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="jurnal-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateJadwalOptionsForJurnal(); updateJurnalHadirCount();"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Semester</label> <select id="jurnal-semester" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="updateJadwalOptionsForJurnal(); updateJurnalHadirCount(); populateJurnalMateriOptions();"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select>
      </div>
      <div class="grid grid-cols-2 gap-3">
       <div>
@@ -1899,6 +1899,10 @@
       <div>
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label> <select id="jurnal-status" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm"> <option>Terlaksana</option><option>Tidak Terlaksana</option> </select>
       </div>
+     </div>
+     <div id="jurnal-tidak-hadir-wrapper" class="hidden">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Siswa Tidak Hadir</label>
+      <div id="jurnal-tidak-hadir-list" class="text-sm text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2"></div>
      </div>
      <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Catatan</label><textarea id="jurnal-catatan" rows="2" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm resize-none"></textarea>
@@ -6055,7 +6059,8 @@ function updateBatchAbsensiButton() {
 }
 
 function openBatchAbsensiModal() {
-    document.getElementById('batch-absensi-tgl').value = new Date().toISOString().split('T')[0];
+    const nowB = new Date();
+    document.getElementById('batch-absensi-tgl').value = `${nowB.getFullYear()}-${String(nowB.getMonth() + 1).padStart(2, '0')}-${String(nowB.getDate()).padStart(2, '0')}`;
     populateKelasSelects();
     const select = document.getElementById('batch-absensi-kelas');
     if (!select.options.length) {
@@ -6427,7 +6432,7 @@ function renderRekapAbsensi() {
         const izin = recs.filter(a => a.status === 'Izin').length;
         const dispen = recs.filter(a => a.status === 'Dispen').length;
         const alpa = recs.filter(a => a.status === 'Alpa').length;
-        const detail = recs.filter(a => a.status !== 'Hadir').sort((a, b) => (a.tanggal || '').localeCompare(b.tanggal || ''));
+        const detail = recs.filter(a => a.status !== 'Hadir').sort((a, b) => (b.tanggal || '').localeCompare(a.tanggal || ''));
         rekapAbsensiDetailCache[s.id] = { nama: s.nama, kelas: s.kelas, panggilan: s.panggilan, absen: s.absen, detail };
         return { siswa: s, sakit, izin, dispen, alpa, total: sakit + izin + dispen + alpa };
     });
@@ -7114,6 +7119,31 @@ function updateJurnalHadirCount() {
         const count = absensi.filter(a => a.tanggal === tgl && a.kelas.toLowerCase() === kelas.toLowerCase() && a.status === 'Hadir' && (a.semester || 'Ganjil') === sem).length;
         document.getElementById('jurnal-hadir').value = count;
     }
+    updateJurnalTidakHadirList();
+}
+
+// Tampilkan nama panggilan (no. absen) siswa yang tidak hadir pada tanggal & kelas jurnal ini
+function updateJurnalTidakHadirList() {
+    const wrapper = document.getElementById('jurnal-tidak-hadir-wrapper');
+    const box = document.getElementById('jurnal-tidak-hadir-list');
+    if (!wrapper || !box) return;
+    const tgl = document.getElementById('jurnal-tgl').value;
+    const kelas = document.getElementById('jurnal-kelas').value.trim();
+    const sem = document.getElementById('jurnal-semester').value;
+    if (!tgl || !kelas) { wrapper.classList.add('hidden'); box.innerHTML = ''; return; }
+
+    const siswaList = getData('siswa');
+    const tidakHadir = getData('absensi').filter(a => a.tanggal === tgl && a.kelas.toLowerCase() === kelas.toLowerCase() && (a.semester || 'Ganjil') === sem && a.status !== 'Hadir');
+    if (!tidakHadir.length) { wrapper.classList.add('hidden'); box.innerHTML = ''; return; }
+
+    const items = tidakHadir.map(a => {
+        const s = siswaList.find(x => x.nama === a.nama && x.kelas.toLowerCase() === kelas.toLowerCase());
+        const label = s ? `${s.panggilan || s.nama} (${s.absen || '-'})` : a.nama;
+        return { label, status: a.status, absen: parseInt(s?.absen) || 999 };
+    }).sort((a, b) => a.absen - b.absen);
+
+    wrapper.classList.remove('hidden');
+    box.innerHTML = items.map(it => `${it.label} <span class="text-gray-400 dark:text-gray-500">- ${it.status}</span>`).join('<br>');
 }
 
 function populateJurnalJenjangOptions() {
@@ -7139,7 +7169,8 @@ function populateJurnalMateriOptions(keepValue) {
     if (!materiSelect) return;
     const previous = keepValue !== undefined ? keepValue : materiSelect.value;
     const classGrade = document.getElementById('jurnal-jenjang')?.value || '';
-    const filteredMateri = getData('materi').filter(m => !classGrade || m.kelas === classGrade);
+    const semJurnal = document.getElementById('jurnal-semester')?.value || 'Ganjil';
+    const filteredMateri = getData('materi').filter(m => (!classGrade || m.kelas === classGrade) && (m.semester || 'Ganjil') === semJurnal);
     const sortedMateri = [...filteredMateri].sort((a, b) => {
         const uA = a.urutan || 999, uB = b.urutan || 999;
         if (uA !== uB) return uA - uB;
@@ -7204,7 +7235,8 @@ function openJurnalModal(id) {
         }
     } else {
         // Set default date to today and auto change day and load schedules
-        const todayStr = new Date().toISOString().split('T')[0];
+        const nowJ = new Date();
+        const todayStr = `${nowJ.getFullYear()}-${String(nowJ.getMonth() + 1).padStart(2, '0')}-${String(nowJ.getDate()).padStart(2, '0')}`;
         document.getElementById('jurnal-tgl').value = todayStr;
         setTimeout(handleJurnalDateChange, 50);
     }
