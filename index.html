@@ -460,18 +460,19 @@
             #page-keaktifan .table-container tbody td:nth-child(1)::before { content: 'Status'; }
             #page-keaktifan .table-container tbody td:nth-child(2)::before { content: 'Kelas'; }
             #page-keaktifan .table-container tbody td:nth-child(3)::before { content: 'Siswa'; }
-            #page-keaktifan .table-container tbody td:nth-child(4)::before { content: 'Point'; }
-            #page-keaktifan .table-container tbody td:nth-child(5)::before { content: 'Grade'; }
+            #page-keaktifan .table-container tbody td:nth-child(4)::before { content: 'Quiz'; }
+            #page-keaktifan .table-container tbody td:nth-child(5)::before { content: 'Point'; }
+            #page-keaktifan .table-container tbody td:nth-child(6)::before { content: 'Grade'; }
 
             #page-nilai .table-container tbody td:nth-child(1)::before { content: 'Kelas'; }
             #page-nilai .table-container tbody td:nth-child(2)::before { content: 'Siswa'; }
-            #page-nilai .table-container tbody td:nth-child(3)::before { content: 'NSL'; }
-            #page-nilai .table-container tbody td:nth-child(4)::before { content: 'Tugas'; }
-            #page-nilai .table-container tbody td:nth-child(5)::before { content: 'LKPD'; }
-            #page-nilai .table-container tbody td:nth-child(6)::before { content: 'UH'; }
-            #page-nilai .table-container tbody td:nth-child(7)::before { content: 'Quiz'; }
-            #page-nilai .table-container tbody td:nth-child(8)::before { content: 'Praktikum'; }
-            #page-nilai .table-container tbody td:nth-child(9)::before { content: 'UAS'; }
+            #page-nilai .table-container tbody td:nth-child(3)::before { content: 'Tugas'; }
+            #page-nilai .table-container tbody td:nth-child(4)::before { content: 'LKPD'; }
+            #page-nilai .table-container tbody td:nth-child(5)::before { content: 'UH'; }
+            #page-nilai .table-container tbody td:nth-child(6)::before { content: 'Quiz'; }
+            #page-nilai .table-container tbody td:nth-child(7)::before { content: 'Praktikum'; }
+            #page-nilai .table-container tbody td:nth-child(8)::before { content: 'UAS'; }
+            #page-nilai .table-container tbody td:nth-child(9)::before { content: 'NSL'; }
             #page-nilai .table-container tbody td:nth-child(10)::before { content: 'NA'; }
             #page-nilai .table-container tbody td:nth-child(11)::before { content: 'Grade'; }
 
@@ -911,7 +912,7 @@
      <div id="page-nilai" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-journal-text text-primary"></i> Nilai Siswa</h1>
-       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilai(event)"> <button onclick="exportNilai()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetAllNilai()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilai(event)"> <button onclick="exportNilai()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="openFlashUasModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetAllNilai()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -923,13 +924,13 @@
           <tr>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300 hidden sm:table-cell">Kelas</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Nama</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300" title="Nilai Semester Lalu">NSL</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Tugas</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">LKPD</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">UH</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Quiz</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Praktikum</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">UAS</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300" title="Nilai Semester Lalu">NSL</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">NA</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Grade</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
@@ -1151,7 +1152,7 @@
      <div id="page-keaktifan" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-activity text-primary"></i> Keaktifan Siswa</h1>
-       <div class="flex gap-2 flex-wrap"><button id="btn-mode-privat" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetKeaktifan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-mode-privat" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="openFlashJumlahQuizModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="openFlashQuizTotalModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-journal-check"></i> Quiz</button> <button onclick="resetKeaktifan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -1164,6 +1165,7 @@
            <th class="px-4 py-3 text-center">Status</th>
            <th class="px-4 py-3 text-left hidden sm:table-cell">Kelas</th>
            <th class="px-4 py-3 text-left">Nama Siswa</th>
+           <th class="px-4 py-3 text-center">Quiz</th>
            <th class="px-4 py-3 text-left">Point</th>
            <th class="px-4 py-3 text-center">Grade</th>
            <th class="px-4 py-3 text-center sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
@@ -1406,8 +1408,48 @@
       <div id="keaktifan-point-circles" class="grid grid-cols-10 gap-1.5" aria-label="Pilih point"></div>
       <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Klik lingkaran untuk mengisi 5 point. Total maksimal 100 point.</p>
      </div>
+     <div class="p-3 rounded-lg border-2 border-amber-300 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/20">
+      <label for="keaktifan-quiz" class="block text-sm font-bold text-amber-800 dark:text-amber-300 mb-1"><i class="bi bi-exclamation-triangle-fill"></i> Quiz <span class="font-normal">(jumlah quiz yang diikuti siswa)</span></label> <input id="keaktifan-quiz" type="number" min="0" step="1" placeholder="0" class="w-full px-3 py-2 border border-amber-300 dark:border-amber-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-amber-400 text-sm font-semibold">
+     </div>
      <div class="flex gap-2 pt-1">
       <button type="submit" class="flex-1 py-2.5 bg-primary text-white rounded-xl font-medium hover:bg-blue-700 transition text-sm">Simpan</button><button type="button" onclick="closeModal('modal-keaktifan')" class="flex-1 py-2.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Flash Quiz Total Modal -->
+  <div id="modal-flash-quiz-total" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-quiz-total')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-journal-check text-primary"></i> Total Quiz</h3>
+    <p id="flash-quiz-total-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <form id="form-flash-quiz-total" class="space-y-3">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Total Quiz</label>
+      <input id="flash-quiz-total-value" type="number" min="0" step="1" required="" placeholder="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
+     </div>
+     <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Angka ini menjadi total quiz untuk seluruh siswa di kelas &amp; semester terpilih (tampil sebagai "diikuti / total" di kolom Quiz).</p>
+     <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-quiz-total')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Flash Jumlah Quiz Modal -->
+  <div id="modal-flash-jumlah-quiz" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-jumlah-quiz')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in max-h-[90vh] flex flex-col">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-gray-500"></i> Flash Quiz</h3>
+    <p id="flash-quiz-jumlah-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <form id="form-flash-jumlah-quiz" class="flex flex-col min-h-0 space-y-3">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jumlah quiz yang diikuti</label>
+      <input id="flash-quiz-jumlah-value" type="number" min="0" step="1" required="" placeholder="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
+     </div>
+     <div class="flex items-center justify-between">
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Pilih siswa</span>
+      <label class="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 cursor-pointer"><input id="flash-quiz-jumlah-all" type="checkbox" onchange="toggleFlashQuizJumlahAll(this.checked)"> Pilih semua</label>
+     </div>
+     <div id="flash-quiz-jumlah-list" class="space-y-1 overflow-y-auto pr-1 min-h-0" style="max-height:45vh"></div>
+     <p class="text-xs text-gray-500 dark:text-gray-400">Siswa yang dicentang akan langsung diubah jumlah quiz-nya sekaligus. Siswa yang belum quiz (0) otomatis tercentang.</p>
+     <div class="flex gap-2 pt-1"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-jumlah-quiz')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
    </div>
@@ -1640,6 +1682,22 @@
       </div>
      </div>
      <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-nilai')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Flash UAS Modal -->
+  <div id="modal-flash-uas" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-uas')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-gray-500"></i> Flash UAS</h3>
+    <p id="flash-uas-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <form id="form-flash-uas" class="space-y-3">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai UAS</label>
+      <input id="flash-uas-value" type="number" min="0" max="100" required="" placeholder="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
+     </div>
+     <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Nilai UAS seluruh siswa di kelas &amp; semester terpilih akan langsung diubah sekaligus menjadi nilai ini. Nilai Akhir &amp; Grade otomatis dihitung ulang.</p>
+     <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-uas')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
    </div>
@@ -2177,7 +2235,7 @@ function startRealtimeSync() {
 }
 
 // Kunci-kunci data yang akan disinkronkan ke cloud (data administrasi utama)
-const CLOUD_KEYS = ['siswa','absensi','nilai','jurnal','custom_kelas','mapel','materi','jam','jadwal','praktikum','tugas','keaktifan','anak_wali','tahun_ajaran','kelas_jenjang','ulangan_harian','jam_istirahat','nilai_tugas','nilai_ulangan','nilai_lkpd','praktikum_total'];
+const CLOUD_KEYS = ['siswa','absensi','nilai','jurnal','custom_kelas','mapel','materi','jam','jadwal','praktikum','tugas','keaktifan','anak_wali','tahun_ajaran','kelas_jenjang','ulangan_harian','jam_istirahat','nilai_tugas','nilai_ulangan','nilai_lkpd','praktikum_total','keaktifan_quiz_total'];
 
 let fbApp = null, db = null, cloudUser = null, cloudReady = false;
 let currentPage = 'dashboard';
@@ -4693,6 +4751,112 @@ function resetKeaktifan() {
 }
 function exportKeaktifan() { const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil'; exportXLSX(getData('siswa').map(s => { const a = getData('keaktifan').find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || {}; return { Semester: sem, Kelas: s.kelas, Nama: s.nama, Status: a.status || 'supreme', Point: a.point ?? 0 }; }), 'Keaktifan_Siswa'); }
 function importKeaktifan(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = ev => { try { const wb = XLSX.read(ev.target.result, { type: 'binary' }); const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); const data = getData('keaktifan'); rows.forEach(r => { const s = getData('siswa').find(x => x.nama === (r.Nama || r['Nama Siswa'])); if (s) { const sem = r.Semester || 'Ganjil'; const old = data.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem); const obj = { siswaId: s.id, semester: sem, status: r.Status || 'supreme', point: Number(r.Point) || 0 }; if (old) Object.assign(old, obj); else data.push(obj); } }); setData('keaktifan', data); renderKeaktifan(); showToast('Data Keaktifan berhasil diimport!'); } catch { showToast('Gagal memproses file import!', 'error'); } }; reader.readAsBinaryString(file); e.target.value = ''; }
+// Total quiz per kelas & semester (diatur lewat tombol Quiz di menu Keaktifan Siswa)
+function getQuizTotal(kelas, sem) {
+    const list = getData('keaktifan_quiz_total');
+    const found = Array.isArray(list) ? list.find(x => x.kelas === kelas && (x.semester || 'Ganjil') === (sem || 'Ganjil')) : null;
+    return found ? (parseInt(found.total) || 0) : 0;
+}
+
+function openFlashQuizTotalModal() {
+    const kl = document.getElementById('filter-kelas-keaktifan').value;
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
+    if (!kl) {
+        showToast('Pilih Kelas terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    document.getElementById('flash-quiz-total-info').textContent = `Kelas: ${kl} — Semester ${sem}`;
+    document.getElementById('flash-quiz-total-value').value = getQuizTotal(kl, sem);
+    document.getElementById('modal-flash-quiz-total').classList.remove('hidden');
+}
+
+document.getElementById('form-flash-quiz-total').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const kl = document.getElementById('filter-kelas-keaktifan').value;
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
+    if (!kl) {
+        showToast('Pilih Kelas terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    const total = Math.max(0, parseInt(document.getElementById('flash-quiz-total-value').value) || 0);
+    const list = Array.isArray(getData('keaktifan_quiz_total')) ? [...getData('keaktifan_quiz_total')] : [];
+    const idx = list.findIndex(x => x.kelas === kl && (x.semester || 'Ganjil') === sem);
+    if (idx >= 0) list[idx] = { ...list[idx], total };
+    else list.push({ id: genId(), kelas: kl, semester: sem, total });
+    setData('keaktifan_quiz_total', list);
+    showToast(`Total quiz kelas ${kl} diubah menjadi ${total}!`);
+    closeModal('modal-flash-quiz-total');
+    renderKeaktifan();
+});
+
+// Flash jumlah quiz: isi jumlah quiz yang diikuti untuk banyak siswa sekaligus
+function openFlashJumlahQuizModal() {
+    const kl = document.getElementById('filter-kelas-keaktifan').value;
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
+    if (!kl) {
+        showToast('Pilih Kelas terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    const total = getQuizTotal(kl, sem);
+    const siswaList = getData('siswa').filter(s => s.kelas === kl)
+        .sort((a, b) => (parseInt(a.absen) || 999) - (parseInt(b.absen) || 999));
+    if (!siswaList.length) {
+        showToast('Tidak ada siswa di kelas ini!', 'error');
+        return;
+    }
+    const keaktifanList = getData('keaktifan');
+    document.getElementById('flash-quiz-jumlah-info').textContent = `Kelas: ${kl} — Semester ${sem} — Total quiz: ${total}`;
+    document.getElementById('flash-quiz-jumlah-value').value = total;
+    document.getElementById('flash-quiz-jumlah-list').innerHTML = siswaList.map(s => {
+        const a = keaktifanList.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem);
+        const j = a?.quiz || 0;
+        const nama = `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})`;
+        return `<label class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
+            <span class="flex items-center gap-2 text-sm text-gray-800 dark:text-white"><input type="checkbox" class="flash-quiz-jumlah-cb" value="${s.id}" ${j === 0 ? 'checked' : ''} onchange="syncFlashQuizJumlahAll()"> ${nama}</span>
+            <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${j} / ${total}</span>
+        </label>`;
+    }).join('');
+    syncFlashQuizJumlahAll();
+    document.getElementById('modal-flash-jumlah-quiz').classList.remove('hidden');
+}
+
+function toggleFlashQuizJumlahAll(checked) {
+    document.querySelectorAll('#flash-quiz-jumlah-list .flash-quiz-jumlah-cb').forEach(cb => { cb.checked = checked; });
+}
+
+function syncFlashQuizJumlahAll() {
+    const cbs = [...document.querySelectorAll('#flash-quiz-jumlah-list .flash-quiz-jumlah-cb')];
+    const all = document.getElementById('flash-quiz-jumlah-all');
+    if (all) all.checked = cbs.length > 0 && cbs.every(cb => cb.checked);
+}
+
+document.getElementById('form-flash-jumlah-quiz').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const kl = document.getElementById('filter-kelas-keaktifan').value;
+    const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
+    const value = Math.max(0, parseInt(document.getElementById('flash-quiz-jumlah-value').value) || 0);
+    const total = getQuizTotal(kl, sem);
+    if (total > 0 && value > total) {
+        showToast(`Jumlah quiz tidak boleh lebih dari total (${total})!`, 'error');
+        return;
+    }
+    const ids = new Set([...document.querySelectorAll('#flash-quiz-jumlah-list .flash-quiz-jumlah-cb:checked')].map(cb => cb.value));
+    if (!ids.size) {
+        showToast('Pilih minimal satu siswa!', 'error');
+        return;
+    }
+    const data = getData('keaktifan');
+    ids.forEach(siswaId => {
+        const idx = data.findIndex(x => x.siswaId === siswaId && (x.semester || 'Ganjil') === sem);
+        if (idx > -1) data[idx].quiz = value;
+        else data.push({ siswaId, semester: sem, status: 'supreme', point: 0, quiz: value });
+    });
+    setData('keaktifan', data);
+    showToast(`${ids.size} siswa diubah menjadi ${value} quiz!`);
+    closeModal('modal-flash-jumlah-quiz');
+    renderKeaktifan();
+});
+
 function renderKeaktifan() {
     let modePrivatBtn = document.getElementById('btn-mode-privat');
     if (modePrivatBtn) modePrivatBtn.classList.toggle('bg-teal-600', modePrivat);
@@ -4719,7 +4883,7 @@ function renderKeaktifan() {
     const paged = filtered.slice((keaktifanPage - 1) * 40, keaktifanPage * 40);
     const tbody = document.getElementById('keaktifan-tbody');
     if (!tbody) return;
-    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = modePrivat ? '#D1D5DB' : (a.status === 'expert' ? '#008080' : a.status === 'excellent' ? '#60A5FA' : a.status === 'average' ? '#C4A482' : '#9CA3AF'); const ariaLbl = modePrivat ? 'Status disembunyikan (Mode Privat)' : `Status keaktifan: ${a.status || 'supreme'}`; const grade = getGrade(a.point ?? 0); return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="${ariaLbl}" title="${modePrivat ? 'Disembunyikan' : ''}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3 hidden sm:table-cell">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">${grade}</span></td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell"><button onclick="editKeaktifan('${s.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="6" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
+    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = modePrivat ? '#D1D5DB' : (a.status === 'expert' ? '#008080' : a.status === 'excellent' ? '#60A5FA' : a.status === 'average' ? '#C4A482' : '#9CA3AF'); const ariaLbl = modePrivat ? 'Status disembunyikan (Mode Privat)' : `Status keaktifan: ${a.status || 'supreme'}`; const grade = getGrade(a.point ?? 0); const totalQuiz = getQuizTotal(s.kelas, sem); const jumlahQuiz = a.quiz || 0; const belumLengkapQuiz = totalQuiz > 0 && jumlahQuiz < totalQuiz; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="${ariaLbl}" title="${modePrivat ? 'Disembunyikan' : ''}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3 hidden sm:table-cell">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3 text-center ${belumLengkapQuiz ? 'text-orange-600 dark:text-orange-400 font-semibold' : 'text-gray-700 dark:text-gray-200'}">${jumlahQuiz} / ${totalQuiz}${belumLengkapQuiz ? ' <i class="bi bi-exclamation-circle-fill text-orange-500" title="Quiz belum lengkap"></i>' : ''}</td><td class="px-4 py-3">${a.point ?? 0}</td><td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700">${grade}</span></td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell"><button onclick="editKeaktifan('${s.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
     document.getElementById('keaktifan-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Page ${keaktifanPage}/${totalPages} (${filtered.length} data dari total ${totalSemesterKeaktifan} data)</span><div class="flex gap-1"><button onclick="keaktifanPage=Math.max(1,keaktifanPage-1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Prev</button><button onclick="keaktifanPage=Math.min(${totalPages},keaktifanPage+1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Next</button></div>`;
 }
 function renderKeaktifanPointCircles(value = 0) {
@@ -4744,6 +4908,7 @@ function openKeaktifanEditModal(id) {
     document.getElementById('keaktifan-modal-student').textContent = `${student.absen ? student.absen + '. ' : ''}${student.nama} (${student.panggilan})`;
     document.getElementById('keaktifan-status').value = active.status || 'supreme';
     document.getElementById('keaktifan-point').value = active.point || 0;
+    document.getElementById('keaktifan-quiz').value = active.quiz || 0;
     renderKeaktifanPointCircles(active.point || 0);
     document.getElementById('keaktifan-status-wrapper').classList.toggle('hidden', modePrivat);
     document.getElementById('keaktifan-status-hidden-note').classList.toggle('hidden', !modePrivat);
@@ -4752,7 +4917,7 @@ function openKeaktifanEditModal(id) {
 document.getElementById('form-keaktifan').addEventListener('submit', function(e) {
     e.preventDefault();
     const id = document.getElementById('keaktifan-student-id').value;
-    saveKeaktifan(id, document.getElementById('keaktifan-status').value, Number(document.getElementById('keaktifan-point').value) || 0);
+    saveKeaktifan(id, document.getElementById('keaktifan-status').value, Number(document.getElementById('keaktifan-point').value) || 0, Math.max(0, parseInt(document.getElementById('keaktifan-quiz').value) || 0));
     closeModal('modal-keaktifan');
     showToast('Data keaktifan berhasil diperbarui!');
 });
@@ -4784,13 +4949,14 @@ function deleteKeaktifan(id) {
     renderKeaktifan();
     showToast('Data keaktifan berhasil dihapus!');
 }
-function saveKeaktifan(id, status, catatan) {
+function saveKeaktifan(id, status, catatan, quiz) {
     const sem = document.getElementById('filter-semester-keaktifan')?.value || 'Ganjil';
     const data = getData('keaktifan');
     const i = data.findIndex(x => x.siswaId === id && (x.semester || 'Ganjil') === sem);
     const old = i > -1 ? data[i] : { siswaId: id, semester: sem, status: 'supreme', catatan: '' };
     if (status) old.status = status;
     if (catatan !== undefined) old.point = Math.max(0, Math.min(100, Number(catatan) || 0));
+    if (quiz !== undefined) old.quiz = Math.max(0, Number(quiz) || 0);
     if (i > -1) data[i] = old; else data.push(old);
     setData('keaktifan', data);
 
@@ -6921,6 +7087,45 @@ function syncNilai() {
     }
 }
 
+function openFlashUasModal() {
+    const kl = document.getElementById('filter-kelas-nilai').value;
+    const sem = document.getElementById('filter-semester-nilai').value || 'Ganjil';
+    if (!kl) {
+        showToast('Pilih Kelas terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    document.getElementById('flash-uas-info').textContent = `Kelas: ${kl} — Semester ${sem}`;
+    document.getElementById('flash-uas-value').value = '';
+    document.getElementById('modal-flash-uas').classList.remove('hidden');
+}
+
+document.getElementById('form-flash-uas').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const kl = document.getElementById('filter-kelas-nilai').value;
+    const sem = document.getElementById('filter-semester-nilai').value || 'Ganjil';
+    if (!kl) {
+        showToast('Pilih Kelas terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    const uasValue = Math.max(0, Math.min(100, parseInt(document.getElementById('flash-uas-value').value) || 0));
+    syncNilai();
+    const currentTahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const data = getData('nilai');
+    let count = 0;
+    data.forEach(n => {
+        if (n.kelas === kl && (n.semester || 'Ganjil') === sem && (n.tahun || currentTahun) === currentTahun) {
+            n.uas = uasValue;
+            n.na = calcNA(n.tugas, n.lkpd, n.uh, n.quiz, n.praktikum, n.uas);
+            n.grade = getGrade(parseFloat(n.na));
+            count++;
+        }
+    });
+    setData('nilai', data);
+    showToast(`${count} siswa di kelas ${kl} berhasil diubah nilai UAS-nya menjadi ${uasValue}!`);
+    closeModal('modal-flash-uas');
+    renderNilai();
+});
+
 function renderNilai() {
     syncNilai();
     let data = getData('nilai');
@@ -6956,13 +7161,13 @@ function renderNilai() {
         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
             <td class="px-4 py-3 hidden sm:table-cell">${n.kelas}</td>
             <td class="px-4 py-3 text-gray-800 dark:text-white font-medium">${displayName}</td>
-            <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">${n.nsl ?? '-'}</td>
             <td class="px-4 py-3 text-center">${n.tugas}</td>
             <td class="px-4 py-3 text-center">${n.lkpd ?? 0}</td>
             <td class="px-4 py-3 text-center">${n.uh}</td>
             <td class="px-4 py-3 text-center">${n.quiz}</td>
             <td class="px-4 py-3 text-center">${n.praktikum}</td>
             <td class="px-4 py-3 text-center">${n.uas}</td>
+            <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">${n.nsl ?? '-'}</td>
             <td class="px-4 py-3 text-center font-bold">${n.na}</td>
             <td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${gradeColors[n.grade]}">${n.grade}</span></td>
             <td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell">
