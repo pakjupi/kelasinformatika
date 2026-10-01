@@ -445,7 +445,7 @@
             #page-nilai-lkpd .table-container tbody td:nth-child(3)::before { content: 'Siswa'; }
             #page-nilai-ulangan .table-container tbody td:nth-child(3)::before { content: 'Siswa'; }
             #page-praktikum .table-container tbody td:nth-child(4)::before { content: 'Praktikum'; }
-            #page-praktikum .table-container tbody td:nth-child(5)::before { content: 'Nilai'; }
+            #page-praktikum .table-container tbody td:nth-child(5)::before { content: 'Point'; }
             #page-nilai-tugas .table-container tbody td:nth-child(4)::before { content: 'Tugas'; }
             #page-nilai-tugas .table-container tbody td:nth-child(5)::before { content: 'Nilai'; }
             #page-nilai-lkpd .table-container tbody td:nth-child(4)::before { content: 'LKPD'; }
@@ -824,7 +824,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-pencil-square text-primary"></i> Nilai Tugas</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-tugas" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetNilaiTugas()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-tugas" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="openFlashNilaiModal('nilai_tugas')" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetNilaiTugas()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -854,7 +854,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-card-checklist text-primary"></i> Nilai LKPD</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-lkpd" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetNilaiLkpd()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-lkpd" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="openFlashNilaiModal('nilai_lkpd')" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetNilaiLkpd()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -884,7 +884,7 @@
        <div>
         <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-file-earmark-text text-primary"></i> Nilai Ulangan</h1>
        </div>
-       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-ulangan" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="resetNilaiUlangan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button id="btn-presentasi-nilai-ulangan" onclick="toggleModePrivat()" class="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-xl text-sm font-medium hover:bg-teal-200 dark:hover:bg-teal-900/50 transition" title="Sembunyikan status keaktifan dari layar proyektor"><i class="bi bi-eye-slash"></i> Presentasi</button> <button onclick="openFlashNilaiModal('nilai_ulangan')" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetNilaiUlangan()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -952,7 +952,7 @@
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-       <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <select id="filter-status-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> <option value="expert">Expert</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()"> <input id="search-nilai-praktikum" type="number" min="0" max="100" placeholder="Cari nilai..." class="w-full sm:w-32 px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" oninput="renderPraktikum()">
+       <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Kelas</option> </select> <select id="filter-status-praktikum" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderPraktikum()"> <option value="">Semua Status</option> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> <option value="expert">Expert</option> </select> <input id="search-praktikum" type="text" placeholder="Cari nama siswa..." class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderPraktikum()"> <input id="search-nilai-praktikum" type="number" min="0" max="100" placeholder="Cari point..." class="w-full sm:w-32 px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" oninput="renderPraktikum()">
        </div>
        <div class="table-container">
         <table class="w-full text-sm">
@@ -962,7 +962,7 @@
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300 hidden sm:table-cell">Kelas</th>
            <th class="px-4 py-3 text-left font-medium text-gray-600 dark:text-gray-300">Nama Siswa</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Praktikum</th>
-           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Nilai</th>
+           <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Point</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300">Grade</th>
            <th class="px-4 py-3 text-center font-medium text-gray-600 dark:text-gray-300 sticky right-0 bg-gray-50 dark:bg-gray-700/50 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-header">Aksi</th>
           </tr>
@@ -1730,7 +1730,7 @@
      </div>
      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div class="sm:col-span-2">
-       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai</label> <input id="praktikum-nilai" type="number" min="0" max="100" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-300 outline-none text-sm font-bold" placeholder="Dihitung otomatis">
+       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Point</label> <input id="praktikum-nilai" type="number" min="0" max="100" readonly="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-300 outline-none text-sm font-bold" placeholder="Dihitung otomatis">
       </div>
       <div class="hidden">
        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label> <select id="praktikum-status" disabled="" title="Status otomatis mengikuti Keaktifan Siswa" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 text-gray-500 dark:text-gray-400 outline-none text-sm cursor-not-allowed"> <option value="supreme">Supreme</option> <option value="average">Average</option> <option value="excellent">Excellent</option> <option value="expert">Expert</option> </select>
@@ -1896,6 +1896,32 @@
      </div>
      <div class="flex gap-2 pt-2">
       <button type="submit" class="flex-1 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-nilai-ulangan')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Flash Nilai Modal (Nilai Tugas/LKPD/Ulangan) -->
+  <div id="modal-flash-nilai" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-nilai')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in max-h-[90vh] flex flex-col">
+    <h3 id="flash-nilai-title" class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-gray-500"></i> Flash Nilai</h3>
+    <p id="flash-nilai-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <form id="form-flash-nilai" class="flex flex-col min-h-0 space-y-3">
+     <input type="hidden" id="flash-nilai-target">
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pilih Kolom Nilai</label>
+      <select id="flash-nilai-kolom" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm" onchange="populateFlashNilaiList()"></select>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nilai</label>
+      <input id="flash-nilai-value" type="number" min="0" max="100" required="" placeholder="0" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
+     </div>
+     <div class="flex items-center justify-between">
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Pilih siswa</span>
+      <label class="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 cursor-pointer"><input id="flash-nilai-all" type="checkbox" onchange="toggleFlashNilaiAll(this.checked)"> Pilih semua</label>
+     </div>
+     <div id="flash-nilai-list" class="space-y-1 overflow-y-auto pr-1 min-h-0" style="max-height:40vh"></div>
+     <p class="text-xs text-gray-500 dark:text-gray-400">Siswa yang kolomnya sudah terisi nilai tidak bisa dicentang/ditimpa. Hanya siswa yang kolomnya masih kosong yang bisa dipilih.</p>
+     <div class="flex gap-2 pt-1"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-nilai')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
    </div>
@@ -2471,6 +2497,107 @@ function resetAllPraktikum() {
 // ===================== NILAI TUGAS (mirip Praktikum, 5 kolom nilai) =====================
 let PAGE_SIZE_NILAI_TUGAS = 40;
 let nilaiTugasPage = 1;
+// ===================== FLASH NILAI (Nilai Tugas/LKPD/Ulangan) =====================
+// Konfigurasi tiap menu: nama field data, jumlah kolom, label kolom, id filter, dan fungsi render terkait
+const FLASH_NILAI_CONFIG = {
+    nilai_tugas: { label: 'Tugas', count: 5, title: 'Flash Nilai Tugas', filterKelas: 'filter-kelas-nilai-tugas', filterSemester: 'filter-semester-nilai-tugas', syncFn: () => syncNilaiTugas(), renderFn: () => renderNilaiTugas() },
+    nilai_lkpd: { label: 'LKPD', count: 4, title: 'Flash Nilai LKPD', filterKelas: 'filter-kelas-nilai-lkpd', filterSemester: 'filter-semester-nilai-lkpd', syncFn: () => syncNilaiLkpd(), renderFn: () => renderNilaiLkpd() },
+    nilai_ulangan: { label: 'Ulangan', count: 3, title: 'Flash Nilai Ulangan', filterKelas: 'filter-kelas-nilai-ulangan', filterSemester: 'filter-semester-nilai-ulangan', syncFn: () => syncNilaiUlangan(), renderFn: () => renderNilaiUlangan() }
+};
+
+function openFlashNilaiModal(target) {
+    const cfg = FLASH_NILAI_CONFIG[target];
+    if (!cfg) return;
+    cfg.syncFn();
+    const kl = document.getElementById(cfg.filterKelas).value;
+    const sem = document.getElementById(cfg.filterSemester)?.value || 'Ganjil';
+    if (!kl) {
+        showToast('Pilih Kelas terlebih dahulu pada filter di atas!', 'error');
+        return;
+    }
+    document.getElementById('flash-nilai-target').value = target;
+    document.getElementById('flash-nilai-title').innerHTML = `<i class="bi bi-lightning-charge-fill text-gray-500"></i> ${cfg.title}`;
+    document.getElementById('flash-nilai-info').textContent = `Kelas: ${kl} — Semester ${sem}`;
+    document.getElementById('flash-nilai-value').value = '';
+    const kolomSelect = document.getElementById('flash-nilai-kolom');
+    kolomSelect.innerHTML = Array.from({ length: cfg.count }, (_, i) => `<option value="${i}">${cfg.label} ${i + 1}</option>`).join('');
+    populateFlashNilaiList();
+    document.getElementById('modal-flash-nilai').classList.remove('hidden');
+}
+
+function populateFlashNilaiList() {
+    const target = document.getElementById('flash-nilai-target').value;
+    const cfg = FLASH_NILAI_CONFIG[target];
+    if (!cfg) return;
+    const kl = document.getElementById(cfg.filterKelas).value;
+    const sem = document.getElementById(cfg.filterSemester)?.value || 'Ganjil';
+    const colIdx = parseInt(document.getElementById('flash-nilai-kolom').value) || 0;
+    const siswaList = getData('siswa').filter(s => s.kelas === kl)
+        .sort((a, b) => (parseInt(a.absen) || 999) - (parseInt(b.absen) || 999));
+    const records = getData(target).filter(r => r.kelas === kl && (r.semester || 'Ganjil') === sem);
+    const list = document.getElementById('flash-nilai-list');
+    if (!siswaList.length) {
+        list.innerHTML = '<p class="text-sm text-gray-400 text-center py-2">Tidak ada siswa di kelas ini.</p>';
+        return;
+    }
+    list.innerHTML = siswaList.map(s => {
+        const r = records.find(x => x.nama === s.nama && x.kelas === s.kelas);
+        const val = r && Array.isArray(r.scores) ? r.scores[colIdx] : null;
+        const filled = val !== null && val !== undefined && val !== '';
+        const nama = `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})`;
+        return `<label class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700 ${filled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50'}">
+            <span class="flex items-center gap-2 text-sm text-gray-800 dark:text-white"><input type="checkbox" class="flash-nilai-cb" value="${s.nama}" data-recid="${r ? r.id : ''}" ${filled ? 'disabled' : 'checked'} onchange="syncFlashNilaiAll()"> ${nama}</span>
+            <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${filled ? val : '-'}</span>
+        </label>`;
+    }).join('');
+    syncFlashNilaiAll();
+}
+
+function toggleFlashNilaiAll(checked) {
+    document.querySelectorAll('#flash-nilai-list .flash-nilai-cb:not(:disabled)').forEach(cb => { cb.checked = checked; });
+}
+
+function syncFlashNilaiAll() {
+    const cbs = [...document.querySelectorAll('#flash-nilai-list .flash-nilai-cb:not(:disabled)')];
+    const all = document.getElementById('flash-nilai-all');
+    if (all) all.checked = cbs.length > 0 && cbs.every(cb => cb.checked);
+}
+
+document.getElementById('form-flash-nilai').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const target = document.getElementById('flash-nilai-target').value;
+    const cfg = FLASH_NILAI_CONFIG[target];
+    if (!cfg) return;
+    const kl = document.getElementById(cfg.filterKelas).value;
+    const sem = document.getElementById(cfg.filterSemester)?.value || 'Ganjil';
+    const colIdx = parseInt(document.getElementById('flash-nilai-kolom').value) || 0;
+    const value = Math.max(0, Math.min(100, parseInt(document.getElementById('flash-nilai-value').value) || 0));
+    const checked = [...document.querySelectorAll('#flash-nilai-list .flash-nilai-cb:checked:not(:disabled)')];
+    if (!checked.length) {
+        showToast('Pilih minimal satu siswa!', 'error');
+        return;
+    }
+    const data = getData(target);
+    let count = 0;
+    checked.forEach(cb => {
+        const nama = cb.value;
+        const idx = data.findIndex(x => x.nama === nama && x.kelas === kl && (x.semester || 'Ganjil') === sem);
+        if (idx === -1) return;
+        const scores = Array.isArray(data[idx].scores) ? [...data[idx].scores] : [];
+        // Safeguard: kalau ternyata kolom sudah terisi (data berubah di tempat lain), lewati siswa ini
+        if (scores[colIdx] !== null && scores[colIdx] !== undefined && scores[colIdx] !== '') return;
+        scores[colIdx] = value;
+        const filled = scores.filter(v => v !== null && v !== undefined && v !== '');
+        data[idx].scores = scores;
+        data[idx].nilai = filled.length > 0 ? Math.round(filled.reduce((a, b) => a + b, 0) / filled.length) : 0;
+        count++;
+    });
+    setData(target, data);
+    showToast(`${count} siswa berhasil diisi nilai ${cfg.label} ${colIdx + 1} = ${value}!`);
+    closeModal('modal-flash-nilai');
+    cfg.renderFn();
+});
+
 function syncNilaiTugas() {
     const siswa = getData('siswa');
     let nilaiTugas = getData('nilai_tugas');
@@ -5430,7 +5557,7 @@ function renderTugas() {
     if (!container) return;
     container.innerHTML = data.length ? data.map(t => {
         const days = getDaysLeft(t.deadline);
-        const label = days < 0 ? `Terlambat ${Math.abs(days)} hari` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
+        const label = days < 0 ? `Deadline ${Math.abs(days)} hari yang lalu` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
         const tone = days < 0 ? 'red' : days <= 3 ? 'orange' : 'blue';
         return `<div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700"><div class="flex items-start justify-between gap-3"><div><h3 class="font-bold text-gray-800 dark:text-white">${t.nama}</h3><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Kelas ${t.kelas}</p></div><div class="flex items-center gap-2"><button type="button" onclick="openTugasDetail('${t.id}')" class="text-${tone}-500 text-xl" title="Lihat tugas"><i class="bi bi-clipboard-check"></i></button><button type="button" onclick="openTugasModal('${t.id}')" class="text-primary hover:text-blue-700" title="Edit tugas"><i class="bi bi-pencil-square"></i></button><button type="button" onclick="deleteTugas('${t.id}')" class="text-red-500 hover:text-red-700" title="Hapus tugas"><i class="bi bi-trash"></i></button></div></div><div class="mt-5 rounded-xl bg-${tone}-50 dark:bg-${tone}-900/20 p-3"><p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Deadline</p><p class="font-semibold text-gray-800 dark:text-white">${new Date(t.deadline + 'T00:00:00').toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p><p class="text-sm font-bold text-${tone}-600 dark:text-${tone}-400 mt-1">${label}</p></div></div>`;
     }).join('') : '<div class="col-span-full text-center text-gray-400 py-12 bg-white dark:bg-gray-800 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">Belum ada tugas. Klik tombol Tambah Tugas.</div>';
@@ -5455,7 +5582,7 @@ function openTugasDetail(id) {
     const task = getData('tugas').find(t => t.id === id);
     if (!task) return;
     const days = getDaysLeft(task.deadline);
-    const label = days < 0 ? `Terlambat ${Math.abs(days)} hari` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
+    const label = days < 0 ? `Deadline ${Math.abs(days)} hari yang lalu` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
     document.getElementById('detail-tugas-nama').textContent = task.nama;
     document.getElementById('detail-tugas-kelas').textContent = `Kelas ${task.kelas}`;
     document.getElementById('detail-tugas-deadline').textContent = new Date(task.deadline + 'T00:00:00').toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
@@ -5551,7 +5678,7 @@ function renderUlangan() {
     if (!container) return;
     container.innerHTML = data.length ? data.map(t => {
         const days = getDaysLeft(t.deadline);
-        const label = days < 0 ? `Terlambat ${Math.abs(days)} hari` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
+        const label = days < 0 ? `Deadline ${Math.abs(days)} hari yang lalu` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
         const tone = days < 0 ? 'red' : days <= 3 ? 'orange' : 'blue';
         return `<div class="card-hover bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700"><div class="flex items-start justify-between gap-3"><div><h3 class="font-bold text-gray-800 dark:text-white">${t.nama}</h3><p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Kelas ${t.kelas}</p></div><div class="flex items-center gap-2"><button type="button" onclick="openUlanganDetail('${t.id}')" class="text-${tone}-500 text-xl" title="Lihat ulangan"><i class="bi bi-clipboard-check"></i></button><button type="button" onclick="openUlanganModal('${t.id}')" class="text-primary hover:text-blue-700" title="Edit ulangan"><i class="bi bi-pencil-square"></i></button><button type="button" onclick="deleteUlangan('${t.id}')" class="text-red-500 hover:text-red-700" title="Hapus ulangan"><i class="bi bi-trash"></i></button></div></div><div class="mt-5 rounded-xl bg-${tone}-50 dark:bg-${tone}-900/20 p-3"><p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Deadline</p><p class="font-semibold text-gray-800 dark:text-white">${new Date(t.deadline + 'T00:00:00').toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'})}</p><p class="text-sm font-bold text-${tone}-600 dark:text-${tone}-400 mt-1">${label}</p></div></div>`;
     }).join('') : '<div class="col-span-full text-center text-gray-400 py-12 bg-white dark:bg-gray-800 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">Belum ada ulangan harian. Klik tombol Tambah Ulangan.</div>';
@@ -5561,7 +5688,7 @@ function openUlanganDetail(id) {
     const task = getData('ulangan_harian').find(t => t.id === id);
     if (!task) return;
     const days = getDaysLeft(task.deadline);
-    const label = days < 0 ? `Terlambat ${Math.abs(days)} hari` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
+    const label = days < 0 ? `Deadline ${Math.abs(days)} hari yang lalu` : days === 0 ? 'Deadline hari ini' : `${days} hari lagi`;
     document.getElementById('detail-ulangan-nama').textContent = task.nama;
     document.getElementById('detail-ulangan-kelas').textContent = `Kelas ${task.kelas}`;
     document.getElementById('detail-ulangan-deadline').textContent = new Date(task.deadline + 'T00:00:00').toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
