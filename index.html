@@ -912,7 +912,7 @@
      <div id="page-nilai" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-journal-text text-primary"></i> Nilai Siswa</h1>
-       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilai(event)"> <button onclick="exportNilai()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="openFlashUasModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetAllNilai()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilai(event)"> <button onclick="exportNilai()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="openNilaiRankingModal()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition"><i class="bi bi-trophy-fill"></i> Ranking</button> <button onclick="openFlashUasModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetAllNilai()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -1084,7 +1084,7 @@
      <div id="page-jurnal" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-book-fill text-primary"></i> Jurnal Mengajar</h1>
-       <div class="flex gap-2 flex-wrap"><button onclick="openJurnalModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="sortJurnalTerbaru()" class="px-4 py-2 bg-indigo-500 text-white rounded-xl text-sm font-medium hover:bg-indigo-600 transition"><i class="bi bi-clock-history"></i> Jurnal Terbaru</button> <button onclick="sortJurnalByDate()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition"><i class="bi bi-sort-down"></i> Tanggal</button> <button onclick="document.getElementById('import-jurnal').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-jurnal" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importJurnal(event)"> <button onclick="exportJurnal()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetJurnal()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="openJurnalModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-jurnal').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-jurnal" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importJurnal(event)"> <button onclick="exportJurnal()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="resetJurnal()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
@@ -1707,6 +1707,24 @@
      <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-uas')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
+   </div>
+  </div><!-- Ranking Nilai Modal -->
+  <div id="modal-nilai-ranking" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-nilai-ranking')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-sm p-6 fade-in">
+    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-trophy-fill text-red-600"></i> Urutkan Nilai Siswa</h3>
+    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Pilih cara pengurutan daftar nilai siswa.</p>
+    <div class="space-y-2">
+     <button type="button" onclick="setNilaiSortMode('ranking')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition text-left">
+      <i class="bi bi-trophy-fill text-red-600 text-xl"></i>
+      <span><span class="block font-semibold text-gray-800 dark:text-white">Ranking</span><span class="block text-xs text-gray-500 dark:text-gray-400">Nilai Akhir terbesar ke terkecil</span></span>
+     </button>
+     <button type="button" onclick="setNilaiSortMode('absen')" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 hover:border-primary hover:bg-blue-50 dark:hover:bg-blue-900/20 transition text-left">
+      <i class="bi bi-sort-numeric-down text-primary text-xl"></i>
+      <span><span class="block font-semibold text-gray-800 dark:text-white">No. Absen</span><span class="block text-xs text-gray-500 dark:text-gray-400">Urut dari nomor absen terkecil</span></span>
+     </button>
+    </div>
+    <button type="button" onclick="closeModal('modal-nilai-ranking')" class="w-full mt-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
    </div>
   </div><!-- Praktikum Modal -->
   <div id="modal-praktikum" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -2544,7 +2562,7 @@ function populateFlashNilaiList() {
         const r = records.find(x => x.nama === s.nama && x.kelas === s.kelas);
         const val = r && Array.isArray(r.scores) ? r.scores[colIdx] : null;
         const filled = val !== null && val !== undefined && val !== '';
-        const nama = `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})`;
+        const nama = `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})${jabatanIcon(s.status)}`;
         return `<label class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700 ${filled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50'}">
             <span class="flex items-center gap-2 text-sm text-gray-800 dark:text-white"><input type="checkbox" class="flash-nilai-cb" value="${s.nama}" data-recid="${r ? r.id : ''}" ${filled ? 'disabled' : 'checked'} onchange="syncFlashNilaiAll()"> ${nama}</span>
             <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${filled ? val : '-'}</span>
@@ -2734,7 +2752,7 @@ function renderNilaiTugas() {
         if (modePrivat) { dotColor = '#D1D5DB'; dotTitle = 'Disembunyikan'; }
 
         const sInfo = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
-        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})` : p.nama;
+        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})${jabatanIcon(sInfo.status)}` : p.nama;
         const grade = getGrade(p.nilai || 0);
         const totalKolom = filledColsMap[p.kelas] ? filledColsMap[p.kelas].size : 0;
         const jumlahTerisi = countFilledScores(p.scores);
@@ -3084,7 +3102,7 @@ function renderNilaiLkpd() {
         if (modePrivat) { dotColor = '#D1D5DB'; dotTitle = 'Disembunyikan'; }
 
         const sInfo = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
-        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})` : p.nama;
+        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})${jabatanIcon(sInfo.status)}` : p.nama;
         const grade = getGrade(p.nilai || 0);
         const totalKolom = filledColsMap[p.kelas] ? filledColsMap[p.kelas].size : 0;
         const jumlahTerisi = countFilledScores(p.scores);
@@ -3434,7 +3452,7 @@ function renderNilaiUlangan() {
         if (modePrivat) { dotColor = '#D1D5DB'; dotTitle = 'Disembunyikan'; }
 
         const sInfo = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
-        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})` : p.nama;
+        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})${jabatanIcon(sInfo.status)}` : p.nama;
         const grade = getGrade(p.nilai || 0);
         const totalKolom = filledColsMap[p.kelas] ? filledColsMap[p.kelas].size : 0;
         const jumlahTerisi = countFilledScores(p.scores);
@@ -3684,6 +3702,7 @@ let rekapAbsensiPage = 1;
 let rekapAbsensiDetailCache = {};
 let praktikumPage = 1;
 let nilaiPage = 1;
+let nilaiSortMode = 'absen';
 let jurnalPage = 1;
 let jurnalNewestFirst = false;
 let anakWaliPage = 1;
@@ -3893,7 +3912,7 @@ function renderPraktikum() {
         if (modePrivat) { dotColor = '#D1D5DB'; dotTitle = 'Disembunyikan'; }
 
         const sInfo = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
-        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})` : p.nama;
+        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})${jabatanIcon(sInfo.status)}` : p.nama;
         const totalPrak = getPraktikumTotal(p.kelas, filterSemester);
         const belumLengkapPrak = totalPrak > 0 && (p.jumlah || 0) < totalPrak;
 
@@ -4139,7 +4158,7 @@ function openFlashJumlahPraktikumModal() {
     document.getElementById('flash-jumlah-value').value = total;
     document.getElementById('flash-jumlah-list').innerHTML = recs.map(p => {
         const s = siswaList.find(x => x.nama === p.nama && x.kelas === p.kelas);
-        const nama = s ? `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})` : p.nama;
+        const nama = s ? `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})${jabatanIcon(s.status)}` : p.nama;
         const j = p.jumlah || 0;
         return `<label class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
             <span class="flex items-center gap-2 text-sm text-gray-800 dark:text-white"><input type="checkbox" class="flash-jumlah-cb" value="${p.id}" ${j === 0 ? 'checked' : ''} onchange="syncFlashJumlahAll()"> ${nama}</span>
@@ -4814,11 +4833,13 @@ function renderAnakWali() {
     if (anakWaliPage > totalPages) anakWaliPage = totalPages;
     const start = (anakWaliPage - 1) * PAGE_SIZE_ANAK_WALI;
     const paged = students.slice(start, start + PAGE_SIZE_ANAK_WALI);
+    const siswaListAW = getData('siswa');
     tbody.innerHTML = paged.length ? paged.map(s => {
         const active = getData('keaktifan').find(x => x.siswaId === s.siswaId) || { status: 'supreme' };
         const color = modePrivat ? '#D1D5DB' : (active.status === 'expert' ? '#008080' : active.status === 'excellent' ? '#60A5FA' : active.status === 'average' ? '#C4A482' : '#9CA3AF');
         const ariaLbl = modePrivat ? 'Status disembunyikan (Mode Presentasi)' : `Status keaktifan: ${active.status || 'supreme'}`;
-        const displayName = `${s.absen ? s.absen + '. ' : ''}${s.nama}${s.panggilan ? ' (' + s.panggilan + ')' : ''}`;
+        const siswaRecAW = siswaListAW.find(x => x.id === s.siswaId);
+        const displayName = `${s.absen ? s.absen + '. ' : ''}${s.nama}${s.panggilan ? ' (' + s.panggilan + ')' : ''}${jabatanIcon(siswaRecAW?.status)}`;
         return `<tr data-anak-wali-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="${ariaLbl}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3 font-medium">${displayName}</td><td class="px-4 py-3 hidden sm:table-cell">${s.kelas}</td><td class="px-4 py-3"><div class="flex items-center justify-center gap-3 text-xs whitespace-nowrap"><label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${s.kewajibanJurnal ? 'checked' : ''} onchange="toggleKewajiban('${s.id}','jurnal',this.checked)" class="w-4 h-4 rounded accent-primary cursor-pointer"> Jurnal</label><label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${s.kewajibanBuku ? 'checked' : ''} onchange="toggleKewajiban('${s.id}','buku',this.checked)" class="w-4 h-4 rounded accent-primary cursor-pointer"> Buku</label></div></td><td class="px-4 py-3">${s.catatan || '-'}</td><td class="px-4 py-3 text-center"><button onclick="editAnakWali('${s.id}')" class="text-primary hover:text-blue-700 mr-2" title="Edit catatan"><i class="bi bi-pencil-square"></i></button><button onclick="deleteAnakWali('${s.id}')" class="text-red-500" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`;
     }).join('') : '<tr><td colspan="6" class="px-4 py-8 text-center text-gray-400">Belum ada data Anak Wali.</td></tr>';
     document.getElementById('anak-wali-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Page ${anakWaliPage}/${totalPages} (${paged.length} data dari total ${students.length} data)</span><div class="flex gap-1"><button onclick="anakWaliPage=Math.max(1,anakWaliPage-1);renderAnakWali()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Prev</button><button onclick="anakWaliPage=Math.min(${totalPages},anakWaliPage+1);renderAnakWali()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Next</button></div>`;
@@ -4847,7 +4868,7 @@ function openAnakWaliModal() {
     document.getElementById('anak-wali-siswa').innerHTML = '<option value="">-- Pilih kelas terlebih dahulu --</option>';
     document.getElementById('modal-anak-wali').classList.remove('hidden');
 }
-function editAnakWali(id) { const item = getData('anak_wali').find(s => s.id === id); if (!item) return; document.getElementById('anak-wali-edit-id').value = id; document.getElementById('anak-wali-edit-student').textContent = `${item.absen ? item.absen + '. ' : ''}${item.nama} (${item.panggilan})`; document.getElementById('anak-wali-edit-catatan').value = item.catatan || ''; document.getElementById('modal-anak-wali-edit').classList.remove('hidden'); }
+function editAnakWali(id) { const item = getData('anak_wali').find(s => s.id === id); if (!item) return; const siswaRecEAW = getData('siswa').find(x => x.id === item.siswaId); document.getElementById('anak-wali-edit-id').value = id; document.getElementById('anak-wali-edit-student').innerHTML = `${item.absen ? item.absen + '. ' : ''}${item.nama} (${item.panggilan})${jabatanIcon(siswaRecEAW?.status)}`; document.getElementById('anak-wali-edit-catatan').value = item.catatan || ''; document.getElementById('modal-anak-wali-edit').classList.remove('hidden'); }
 function saveAnakWaliCatatan(id, status, catatan) { const data = getData('anak_wali'); const index = data.findIndex(s => s.id === id); if (index < 0) return; data[index] = { ...data[index], status, catatan: String(catatan || '').trim() }; setData('anak_wali', data); closeModal('modal-anak-wali-edit'); renderAnakWali(); showToast('Data Anak Wali berhasil diperbarui!'); }
 
 document.getElementById('form-anak-wali-edit').addEventListener('submit', function(e) { e.preventDefault(); const id = document.getElementById('anak-wali-edit-id').value; const item = getData('anak_wali').find(s => s.id === id); saveAnakWaliCatatan(id, item?.status || 'supreme', document.getElementById('anak-wali-edit-catatan').value); });
@@ -4951,7 +4972,7 @@ function openFlashJumlahQuizModal() {
     document.getElementById('flash-quiz-jumlah-list').innerHTML = siswaList.map(s => {
         const a = keaktifanList.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem);
         const j = a?.quiz || 0;
-        const nama = `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})`;
+        const nama = `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})${jabatanIcon(s.status)}`;
         return `<label class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
             <span class="flex items-center gap-2 text-sm text-gray-800 dark:text-white"><input type="checkbox" class="flash-quiz-jumlah-cb" value="${s.id}" ${j === 0 ? 'checked' : ''} onchange="syncFlashQuizJumlahAll()"> ${nama}</span>
             <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${j} / ${total}</span>
@@ -5024,7 +5045,7 @@ function renderKeaktifan() {
     const paged = filtered.slice((keaktifanPage - 1) * 40, keaktifanPage * 40);
     const tbody = document.getElementById('keaktifan-tbody');
     if (!tbody) return;
-    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = modePrivat ? '#D1D5DB' : (a.status === 'expert' ? '#008080' : a.status === 'excellent' ? '#60A5FA' : a.status === 'average' ? '#C4A482' : '#9CA3AF'); const ariaLbl = modePrivat ? 'Status disembunyikan (Mode Privat)' : `Status keaktifan: ${a.status || 'supreme'}`; const grade = getGrade(a.point ?? 0); const totalQuiz = getQuizTotal(s.kelas, sem); const jumlahQuiz = a.quiz || 0; const belumLengkapQuiz = totalQuiz > 0 && jumlahQuiz < totalQuiz; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="${ariaLbl}" title="${modePrivat ? 'Disembunyikan' : ''}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3 hidden sm:table-cell">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})</td><td class="px-4 py-3 text-center ${belumLengkapQuiz ? 'text-orange-600 dark:text-orange-400 font-semibold' : 'text-gray-700 dark:text-gray-200'}">${jumlahQuiz} / ${totalQuiz}${belumLengkapQuiz ? ' <i class="bi bi-exclamation-circle-fill text-orange-500" title="Quiz belum lengkap"></i>' : ''}</td><td class="px-4 py-3">${modePrivat ? '•••' : (a.point ?? 0)}</td><td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${modePrivat ? '' : gradeColor(grade)}">${modePrivat ? '-' : grade}</span></td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell"><button onclick="editKeaktifan('${s.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
+    tbody.innerHTML = paged.length ? paged.map(s => { const a = active.find(x => x.siswaId === s.id && (x.semester || 'Ganjil') === sem) || { status: 'supreme' }; const color = modePrivat ? '#D1D5DB' : (a.status === 'expert' ? '#008080' : a.status === 'excellent' ? '#60A5FA' : a.status === 'average' ? '#C4A482' : '#9CA3AF'); const ariaLbl = modePrivat ? 'Status disembunyikan (Mode Privat)' : `Status keaktifan: ${a.status || 'supreme'}`; const grade = getGrade(a.point ?? 0); const totalQuiz = getQuizTotal(s.kelas, sem); const jumlahQuiz = a.quiz || 0; const belumLengkapQuiz = totalQuiz > 0 && jumlahQuiz < totalQuiz; return `<tr data-keaktifan-id="${s.id}"><td class="px-4 py-3 text-center"><span aria-label="${ariaLbl}" title="${modePrivat ? 'Disembunyikan' : ''}" class="inline-block w-3.5 h-3.5 rounded-full" style="background-color:${color}"></span></td><td class="px-4 py-3 hidden sm:table-cell">${s.kelas}</td><td class="px-4 py-3 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})${jabatanIcon(s.status)}</td><td class="px-4 py-3 text-center ${belumLengkapQuiz ? 'text-orange-600 dark:text-orange-400 font-semibold' : 'text-gray-700 dark:text-gray-200'}">${jumlahQuiz} / ${totalQuiz}${belumLengkapQuiz ? ' <i class="bi bi-exclamation-circle-fill text-orange-500" title="Quiz belum lengkap"></i>' : ''}</td><td class="px-4 py-3">${modePrivat ? '•••' : (a.point ?? 0)}</td><td class="px-4 py-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold ${modePrivat ? '' : gradeColor(grade)}">${modePrivat ? '-' : grade}</span></td><td class="px-4 py-3 text-center sticky right-0 bg-white dark:bg-gray-800 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.08)] mobile-action-cell"><button onclick="editKeaktifan('${s.id}')" class="mobile-action-btn text-primary hover:text-blue-700" title="Edit"><i class="bi bi-pencil-square"></i></button><button onclick="deleteKeaktifan('${s.id}')" class="mobile-action-btn text-red-500 hover:text-red-700" title="Hapus"><i class="bi bi-trash"></i></button></td></tr>`; }).join('') : '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">Belum ada data siswa.</td></tr>';
     document.getElementById('keaktifan-pagination').innerHTML = `<span class="text-sm text-gray-500 dark:text-gray-400">Page ${keaktifanPage}/${totalPages} (${filtered.length} data dari total ${totalSemesterKeaktifan} data)</span><div class="flex gap-1"><button onclick="keaktifanPage=Math.max(1,keaktifanPage-1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Prev</button><button onclick="keaktifanPage=Math.min(${totalPages},keaktifanPage+1);renderKeaktifan()" class="px-3 py-1 rounded-lg text-sm border">Next</button></div>`;
 }
 function renderKeaktifanPointCircles(value = 0) {
@@ -5046,7 +5067,7 @@ function openKeaktifanEditModal(id) {
     const active = getData('keaktifan').find(x => x.siswaId === id && (x.semester || 'Ganjil') === sem) || { status: 'supreme', point: 0 };
     if (!student) return;
     document.getElementById('keaktifan-student-id').value = id;
-    document.getElementById('keaktifan-modal-student').textContent = `${student.absen ? student.absen + '. ' : ''}${student.nama} (${student.panggilan})`;
+    document.getElementById('keaktifan-modal-student').innerHTML = `${student.absen ? student.absen + '. ' : ''}${student.nama} (${student.panggilan})${jabatanIcon(student.status)}`;
     document.getElementById('keaktifan-status').value = active.status || 'supreme';
     document.getElementById('keaktifan-point').value = active.point || 0;
     document.getElementById('keaktifan-quiz').value = active.quiz || 0;
@@ -5141,7 +5162,7 @@ function renderKelas() {
                     ${listSiswa.length ? listSiswa.map(s => `
                         <div class="flex justify-between text-sm py-1 border-b border-gray-50 dark:border-gray-700/50">
                             <span class="text-gray-800 dark:text-gray-300 font-medium">${s.absen ? s.absen + '. ' : ''}${s.nama}</span>
-                            <span class="text-gray-500 text-xs">${s.panggilan}</span>
+                            <span class="text-gray-500 text-xs">${s.panggilan}${jabatanIcon(s.status)}</span>
                         </div>
                     `).join('') : '<div class="text-xs text-center text-gray-400 py-4">Belum ada siswa</div>'}
                 </div>
@@ -6637,7 +6658,7 @@ function renderAbsensi() {
     const getSiswaInfo = (nama, kl) => {
         const found = siswaList.find(s => s.nama === nama && s.kelas === kl);
         if (found) {
-            return `${found.absen ? found.absen + '. ' : ''}${found.nama} (${found.panggilan})`;
+            return `${found.absen ? found.absen + '. ' : ''}${found.nama} (${found.panggilan})${jabatanIcon(found.status)}`;
         }
         return nama;
     };
@@ -6766,7 +6787,7 @@ function renderRekapAbsensi() {
         const dispen = recs.filter(a => a.status === 'Dispen').length;
         const alpa = recs.filter(a => a.status === 'Alpa').length;
         const detail = recs.filter(a => a.status !== 'Hadir').sort((a, b) => (b.tanggal || '').localeCompare(a.tanggal || ''));
-        rekapAbsensiDetailCache[s.id] = { nama: s.nama, kelas: s.kelas, panggilan: s.panggilan, absen: s.absen, detail };
+        rekapAbsensiDetailCache[s.id] = { nama: s.nama, kelas: s.kelas, panggilan: s.panggilan, absen: s.absen, status: s.status, detail };
         return { siswa: s, sakit, izin, dispen, alpa, total: sakit + izin + dispen + alpa };
     });
 
@@ -6786,7 +6807,7 @@ function renderRekapAbsensi() {
     document.getElementById('rekap-absensi-tbody').innerHTML = paged.length ? paged.map(r => `
         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
             <td class="px-4 py-3 text-gray-600 dark:text-gray-300 font-semibold hidden sm:table-cell">${r.siswa.kelas || '-'}</td>
-            <td class="px-4 py-3 font-medium text-gray-800 dark:text-white">${r.siswa.absen ? r.siswa.absen + '. ' : ''}${r.siswa.nama} (${r.siswa.panggilan})</td>
+            <td class="px-4 py-3 font-medium text-gray-800 dark:text-white">${r.siswa.absen ? r.siswa.absen + '. ' : ''}${r.siswa.nama} (${r.siswa.panggilan})${jabatanIcon(r.siswa.status)}</td>
             <td class="px-4 py-3 text-center">${r.sakit || '-'}</td>
             <td class="px-4 py-3 text-center">${r.izin || '-'}</td>
             <td class="px-4 py-3 text-center">${r.dispen || '-'}</td>
@@ -6808,7 +6829,7 @@ function openRekapAbsensiDetail(siswaId) {
     const info = rekapAbsensiDetailCache[siswaId];
     if (!info) return;
     const statusColors = { Sakit: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400', Izin: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400', Dispen: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400', Alpa: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' };
-    document.getElementById('detail-rekap-absensi-info').textContent = `${info.absen ? info.absen + '. ' : ''}${info.nama} (${info.panggilan}) — ${info.kelas}`;
+    document.getElementById('detail-rekap-absensi-info').innerHTML = `${info.absen ? info.absen + '. ' : ''}${info.nama} (${info.panggilan})${jabatanIcon(info.status)} — ${info.kelas}`;
     const list = document.getElementById('detail-rekap-absensi-list');
     list.innerHTML = info.detail.length ? info.detail.map(d => `
         <div class="flex items-center justify-between px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700">
@@ -6906,6 +6927,13 @@ function getGrade(na) { if (na >= 81) return 'A'; if (na >= 61) return 'B'; if (
 // Warna badge Grade yang dipakai seragam di semua menu (sama seperti menu Nilai Siswa)
 const GRADE_COLORS = { A: 'bg-green-100 text-green-700', B: 'bg-blue-100 text-blue-700', C: 'bg-yellow-100 text-yellow-700', D: 'bg-orange-100 text-orange-700', E: 'bg-red-100 text-red-700' };
 function gradeColor(g) { return GRADE_COLORS[g] || GRADE_COLORS.E; }
+// Ikon status jabatan (Ketua Kelas/Wakil Ketua/Sekretaris) untuk ditampilkan di sebelah kanan nama siswa. Anggota tidak dapat ikon.
+function jabatanIcon(status) {
+    if (status === 'Ketua' || status === 'Ketua Kelas') return ' <i class="bi bi-award-fill text-yellow-500" title="Ketua Kelas"></i>';
+    if (status === 'Wakil Ketua Kelas' || status === 'Wakil Ketua') return ' <i class="bi bi-person-badge-fill text-blue-500" title="Wakil Ketua"></i>';
+    if (status === 'Sekretaris') return ' <i class="bi bi-pen-fill text-indigo-500" title="Sekretaris"></i>';
+    return '';
+}
 
 function updateNilaiPraktikumInput() {
     const sem = document.getElementById('nilai-semester').value;
@@ -7270,6 +7298,16 @@ document.getElementById('form-flash-uas').addEventListener('submit', function(e)
     renderNilai();
 });
 
+function openNilaiRankingModal() {
+    document.getElementById('modal-nilai-ranking').classList.remove('hidden');
+}
+
+function setNilaiSortMode(mode) {
+    nilaiSortMode = mode;
+    closeModal('modal-nilai-ranking');
+    renderNilai();
+}
+
 function renderNilai() {
     syncNilai();
     let data = getData('nilai');
@@ -7283,13 +7321,17 @@ function renderNilai() {
     if (search) { const siswaListForSearch = getData('siswa'); data = data.filter(n => { const siswa = siswaListForSearch.find(s => s.nama === n.nama && s.kelas === n.kelas); return n.nama.toLowerCase().includes(search) || String(siswa?.absen || '').toLowerCase().includes(search) || (siswa?.panggilan || '').toLowerCase().includes(search); }); }
 
     const siswaList = getData('siswa');
-    data = [...data].sort((a, b) => {
-        const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
-        if (kelasCompare !== 0) return kelasCompare;
-        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
-        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
-        return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
-    });
+    if (nilaiSortMode === 'ranking') {
+        data = [...data].sort((a, b) => (parseFloat(b.na) || 0) - (parseFloat(a.na) || 0));
+    } else {
+        data = [...data].sort((a, b) => {
+            const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
+            if (kelasCompare !== 0) return kelasCompare;
+            const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
+            const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+            return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
+        });
+    }
 
     const gradeColors = { A: 'bg-green-100 text-green-700', B: 'bg-blue-100 text-blue-700', C: 'bg-yellow-100 text-yellow-700', D: 'bg-orange-100 text-orange-700', E: 'bg-red-100 text-red-700' };
 
@@ -7300,7 +7342,7 @@ function renderNilai() {
 
     document.getElementById('nilai-tbody').innerHTML = paged.length ? paged.map(n => {
         const sInfo = siswaList.find(s => s.nama === n.nama && s.kelas === n.kelas);
-        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})` : n.nama;
+        const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})${jabatanIcon(sInfo.status)}` : n.nama;
         return `
         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
             <td class="px-4 py-3 hidden sm:table-cell">${n.kelas}</td>
@@ -7513,7 +7555,7 @@ function updateJurnalTidakHadirList() {
 
     const items = tidakHadir.map(a => {
         const s = siswaList.find(x => x.nama === a.nama && x.kelas.toLowerCase() === kelas.toLowerCase());
-        const label = s ? `${s.panggilan || s.nama} (${s.absen || '-'})` : a.nama;
+        const label = s ? `${s.panggilan || s.nama} (${s.absen || '-'})${jabatanIcon(s.status)}` : a.nama;
         return { label, status: a.status, absen: parseInt(s?.absen) || 999 };
     }).sort((a, b) => a.absen - b.absen);
 
@@ -7729,7 +7771,7 @@ function openJurnalDetail(id) {
     const tidakHadir = getData('absensi').filter(a => a.tanggal === j.tanggal && a.kelas.toLowerCase() === (j.kelas || '').toLowerCase() && (a.semester || 'Ganjil') === (j.semester || 'Ganjil') && a.status !== 'Hadir');
     const items = tidakHadir.map(a => {
         const s = siswaList.find(x => x.nama === a.nama && x.kelas.toLowerCase() === (j.kelas || '').toLowerCase());
-        const label = s ? `${s.panggilan || s.nama} (${s.absen || '-'})` : a.nama;
+        const label = s ? `${s.panggilan || s.nama} (${s.absen || '-'})${jabatanIcon(s.status)}` : a.nama;
         return { label, status: a.status, absen: parseInt(s?.absen) || 999 };
     }).sort((a, b) => a.absen - b.absen);
 
