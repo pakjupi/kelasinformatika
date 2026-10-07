@@ -715,9 +715,9 @@
         <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Jumlah Kehadiran Siswa per Kelas</h3>
         <canvas id="chart-siswa"></canvas>
        </div>
-       <div class="dashboard-chart-box bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700">
-        <h3 class="font-semibold text-gray-800 dark:text-white mb-4">Deadline Tugas &amp; Ulangan</h3>
-        <div id="dashboard-tugas-terdekat" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+       <div class="dashboard-chart-box bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col">
+        <h3 class="font-semibold text-gray-800 dark:text-white mb-4 shrink-0">Deadline Tugas &amp; Ulangan</h3>
+        <div id="dashboard-tugas-terdekat" class="space-y-3 overflow-y-auto pr-1 flex-1 min-h-0"></div>
        </div>
       </div>
       </div>
@@ -912,7 +912,7 @@
      <div id="page-nilai" class="page-content hidden fade-in">
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
        <h1 class="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2"><i class="bi bi-journal-text text-primary"></i> Nilai Siswa</h1>
-       <div class="flex gap-2 flex-wrap"><button onclick="openNilaiModal()" class="px-4 py-2 bg-primary text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition"><i class="bi bi-plus-lg"></i> Tambah</button> <button onclick="document.getElementById('import-nilai').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilai(event)"> <button onclick="exportNilai()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="openNilaiRankingModal()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition"><i class="bi bi-trophy-fill"></i> Ranking</button> <button onclick="openFlashUasModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetAllNilai()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+       <div class="flex gap-2 flex-wrap"><button onclick="document.getElementById('import-nilai').click()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 transition"><i class="bi bi-upload"></i> Import</button> <input id="import-nilai" type="file" accept=".xlsx,.xls,.csv" class="hidden" onchange="importNilai(event)"> <button onclick="exportNilai()" class="px-4 py-2 bg-accent text-white rounded-xl text-sm font-medium hover:bg-green-600 transition"><i class="bi bi-download"></i> Export</button> <button onclick="openNilaiRankingModal()" class="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-medium hover:bg-red-700 transition"><i class="bi bi-trophy-fill"></i> Ranking</button> <button onclick="openFlashUasModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-white rounded-xl text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition"><i class="bi bi-lightning-charge-fill"></i> Flash</button> <button onclick="resetAllNilai()" class="px-4 py-2 bg-gray-500 text-white rounded-xl text-sm font-medium hover:bg-gray-600 transition"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
        </div>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
