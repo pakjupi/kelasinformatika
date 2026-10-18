@@ -768,6 +768,10 @@
        <div class="p-4 flex flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-absensi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderAbsensi()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <input id="filter-tgl-absensi" type="date" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderAbsensi()"> <select id="filter-kelas-absensi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderAbsensi()"> <option value="">Semua Kelas</option> </select> <select id="filter-tahun-absensi" class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="this.dataset.userPicked='1';renderAbsensi()" title="Tahun Ajaran yang sedang dilihat/di-reset"></select> <input id="search-absensi" type="text" placeholder="Cari nama..." class="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none flex-1 min-w-[150px]" oninput="renderAbsensi()">
        </div>
        <div id="absensi-kelas-hari" class="px-4 py-3 flex flex-wrap items-center gap-2 border-b border-gray-100 dark:border-gray-700"></div>
+       <div class="px-4 py-3 flex flex-wrap items-center gap-2 border-b border-gray-100 dark:border-gray-700">
+        <span class="text-xs text-gray-500 dark:text-gray-400 mr-1">Presensi Siswa : </span>
+        <div id="rekap-absensi" class="flex flex-wrap items-center gap-2 text-sm"></div>
+       </div>
        <div class="table-container">
         <table class="w-full text-sm">
          <thead class="bg-gray-50 dark:bg-gray-700/50">
@@ -783,9 +787,6 @@
         </table>
        </div>
        <div id="absensi-pagination" class="p-4 flex items-center justify-between border-t border-gray-100 dark:border-gray-700"></div>
-       <div class="p-4 border-t border-gray-100 dark:border-gray-700">
-        <div id="rekap-absensi" class="flex flex-wrap gap-4 text-sm"></div>
-       </div>
       </div>
      </div><!-- Rekapitulasi Absensi Page -->
      <div id="page-rekap-absensi" class="page-content hidden fade-in">
@@ -2062,10 +2063,10 @@
   </div><!-- Flash Absensi Modal -->
   <div id="modal-flash-absensi" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
    <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-flash-absensi')"></div>
-   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in">
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in max-h-[90vh] flex flex-col">
     <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1 flex items-center gap-2"><i class="bi bi-lightning-charge-fill text-gray-500"></i> Flash Absensi</h3>
     <p id="flash-absensi-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
-    <form id="form-flash-absensi" class="space-y-3">
+    <form id="form-flash-absensi" class="flex flex-col min-h-0 space-y-3">
      <div>
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status Kehadiran</label>
       <select id="flash-absensi-status" required="" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none focus:ring-2 focus:ring-primary text-sm">
@@ -2075,7 +2076,12 @@
        <option value="Alpa">Alpa</option>
       </select>
      </div>
-     <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Status kehadiran seluruh siswa di kelas &amp; tanggal terpilih akan langsung diubah sekaligus menjadi status yang dipilih di atas.</p>
+     <div class="flex items-center justify-between">
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Pilih siswa</span>
+      <label class="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 cursor-pointer"><input id="flash-absensi-all" type="checkbox" onchange="toggleFlashAbsensiAll(this.checked)"> Pilih semua</label>
+     </div>
+     <div id="flash-absensi-list" class="space-y-1 overflow-y-auto pr-1 min-h-0" style="max-height:40vh"></div>
+     <p class="text-xs text-gray-500 dark:text-gray-400">Status kehadiran siswa yang dicentang di kelas &amp; tanggal terpilih akan langsung diubah sekaligus menjadi status yang dipilih di atas.</p>
      <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-absensi')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
@@ -6476,9 +6482,37 @@ function openFlashAbsensiModal() {
         showToast('Pilih Kelas dan Tanggal terlebih dahulu pada filter di atas!', 'error');
         return;
     }
+    const sem = document.getElementById('filter-semester-absensi').value || 'Ganjil';
+    const tahun = document.getElementById('filter-tahun-absensi')?.value || localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const siswa = getData('siswa').filter(s => s.kelas === kl && s.tahun === tahun)
+        .sort((a, b) => (parseInt(a.absen) || 999) - (parseInt(b.absen) || 999));
+    if (!siswa.length) {
+        showToast('Tidak ada siswa di kelas ini!', 'error');
+        return;
+    }
+    const absensi = getData('absensi');
     document.getElementById('flash-absensi-info').textContent = `Kelas: ${kl} — Tanggal: ${tgl}`;
     document.getElementById('flash-absensi-status').value = 'Sakit';
+    document.getElementById('flash-absensi-list').innerHTML = siswa.map(s => {
+        const cur = absensi.find(a => a.tanggal === tgl && a.nama === s.nama && a.kelas === kl && (a.semester || 'Ganjil') === sem);
+        const nama = `${s.absen ? s.absen + '. ' : ''}${s.nama} (${s.panggilan})${jabatanIcon(s.status)}`;
+        return `<label class="flex items-center justify-between gap-2 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
+            <span class="flex items-center gap-2 text-sm text-gray-800 dark:text-white"><input type="checkbox" class="flash-absensi-cb" value="${s.id}" checked onchange="syncFlashAbsensiAll()"> ${nama}</span>
+            <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${cur ? cur.status : '-'}</span>
+        </label>`;
+    }).join('');
+    syncFlashAbsensiAll();
     document.getElementById('modal-flash-absensi').classList.remove('hidden');
+}
+
+function toggleFlashAbsensiAll(checked) {
+    document.querySelectorAll('#flash-absensi-list .flash-absensi-cb').forEach(cb => { cb.checked = checked; });
+}
+
+function syncFlashAbsensiAll() {
+    const cbs = [...document.querySelectorAll('#flash-absensi-list .flash-absensi-cb')];
+    const all = document.getElementById('flash-absensi-all');
+    if (all) all.checked = cbs.length > 0 && cbs.every(cb => cb.checked);
 }
 
 document.getElementById('form-flash-absensi').addEventListener('submit', function(e) {
@@ -6492,7 +6526,9 @@ document.getElementById('form-flash-absensi').addEventListener('submit', functio
         return;
     }
     const tahun = document.getElementById('filter-tahun-absensi')?.value || localStorage.getItem('default_tahun_ajaran') || '2026/2027';
-    const siswa = getData('siswa').filter(s => s.kelas === kl && s.tahun === tahun);
+    const ids = new Set([...document.querySelectorAll('#flash-absensi-list .flash-absensi-cb:checked')].map(cb => cb.value));
+    if (!ids.size) { showToast('Pilih minimal satu siswa!', 'error'); return; }
+    const siswa = getData('siswa').filter(s => s.kelas === kl && s.tahun === tahun && ids.has(s.id));
     if (!siswa.length) { showToast('Tidak ada siswa di kelas ini!', 'error'); return; }
 
     const absensi = getData('absensi');
