@@ -7777,13 +7777,16 @@ function sortJurnalTerbaru(notify = true) {
     }
 }
 
-// Jadwal mengajar hari ini: abu-abu muda = belum ada jurnal hari ini, hijau = sudah ada jurnal
+// Jadwal mengajar sesuai tanggal yang dipilih di filter (kosong = hari ini): abu-abu muda = belum ada jurnal, hijau = sudah ada jurnal
 function renderJurnalKelasHariIni(sem) {
     const box = document.getElementById('jurnal-kelas-hari');
     if (!box) return;
     const now = new Date();
-    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-    const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][now.getDay()];
+    const todayLocal = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const tglFilter = document.getElementById('filter-tgl-jurnal')?.value || '';
+    const todayStr = tglFilter || todayLocal;
+    const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][new Date(todayStr + 'T00:00:00').getDay()];
+    const labelHari = tglFilter ? `Jadwal hari ${hari}:` : `Jadwal hari ini (${hari}):`;
     const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
 
     const slotPerKelas = {};
@@ -7792,11 +7795,11 @@ function renderJurnalKelasHariIni(sem) {
         .forEach(j => { slotPerKelas[j.kelas] = (slotPerKelas[j.kelas] || 0) + 1; });
     const kelasList = Object.keys(slotPerKelas).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     if (!kelasList.length) {
-        box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400">Tidak ada jadwal mengajar hari ini (${hari}).</span>`;
+        box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400">Tidak ada jadwal mengajar pada hari ${hari}.</span>`;
         return;
     }
     const jurnalHariIni = getData('jurnal').filter(j => j.tanggal === todayStr && (j.semester || 'Ganjil') === sem && (j.tahun || tahun) === tahun);
-    box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400 mr-1">Jadwal hari ini (${hari}):</span>` + kelasList.map(kl => {
+    box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400 mr-1">${labelHari}</span>` + kelasList.map(kl => {
         const done = jurnalHariIni.filter(j => j.kelas === kl).length >= slotPerKelas[kl];
         const cls = done
             ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
