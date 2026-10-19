@@ -1091,6 +1091,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
        <div class="mobile-filter-bar p-4 grid grid-cols-2 sm:flex sm:flex-wrap gap-3 border-b border-gray-100 dark:border-gray-700"><select id="filter-semester-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="Ganjil">Semester Ganjil</option> <option value="Genap">Semester Genap</option> </select> <select id="filter-kelas-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="">Semua Kelas</option> </select> <select id="filter-hari-jurnal" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()"> <option value="">Semua Hari</option> <option>Senin</option><option>Selasa</option><option>Rabu</option><option>Kamis</option><option>Jumat</option> </select> <input id="filter-tgl-jurnal" type="date" class="w-full sm:w-auto px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-white outline-none" onchange="renderJurnal()">
        </div>
+       <div id="jurnal-kelas-hari" class="px-4 py-3 flex flex-wrap items-center gap-2 border-b border-gray-100 dark:border-gray-700"></div>
        <div class="table-container">
         <table class="w-full text-sm">
          <thead class="bg-gray-50 dark:bg-gray-700/50">
@@ -2085,6 +2086,16 @@
      <div class="flex gap-2 pt-2"><button type="submit" class="flex-1 py-2 bg-gray-600 text-white rounded-lg font-medium hover:bg-gray-700 transition text-sm">Simpan</button> <button type="button" onclick="closeModal('modal-flash-absensi')" class="flex-1 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Batal</button>
      </div>
     </form>
+   </div>
+  </div><!-- Daftar Siswa per Status Absensi Modal -->
+  <div id="modal-absensi-status-list" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+   <div class="absolute inset-0 bg-black/50" onclick="closeModal('modal-absensi-status-list')"></div>
+   <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6 fade-in max-h-[85vh] flex flex-col">
+    <h3 id="absensi-status-list-title" class="text-lg font-bold text-gray-800 dark:text-white mb-1"></h3>
+    <p id="absensi-status-list-info" class="text-xs text-gray-500 dark:text-gray-400 mb-4"></p>
+    <div id="absensi-status-list-body" class="space-y-2 overflow-y-auto pr-1"></div>
+    <div class="pt-4 mt-2 border-t border-gray-100 dark:border-gray-700"><button type="button" onclick="closeModal('modal-absensi-status-list')" class="w-full py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-white rounded-lg font-medium hover:bg-gray-300 transition text-sm">Tutup</button>
+    </div>
    </div>
   </div><!-- Detail Rekap Absensi Modal -->
   <div id="modal-detail-rekap-absensi" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -3704,6 +3715,7 @@ let chartSiswa, chartKehadiran;
 let siswaSort = { key: 'nama', asc: true };
 let siswaPage = 1;
 let absensiPage = 1;
+let absensiRekapCache = { data: [], kelas: '', tgl: '' };
 let rekapAbsensiPage = 1;
 let rekapAbsensiDetailCache = {};
 let praktikumPage = 1;
@@ -6724,18 +6736,37 @@ function renderAbsensi() {
             <button onclick="absensiPage=Math.min(${totalPages},absensiPage+1);renderAbsensi()" class="px-3 py-1 rounded-lg text-sm border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ${absensiPage===totalPages?'opacity-50':''}">Next</button>
         </div>`;
 
+    absensiRekapCache = { data, kelas, tgl };
+
     // Rekap
     const h = data.filter(a => a.status === 'Hadir').length;
     const s = data.filter(a => a.status === 'Sakit').length;
     const i = data.filter(a => a.status === 'Izin').length;
     const dp = data.filter(a => a.status === 'Dispen').length;
     const al = data.filter(a => a.status === 'Alpa').length;
+    const chipCls = 'px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:opacity-80 transition';
     document.getElementById('rekap-absensi').innerHTML = `
-        <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-medium">Hadir: ${h}</span>
-        <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full text-xs font-medium">Sakit: ${s}</span>
-        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-xs font-medium">Izin: ${i}</span>
-        <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded-full text-xs font-medium">Dispen: ${dp}</span>
-        <span class="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full text-xs font-medium">Alpa: ${al}</span>`;
+        <button type="button" onclick="openAbsensiStatusList('Hadir')" title="Lihat siswa Hadir" class="${chipCls} bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">Hadir: ${h}</button>
+        <button type="button" onclick="openAbsensiStatusList('Sakit')" title="Lihat siswa Sakit" class="${chipCls} bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400">Sakit: ${s}</button>
+        <button type="button" onclick="openAbsensiStatusList('Izin')" title="Lihat siswa Izin" class="${chipCls} bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">Izin: ${i}</button>
+        <button type="button" onclick="openAbsensiStatusList('Dispen')" title="Lihat siswa Dispen" class="${chipCls} bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400">Dispen: ${dp}</button>
+        <button type="button" onclick="openAbsensiStatusList('Alpa')" title="Lihat siswa Alpa" class="${chipCls} bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400">Alpa: ${al}</button>`;
+}
+
+// Daftar siswa sesuai status yang diklik pada rekap Presensi Siswa (mengikuti filter yang sedang aktif)
+function openAbsensiStatusList(status) {
+    const { data, kelas, tgl } = absensiRekapCache;
+    const siswaList = getData('siswa');
+    const rows = data.filter(a => a.status === status);
+    document.getElementById('absensi-status-list-title').textContent = `Siswa ${status}`;
+    document.getElementById('absensi-status-list-info').textContent = `${kelas ? 'Kelas ' + kelas : 'Semua Kelas'} — ${tgl ? 'Tanggal ' + tgl : 'Semua Tanggal'} — ${rows.length} data`;
+    document.getElementById('absensi-status-list-body').innerHTML = rows.length ? rows.map(a => {
+        const sw = siswaList.find(x => x.nama === a.nama && x.kelas === a.kelas);
+        const nama = sw ? `${sw.absen ? sw.absen + '. ' : ''}${sw.nama} (${sw.panggilan})${jabatanIcon(sw.status)}` : a.nama;
+        const extra = [!kelas ? a.kelas : '', !tgl ? a.tanggal : ''].filter(Boolean).join(' · ');
+        return `<div class="flex items-center justify-between gap-3 px-3 py-2 rounded-lg border border-gray-100 dark:border-gray-700"><span class="text-sm text-gray-800 dark:text-white">${nama}</span>${extra ? `<span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">${extra}</span>` : ''}</div>`;
+    }).join('') : '<p class="text-sm text-gray-400 text-center py-4">Tidak ada siswa dengan status ini.</p>';
+    document.getElementById('modal-absensi-status-list').classList.remove('hidden');
 }
 
 function exportAbsensi() {
@@ -7746,9 +7777,38 @@ function sortJurnalTerbaru(notify = true) {
     }
 }
 
+// Jadwal mengajar hari ini: abu-abu muda = belum ada jurnal hari ini, hijau = sudah ada jurnal
+function renderJurnalKelasHariIni(sem) {
+    const box = document.getElementById('jurnal-kelas-hari');
+    if (!box) return;
+    const now = new Date();
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][now.getDay()];
+    const tahun = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+
+    const slotPerKelas = {};
+    getData('jadwal')
+        .filter(j => j.hari === hari && (j.semester || 'Ganjil') === sem && (j.tahun || tahun) === tahun && j.kelas)
+        .forEach(j => { slotPerKelas[j.kelas] = (slotPerKelas[j.kelas] || 0) + 1; });
+    const kelasList = Object.keys(slotPerKelas).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    if (!kelasList.length) {
+        box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400">Tidak ada jadwal mengajar hari ini (${hari}).</span>`;
+        return;
+    }
+    const jurnalHariIni = getData('jurnal').filter(j => j.tanggal === todayStr && (j.semester || 'Ganjil') === sem && (j.tahun || tahun) === tahun);
+    box.innerHTML = `<span class="text-xs text-gray-500 dark:text-gray-400 mr-1">Jadwal hari ini (${hari}):</span>` + kelasList.map(kl => {
+        const done = jurnalHariIni.filter(j => j.kelas === kl).length >= slotPerKelas[kl];
+        const cls = done
+            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+            : 'bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200';
+        return `<span title="${done ? 'Jurnal sudah dibuat' : 'Belum ada jurnal'}" class="px-3 py-1 rounded-full text-xs font-medium ${cls}">${done ? '<i class="bi bi-check2"></i> ' : ''}${kl}</span>`;
+    }).join('');
+}
+
 function renderJurnal() {
     let data = getData('jurnal');
     const sem = document.getElementById('filter-semester-jurnal').value;
+    renderJurnalKelasHariIni(sem);
     const hari = document.getElementById('filter-hari-jurnal').value;
     const tgl = document.getElementById('filter-tgl-jurnal').value;
     const kelas = document.getElementById('filter-kelas-jurnal').value;
