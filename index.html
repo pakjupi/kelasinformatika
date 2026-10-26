@@ -3923,7 +3923,7 @@ function renderPraktikum() {
     const keaktifanListPraktikum = getData('keaktifan');
     if (filterStatus) {
         data = data.filter(p => {
-            const linkedStudent = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
+            const linkedStudent = findSiswaAktif(siswaList, p.nama, p.kelas);
             const linkedActivity = linkedStudent ? keaktifanListPraktikum.find(x => x.siswaId === linkedStudent.id) : null;
             return (linkedActivity?.status || p.status || 'supreme') === filterStatus;
         });
@@ -3941,8 +3941,8 @@ function renderPraktikum() {
         if (belumA !== belumB) return belumA ? -1 : 1;
         const kelasCompare = String(a.kelas || '').localeCompare(String(b.kelas || ''), undefined, { numeric: true });
         if (kelasCompare !== 0) return kelasCompare;
-        const sa = siswaList.find(s => s.nama === a.nama && s.kelas === a.kelas);
-        const sb = siswaList.find(s => s.nama === b.nama && s.kelas === b.kelas);
+        const sa = findSiswaAktif(siswaList, a.nama, a.kelas);
+        const sb = findSiswaAktif(siswaList, b.nama, b.kelas);
         return (parseInt(sa?.absen) || 999) - (parseInt(sb?.absen) || 999);
     });
 
@@ -3957,7 +3957,7 @@ function renderPraktikum() {
     tbody.innerHTML = paged.length ? paged.map(p => {
         let dotColor = '#9CA3AF'; // supreme default = grey
         let dotTitle = 'Supreme';
-        const linkedStudent = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
+        const linkedStudent = findSiswaAktif(siswaList, p.nama, p.kelas);
         const linkedActivity = linkedStudent ? getData('keaktifan').find(x => x.siswaId === linkedStudent.id) : null;
         const currentStatus = linkedActivity?.status || p.status || 'supreme';
         if (currentStatus === 'expert') {
@@ -3972,7 +3972,7 @@ function renderPraktikum() {
         }
         if (modePrivat) { dotColor = '#D1D5DB'; dotTitle = 'Disembunyikan'; }
 
-        const sInfo = siswaList.find(s => s.nama === p.nama && s.kelas === p.kelas);
+        const sInfo = findSiswaAktif(siswaList, p.nama, p.kelas);
         const displayName = sInfo ? `${sInfo.absen ? sInfo.absen + '. ' : ''}${sInfo.nama} (${sInfo.panggilan})${jabatanIcon(sInfo.status)}` : p.nama;
         const totalPrak = getPraktikumTotal(p.kelas, filterSemester);
         const belumLengkapPrak = totalPrak > 0 && (p.jumlah || 0) < totalPrak;
@@ -4157,6 +4157,13 @@ function adjustKeaktifanQuiz(delta) {
 }
 
 // Total praktikum per kelas & semester (diatur lewat tombol Flash di menu Praktikum)
+// Cari siswa berdasarkan nama+kelas; kalau ada data ganda lintas tahun ajaran, pakai yang tahun ajarannya aktif
+function findSiswaAktif(list, nama, kelas) {
+    const tahunAktif = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
+    const cands = list.filter(x => x.nama === nama && x.kelas === kelas);
+    return cands.find(x => x.tahun === tahunAktif) || cands[0];
+}
+
 // Bagikan ke WhatsApp: no. absen + nama lengkap siswa di kelas terpilih yang praktikumnya belum lengkap
 function shareWaPraktikumBelumLengkap() {
     const kl = document.getElementById('filter-kelas-praktikum').value;
@@ -4172,12 +4179,12 @@ function shareWaPraktikumBelumLengkap() {
         return;
     }
     const siswaList = getData('siswa');
+    const tahunAktif = localStorage.getItem('default_tahun_ajaran') || '2026/2027';
     const rows = getData('praktikum')
         .filter(p => p.kelas === kl && (p.semester || 'Ganjil') === sem && (p.jumlah || 0) < total)
-        .map(p => {
-            const s = siswaList.find(x => x.nama === p.nama && x.kelas === p.kelas);
-            return { absen: parseInt(s?.absen) || 999, label: `${s && s.absen ? s.absen + '. ' : ''}${p.nama}`, jumlah: p.jumlah || 0 };
-        })
+        .map(p => ({ p, s: findSiswaAktif(siswaList, p.nama, p.kelas) }))
+        .filter(({ s }) => s && (!s.tahun || s.tahun === tahunAktif))
+        .map(({ p, s }) => ({ absen: parseInt(s.absen) || 999, label: `${s.absen ? s.absen + '. ' : ''}${s.nama}`, jumlah: p.jumlah || 0 }))
         .sort((a, b) => a.absen - b.absen);
     if (!rows.length) {
         showToast('Semua siswa di kelas ini sudah lengkap praktikumnya!', 'info');
@@ -4185,7 +4192,7 @@ function shareWaPraktikumBelumLengkap() {
     }
     const text = `*Praktikum Belum Lengkap*\nKelas ${kl} - Semester ${sem}\nTotal praktikum: ${total}\n\n` +
         rows.map(r => `${r.label} (${r.jumlah}/${total})`).join('\n') +
-        `\n\nMohon segera menyusul praktikumnya. Terima kasih.`;
+        `\n\nMohon segera menyusul praktikumnya. Terimakasih.`;
     window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
 }
 
